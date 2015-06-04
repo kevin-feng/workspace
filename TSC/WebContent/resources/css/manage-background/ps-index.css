@@ -1,7 +1,9 @@
 @charset "utf-8";
+/*base*/
+a{text-decoration: none;}
 /*common*/
 .child-head {
-    color:#24B9BF;
+    color:#000;
     letter-spacing: 5px;
     font-family:Microsoft YaHei,'黑体'
 }
@@ -11,15 +13,18 @@
 .ml-15 {
     margin-left: -15px;
 }
+.row{
+    margin: 0 !important;
+}
 /*header*/
 #header {
     height: 100px;
-    background-color: #24B9BF;
-    border-bottom: 1px solid #F4D7C5;
+    background-color: #fff;
+    border-bottom: 1px solid #000000;
 }
     #header h3.header-title {
         font-family:Microsoft YaHei,"黑体";
-        color:#fff;
+        color:#000;
         line-height: 50px;
         letter-spacing: 5px;
         margin-left: 10px;
@@ -29,11 +34,19 @@
         color: #fff;
         font-family:Microsoft YaHei,"黑体";
         display: inline-block;
-        height: 45px;
+        height: 40px;
         font-size: 16px;
+        line-height: 40px;
         cursor: pointer;
         margin-right: 15px;
-        margin-left: 50px;
+        margin-left: 0px;
+        padding: 0 10px;
+        background-color: #000;
+        border-radius: 20px;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        -o-border-radius: 20px;
+        border: 1px solid #000;
     }
     #header .login-member {
         margin-left: 20px !important;
@@ -43,61 +56,86 @@
     }
     #header .login-and-asign:hover {
         text-decoration: none;
-        color: #F4D7C5;
-        background: #24B9BF url("../../images/manage/emo-dot.png") no-repeat center 40px;
+        color: #000;
+        background: #fff;
+        border: 1px solid #000;
     }
 
 /*content*/
+.total-wrapper{
+    width: 1366px;
+}
 #content {
-    height: 1340px;
-    width: 1349px;
-    /*position: relative;*/
-
-
+    min-width: 1366px;
+    margin: 0 auto;
 }
     #content .main-side-nav {
-        height: 1340px;
-        background-color: #24B9BF;
+        background-color: #fff;
         padding: 0 0;
         width: 225px;
-        /*position: absolute;*/
-        /*left: 0;*/
         float: left;
+        text-align: center;
+        border-bottom: 1px solid #282828;
+    }
+    #content .main-side-nav.fixed{
+        position: fixed;
+        top: 0;
+        left: 0;
     }
     #content .right-content {
+        position: relative;
         float: right;
-        height: 1340px;
         padding: 0 0;
         width: 1124px;
-        /*position: absolute;*/
-        /*left: 226px;*/
-        /*background: url("../../images/manage/ps_right_bg.png");*/
-        /*background-repeat:no-repeat;*/
-        /*background-size: cover;*/
     }
     .right-content .declare-kind{
         margin: 10px;
-
     }
     .right-content .declare-kind .radio-inline {
         font-weight: 600;
-    }
-        .main-side-nav ul li {
-            margin: 0 0 !important;
+    }  
+        #content .right-cnt-nav{
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            overflow: hidden;
+            background-color: #fff;
+            z-index: 99;
+        } 
+        #content .right-cnt-nav a{
+            float: left;
+            display: block;
+            padding: 0 16px;
+            line-height: 30px;
+            color: #282828;
+            border: 1px solid #282828;
+        }
+        #content .right-cnt-nav a.choose{
+            color:#fff;
+            background-color: #282828;
+        }
+        #content .right-cnt-nav a:hover{
+            color:#fff;
+            background-color: #000;
+        }
+        #content .right-cnt-nav.fixed{
+            margin: 0;
+            position: fixed;
+            top: 0;
+            left: 235px;
         }
         .main-side-nav ul li.dropdown_li > a{ 
-        	position: relative;
+            position: relative;
         }
         .main-side-nav ul li.dropdown_li span{ 
-			position: absolute;
-			display: block;
-			width: 0;
-			height: 0;
-			right: 10px;
-			top: 25px;
-			/* background: url("../../images/manage/dropdownbg.png") no-repeat center center !important; */
-			border: 6px solid #fff;
-			border-color: #fff transparent transparent transparent;
+            position: absolute;
+            display: block;
+            width: 0;
+            height: 0;
+            right: 10px;
+            top: 25px;
+            border: 6px solid #fff;
+            border-color: #fff transparent transparent transparent;
         }
             .main-side-nav-child, .sub-side-nav{
                 width: 100%;
@@ -109,27 +147,38 @@
                 line-height: 50px;
                 font-size: 17px;
                 letter-spacing: 4px;
-                background-color: #24B9BF;
-                border-bottom: 1px solid #F4D7C5;
+                background-color: #282828;
+                border-bottom: 1px solid #fff;
                 padding: 0 0 !important;
                 margin: 0 0 !important;
             }
-           	.ul-sub-side{
-           		display: none; 
-           	}
-            	.sub-side-nav{
-            		height: 40px;
+            .dropdown_li.on {  
+
+            }
+            .dropdown_li.on .ul-sub-side{
+                display: block;
+            }
+            .dropdown_li.on .main-side-nav-child span{
+                top: 18px;
+                border-color: transparent transparent #fff transparent;
+            }
+            .ul-sub-side{
+                display: none; 
+            }
+                .sub-side-nav{
+                    height: 40px;
                     font-size: 15px;
-            		line-height: 40px;
-            	}
+                    line-height: 40px;
+                    background-color: #555555;
+                }
             .main-side-nav ul li a:hover{
                 color: #FFFFFF;
                 text-decoration: none;
-                background: url("../../images/manage/emo-dot.png") no-repeat 20px center #24B9BF !important;
+                background: url("../../images/manage/emo-dot.png") no-repeat 20px center #000 !important;
             }
-            .choose{
-                color: #FFFFFF;
-                background: url("../../images/manage/emo-dot.png") no-repeat 20px center #09a3aa !important;
+            .main-side-nav ul li a.choose{
+                color: #000;
+                background: url("../../images/manage/emo-dot.png") no-repeat 20px center #fff !important;
                 text-decoration: none;
             }
 
@@ -138,7 +187,7 @@
 
     }
         .notice-list {
-            margin-top: 7px;
+            margin: 7px 0;
             height: 35px;
             border-bottom: 1px solid #CCCCCC;
             overflow: hidden;
@@ -146,6 +195,7 @@
             .notice-list a.content {
                 display: inline-block;
                 width: 300px;
+                color: #555555;
                 white-space:nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -250,6 +300,6 @@ textarea {
     margin: 0 20px;
 }
 .nav > li > a:hover, .nav > li > a:focus{
-	background: #24B9BF !important;
-	color: #fff;
+    background: #282828 !important;
+    color: #fff;
 }
