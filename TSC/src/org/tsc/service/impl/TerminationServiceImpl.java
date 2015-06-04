@@ -6,10 +6,12 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tsc.core.base.IBaseDao;
 import org.tsc.service.ITerminationService;
 
 @Service
+@Transactional
 public class TerminationServiceImpl implements ITerminationService {
 
 	@Resource(name="terminationDao")

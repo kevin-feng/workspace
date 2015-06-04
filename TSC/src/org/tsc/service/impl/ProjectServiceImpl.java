@@ -8,10 +8,12 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tsc.core.base.IBaseDao;
 import org.tsc.service.IProjectService;
 
 @Service
+@Transactional
 public class ProjectServiceImpl implements IProjectService{
 
 	@Resource(name="projectDao")

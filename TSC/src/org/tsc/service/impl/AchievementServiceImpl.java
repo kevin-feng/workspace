@@ -9,10 +9,12 @@ import javax.annotation.Resource;
 
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tsc.core.base.IBaseDao;
 import org.tsc.service.IAchievementService;
 
 @Service
+@Transactional
 public class AchievementServiceImpl implements IAchievementService {
 	@Resource(name="achievementDao")
 	private IBaseDao achievementDao;

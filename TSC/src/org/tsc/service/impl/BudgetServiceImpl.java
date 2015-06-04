@@ -10,12 +10,14 @@ import javax.persistence.MapKey;
 
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tsc.core.base.IBaseDao;
 import org.tsc.service.IBudgetService;
 
 import com.sun.corba.se.spi.orb.StringPair;
 
 @Service
+@Transactional
 public class BudgetServiceImpl implements IBudgetService {
 
 	@Resource(name="budgetDao")

@@ -10,11 +10,13 @@ import javax.persistence.criteria.CriteriaBuilder.In;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tsc.core.base.IBaseDao;
 import org.tsc.core.base.PageList;
 import org.tsc.service.IMessageService;
 
 @Service
+@Transactional
 public class MessageServiceImpl implements IMessageService {
 	
 	@Resource(name="messageDao")

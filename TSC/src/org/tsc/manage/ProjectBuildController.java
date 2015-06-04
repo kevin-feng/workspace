@@ -57,11 +57,13 @@ public class ProjectBuildController {
 			Long project_id = (Long)project.get("id");
 			Map<String, Object> member = memberService.queryForMap("select name,email from tsc_member where type=1 and project_id="+project_id);
 			Map<String, Object> interim = interimService.queryForMap("select * from tsc_interim where project_id="+project_id);
-			List<Map<String, Object>> achievements = achievementService.queryForList("select * from tsc_achievement where interim_id="+interim.get("id"));
+			if (interim != null) {
+				List<Map<String, Object>> achievements = achievementService.queryForList("select * from tsc_achievement where interim_id="+interim.get("id"));
+				mv.addObject("achievements", achievements);		
+			}
 			mv.addObject("project", project);
 			mv.addObject("member", member);
 			mv.addObject("interim", interim);
-			mv.addObject("achievements", achievements);
 		}
 		return mv;
 	}

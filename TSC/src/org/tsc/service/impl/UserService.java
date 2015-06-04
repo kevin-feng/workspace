@@ -15,11 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tsc.core.base.IBaseDao;
 import org.tsc.core.tools.SysUtils;
 import org.tsc.service.IUserService;
 
 @Service
+@Transactional
 public class UserService implements IUserService {
 	@Resource(name="userDao")
 	private IBaseDao userDao;

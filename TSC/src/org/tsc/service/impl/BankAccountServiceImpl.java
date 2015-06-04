@@ -6,10 +6,12 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tsc.core.base.IBaseDao;
 import org.tsc.service.IBankAccountService;
 
 @Service
+@Transactional
 public class BankAccountServiceImpl implements IBankAccountService {
 
 	@Resource(name="bankAccountDao")
