@@ -1,0 +1,55 @@
+<form class="form" action="addMember.htm" method="post">
+	<input type="hidden" name="member_id" value="$!member.id"/>
+                <div class="declare-form-two">
+                    <h3 class="form-h3">项目负责人</h3>
+                    <ul>
+                        <li class="rel">
+                            <label for="item-managername">姓名:</label>
+                            <input type="text" id="item-managername" name="name" value="$!member.name"/>
+                        </li>
+                        <li class="rel">
+                            <label for="item-sex">性别:</label>
+                            <input type="text" id="item-sex" name="sex" value="$!member.sex"/>
+                        </li>
+                        <li class="rel">
+                            <label for="item-borntime">出生年月:</label>
+                            <input type="text" id="item-borntime" name="birthday" value="$!member.birthday"/>
+                        </li>
+                        <li class="rel">
+                            <label for="item-tel">手机号码:</label>
+                            <input type="text" id="item-tel" name="mobileNo" value="$!member.mobileNo"/>
+                        </li>
+                        <li class="rel">
+                            <label for="item-email">邮箱:</label>
+                            <input type="text" id="item-email" name="email" value="$!member.email"/>
+                        </li>
+                        <li class="rel">
+                            <label for="item-profession">专业技术职务:</label>
+                            <input type="text" id="item-profession" name="majorPosition" value="$!member.majorPosition"/>
+                        </li>
+                        <li class="rel"> 
+                            <label for="item-administration">行政职务:</label>
+                            <input type="text" id="item-administration" name="adminPosition" value="$!member.adminPosition"/>
+                        </li>
+                        <li class="rel">
+                            <label for="item-major">所从事专业:</label>
+                            <input type="text" id="item-major" name="major" value="$!member.major"/>
+                        </li>
+
+                        <li class="clearfix">
+                            <label class="db" for="item-resume">临床工作及教学简历:</label>
+                            <textarea id="item-resume" name="resume">$!member.resume</textarea>
+                        </li>
+                        <li class="clearfix">
+                            <label class="db" for="item-achievement">主要研究成果:</label>
+                            <textarea id="item-achievement" name="researchResult">$!member.researchResult</textarea>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <input class="formbt formbt-next" type="submit" value="保存并下一步" /> 
+                            <a class="formbt formbt-front" href="toDeclare.htm">上一步</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>

@@ -1,0 +1,29 @@
+@charset "utf-8";
+/***********footer**********/
+#footer {
+    width: 983px;
+    margin: 10px auto 0;
+    background-color: #9CCFE0;
+}
+
+.footer-content {
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    height:80px;
+}
+.footer-content p {
+    margin-top: 10px;
+    font-family: "微软雅黑", Arial, sans-serif;
+    text-align: center;
+}
+.footer-content p.title span{
+    font-weight: 700;
+    font-size: 15px;
+}
+.footer-content p span.span-list{
+    font-size: 14px;
+}
+p.list {
+    font-size: 13px;
+}

@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>网上申报-基本资料</title>
+    <link type="text/css" rel="stylesheet" href="resources/css/reset/reset.css">
+    <link type="text/css" rel="stylesheet" href="resources/css/medical-education/medical-education-header.css">
+    <link type="text/css" rel="stylesheet" href="resources/css/medical-education/me-declare-content-left.css">
+    <link type="text/css" rel="stylesheet" href="resources/css/medical-education/me-declare-content-right.css">
+    <link type="text/css" rel="stylesheet" href="resources/css/medical-education/medical-education-footer.css">
+	<script type="text/javascript" src="resources/js/jquery-1.10.2.min.js"></script>
+</head>
+
+<body>
+<div id="header">
+     #parse("lcjxjd/lcjxjd_index_header.html")
+</div>
+
+<div id="content" class="clearfix">
+    <div class="left-content">
+        <div class="s-r-title">网上申报</div>
+        <div class="s-t-nav">
+            <ul>
+                <li class="dropdown"><a class="current-href" href="toDeclare.htm">项目资料</a></li>
+                <li class="dropdown"><a href="toDeclare.htm?pageNo=2">项目负责人</a></li>
+                <li class="dropdown"><a href="toDeclare.htm?pageNo=3">项目其他成员</a></li>
+                <li class="dropdown"><a href="toDeclare.htm?pageNo=4">经费预算</a></li>
+                <li class="dropdown"><a href="toDeclare.htm?pageNo=5">拨款账号</a></li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="right-content">
+        <div class="wrapper-form">
+        	#if($!pageNo==2)
+				#parse("lcjxjd/lcjsjd_index_declare_2.html")
+			#elseif($!pageNo==3)
+				#parse("lcjxjd/lcjsjd_index_declare_3.html")
+			#elseif($!pageNo==4)	
+				#parse("lcjxjd/lcjsjd_index_declare_4.html")
+			#elseif($!pageNo==5)				
+				#parse("lcjxjd/lcjsjd_index_declare_5.html")
+			#else
+				#parse("lcjxjd/lcjsjd_index_declare_1.html")
+			#end
+        </div>
+    </div><!--end right-content-->
+</div>
+
+<div id="footer">
+    <div class="footer-content">
+        <p class="title">
+            <span>中山大学医学教育研究中心&nbsp;&nbsp;&nbsp;版权所有</span>
+        </p>
+        <p class="list"><span class="span-list">地址：</span>中国广州中山二路74号&nbsp;中山大学北校区&nbsp;&nbsp;&nbsp;<span class="span-list">邮编：</span>510080</p>
+        <p class="list"><span class="span-list">联系电话：</span>8620－87330327&nbsp;&nbsp;<span class="span-list">Email：</span>yjzx87330327@qq.com</p>
+    </div>
+</div>
+
+<script type="text/javascript" src="resources/js/doFormRow.js"></script>
+<script type="text/javascript" src="resources/js/upload-before-close.js"></script>
+<script type="text/javascript" src="resources/js/index-declare-total-validite.js"></script>
+<script type="text/javascript" src="resources/js/year_month_day.js"></script>
+
+
+<!--<script type="text/javascript" src="../resources/js/index-tab.js"></script>-->
+<!--<script type="text/javascript" src="../resources/js/index-dropmenu.js"></script>-->
+</body>
+</html>

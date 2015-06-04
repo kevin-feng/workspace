@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>立项管理-中前检查</title>
+    <link type="text/css" rel="stylesheet" href="resources/css/reset/reset.css">
+    <link type="text/css" rel="stylesheet" href="resources/css/medical-education/medical-education-header.css">
+    <link type="text/css" rel="stylesheet" href="resources/css/medical-education/me-declare-content-left.css">
+    <link type="text/css" rel="stylesheet" href="resources/css/medical-education/me-pj.css">
+    <link type="text/css" rel="stylesheet" href="resources/css/medical-education/medical-education-footer.css"></head>
+<style>
+    .declare-form
+    {
+        padding: 0 10px 10px;
+    }
+    .declare-form .form-h3
+    {
+        margin: 0 -10px 10px;
+    }
+    .rule-one {
+         padding: 0 140px 10px;
+    }
+    .rule-one .form-h3
+    {
+        margin: 0 -140px 10px;
+    }
+</style>
+<body>
+    <div id="header">
+         #parse("lcjxjd/lcjxjd_index_header.html")
+    </div>
+
+    <div id="content" class="clearfix">
+        <div class="left-content">
+            <div class="s-r-title">中期检查表</div>
+            <div class="s-t-nav">
+                <ul>
+                    <li class="dropdown">
+                        <a class="current-href" href="#">中期检查表</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">专家审核意见</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="right-content">
+            <div class="wrapper-form">
+                    <div class="declare-form rule-one">
+                    <h3 class="form-h3">项目资料和内容</h3>
+                        <ul>
+                            <li class="rel">
+                                <label for="item-name">项目名称:</label>
+                                <input type="text" id="item-name" value="$!project.name" disabled="disabled"/>
+                            </li>
+                        </ul>
+                    </div>
+				<form class="form" id="form_interim">
+                    <div class="declare-form">
+                        <h3 class="form-h3">研究工作情况</h3>
+                        <ul>
+                            <li class="clearfix">
+                                <label class="db" for="item-yiyi">
+                                    主要内容：是否按申请书中预订的计划、课题设计进行研究，已做哪些工作，研究进度如何，是否坚持了最终确定的研究方向，项目负责人和课题组成员是否按规定负责或参加研究工作，存在问题及改进措施，下一步研究计划，其他需要说明的问题。（包括已有研究实践基础）:
+                                </label>
+                                <textarea id="item-yiyi" name="workSituation" disabled="disabled">$!project.workSituation</textarea>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="declare-form">
+                        <h3 class="form-h3">主要阶段性成果 
+                        </h3>
+                        <table>
+                            <thead>
+	                            <tr>
+	                                <td>题目</td>
+	                                <td>成果形式</td>
+	                                <td>刊物名或出版社</td>
+	                                <td>字数</td>
+	                                <td>发表时间</td>
+	                            </tr>
+                            </thead>
+
+                            <tbody>
+                            #foreach($achievement in $!achievements)
+	                            <tr>
+                            		<input type="hidden" name="achievement_id" value="$!achievement.id" disabled="disabled"/>
+		                            <td><input type='text' name='title' value='$!achievement.title' disabled="disabled"/></td>
+		                            <td><input type='text' name='achiForm' value='$!achievement.achiForm' disabled="disabled"/></td>
+		                            <td><input type='text' name='publication' value='$!achievement.publication' disabled="disabled"/></td>
+		                            <td><input type='text' name='wordNumber' value='$!achievement.wordNumber' disabled="disabled"/></td>
+		                            <td><input type='text' name='publishTime' value='$!achievement.publishTime' disabled="disabled"/></td>
+	                            </tr>
+	                         #end
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+
+                <form class="form none" action="addInterimReviews.htm" method="post">
+                	<input type="hidden" name="interim_id" value="$!project.interim_id" />
+                	<input type="hidden" name="review_id" value="$!review.id" />
+                    <div class="declare-form">                  
+                        <h3 class="form-h3">专家评审意见</h3>
+                        <ul>
+                            <li class="clearfix">
+                                <label class="db" for="item-yiyi"></label>
+                                <textarea id="item-yiyi" name="remark">$!review.remark</textarea>
+                            </li>
+                        </ul>
+                        <h3 class="form-h3">广东省教育厅意见</h3>
+                        <ul>
+                            <li class="clearfix">
+                                <label class="db" for="item-yiyi"></label>
+                                <textarea id="item-yiyi" name="eduRemark">$!review.eduRemark</textarea>
+                            </li>
+                            <li class="clearfix">
+                                <input class="formbt formbt-save" type="submit" value="保存"/>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <!--end right-content--> 
+    </div>
+
+    <div id="footer">
+        <div class="footer-content">
+            <p class="title">
+                <span>中山大学医学教育研究中心&nbsp;&nbsp;&nbsp;版权所有</span>
+            </p>
+            <p class="list">
+                <span class="span-list">地址：</span>
+                中国广州中山二路74号&nbsp;中山大学北校区&nbsp;&nbsp;&nbsp;
+                <span class="span-list">邮编：</span>
+                510080
+            </p>
+            <p class="list">
+                <span class="span-list">联系电话：</span>
+                8620－87330327&nbsp;&nbsp;
+                <span class="span-list">Email：</span>
+                yjzx87330327@qq.com
+            </p>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="resources/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="resources/js/indexTabChangeForm.js"></script>
+    <script type="text/javascript" src="resources/js/doFormRow.js"></script>
+    <script type="text/javascript" src="resources/js/upload-before-close.js"></script>
+
+    <!--<script type="text/javascript" src="../resources/js/index-tab.js"></script>
+-->
+<!--<script type="text/javascript" src="../resources/js/index-dropmenu.js"></script>
+-->
+
+</body>
+</html>

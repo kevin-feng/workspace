@@ -1,0 +1,73 @@
+@charset "utf-8";
+
+#content {
+    width: 983px;
+    margin: 10px auto 0;
+    /*background-color: #FFFFFF;*/
+    height: 100%;
+}
+.ml20 {
+    margin-left: 20px;
+}
+.mt30 {
+    margin-top: 30px;
+}
+.ps-login-content {
+    float: right;
+    width: 405px;
+    height: 263px;
+    /*margin-top: 50px;*/
+    padding: 50px 20px 0px;
+    background-color: #fff;
+    border: 1px solid #F4D7C5;
+    border-radius: 5px;
+}
+.ps-login-title {
+    font-family:Microsoft YaHei,'黑体';
+    font-size: 1.3em;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    margin-top: -30px;
+    text-align: center;
+    font-weight: 500;
+    letter-spacing: 5px;
+    border-bottom: 1px solid #F4D7C5;
+}
+.ps-label {
+    font-family:Microsoft YaHei,'黑体';
+    font-size: 16px;
+    letter-spacing: 5px;
+}
+
+#psUser, #psPassword {
+    width: 250px;
+    margin-left: 20px;
+    border: 1px solid #F4D7C5;
+    height: 35px;
+    border-radius: 3px;
+    padding: 0 10px;
+    font-size: 15px;
+    letter-spacing: 1px;
+
+}
+.btn-login {
+    width: 140px;
+    height: 35px;
+    margin-left: 73px;
+    background-color: #5cb85c;
+    border:1px solid #5cb85c;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-size: 16px;
+    letter-spacing: 3px;
+}
+.ps-forget, .ps-register {
+    font-size: 15px;
+    color: #666666;
+    margin-left: 2px;
+    letter-spacing: 1px;
+}
+.ps-forget:hover, .ps-register:hover {
+    text-decoration: underline;
+}

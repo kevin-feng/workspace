@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>立项管理-结题材料</title>
+    <link type="text/css" rel="stylesheet" href="resources/css/reset/reset.css">
+    <link type="text/css" rel="stylesheet" href="resources/css/medical-education/medical-education-header.css">
+    <link type="text/css" rel="stylesheet" href="resources/css/medical-education/me-declare-content-left.css">
+    <link type="text/css" rel="stylesheet" href="resources/css/medical-education/me-pj.css">
+    <link type="text/css" rel="stylesheet" href="resources/css/medical-education/medical-education-footer.css"></head>
+    <style>
+        .right-content ul li.jinfei-rel{position: relative;}
+    .right-content ul li.jinfei-rel label{
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 30px;
+        line-height: 30px;
+    }
+    .right-content ul li.jinfei-rel input{
+        position: absolute;
+        float: none;
+        left: 250px;
+        top: 0;
+    }
+    .right-content ul li.jinfei-rel .form-result{
+        position: absolute;
+        left: 450px;
+        top: 0;
+        font-size: 14px;
+    }
+    .error {
+        color: #ff0000 !important;
+    }
+    h4 {
+        font-size: 14px;
+        line-height: 18px;
+        height: 18px;
+        padding: 0 10px;
+
+    }
+    p {
+        text-indent:2em;
+        margin:5px 10px;
+        line-height: 1.5;
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+    .right-content .declare-form
+    {
+        padding: 0 10px 10px;
+    }
+    .declare-form .form-h3
+    {
+        margin: 0 -10px 10px;
+    }
+    .right-content .declare-form ul .line{width:100%; border-bottom: 1px solid #ccc;}
+    .right-content .declare-form ul li span{margin:0 10px;color: #000;}
+    .right-content .declare-form ul li input.pay{width: 50px;float:none; clear: both;}
+    .right-content .rule-one {
+         padding: 0 140px 10px 140px;
+    }
+    .rule-one .form-h3
+    {
+        margin: 0 -140px 10px -140px;
+    }
+        
+    .right-content #wrapper-agree{position: fixed;top: 0;left: 0;z-index: 99;width: 100%;height: 100%; background: rgba(51, 51, 51, 0.5);}
+    .right-content #wrapper-agree .wrapper-agree-cnt{position: absolute;top: 50%;left: 50%;width: 650px;height: 150px;margin: -100px 0 0 -325px;padding: 5px 10px; border: 1px solid #333; background: #fff;}
+    .right-content #wrapper-agree .wrapper-agree-cnt .agree_close{float: right; width: 40px; margin: 0 5px; font-size: 13px;
+        line-height: 23px; color: rgb(216, 51, 51); border: 1px solid rgb(216, 51, 51)!important;border-radius: 4px; text-align: center;}
+</style>
+<body>
+    <div id="header">
+         #parse("lcjxjd/lcjxjd_index_header.html")
+    </div>
+
+    <div id="content" class="clearfix">
+        <div class="left-content">
+            <div class="s-r-title">结题材料</div>
+            <div class="s-t-nav">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#">结题鉴定表</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">意见反馈</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="right-content">
+
+            <div class="wrapper-form">
+                <form action="#" class="form">
+                    <div class="declare-form rule-one">
+                        <h3 class="form-h3">项目资料和内容</h3>
+                        <ul>
+                            <li class="rel">
+                                <label for="item-name">项目名称:</label>
+                                <input type="text" id="item-name" value="$!project.name" disabled="disabled"/>
+                            </li>
+                            <li class="rel">
+                                <label for="item-plantime">计划完成时间:</label>
+                                    <input type="text" value="$!dateTools.format('yyyy年MM月dd日',$!project.planTime)" disabled="disabled"/>   
+                            </li>
+                            <li class="rel">
+                                <label for="item-realtime">实际完成时间:</label>
+                                   <input type="text" value="$!dateTools.format('yyyy年MM月dd日',$!project.realTime)" disabled="disabled"/>                               
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="declare-form">
+                    	<h3 class="form-h3">主要阶段性成果 
+                        </h3>
+                        <table>
+                            <thead>
+	                            <tr>
+	                                <td>题目</td>
+	                                <td>成果形式</td>
+	                                <td>刊物名或出版社</td>
+	                                <td>字数</td>
+	                                <td>发表时间</td>
+	                            </tr>
+                            </thead>
+
+                            <tbody>
+                            #foreach($achievement in $!achievements)
+	                            <tr>
+                            		<input type="hidden" name="achievement_id" value="$!achievement.id" disabled="disabled"/>
+		                            <td><input type='text' name='title' value='$!achievement.title' disabled="disabled"/></td>
+		                            <td><input type='text' name='achiForm' value='$!achievement.achiForm' disabled="disabled"/></td>
+		                            <td><input type='text' name='publication' value='$!achievement.publication' disabled="disabled"/></td>
+		                            <td><input type='text' name='wordNumber' value='$!achievement.wordNumber' disabled="disabled"/></td>
+		                            <td><input type='text' name='publishTime' value='$!achievement.publishTime' disabled="disabled"/></td>
+	                            </tr>
+	                         #end
+                            </tbody>
+                        </table>
+                        <h3 class="form-h3">研究成果</h3>
+                        <ul>
+                            <li class="clearfix">
+                                <label class="db" for="item-yiyi">
+                                    1.成果形式（其中，研究报告为必备成果。）列表
+                                </label>
+                                <textarea id="item-yiyi" disabled="disabled">$!project.achiForm</textarea>
+                            </li>
+                            <li class="clearfix">
+                                <label class="db" for="item-yiyi">
+                                    2.成果的主要观点与内容
+                                </label>
+                                <textarea id="item-yiyi" disabled="disabled">$!project.content</textarea>
+                            </li>
+                            <li class="clearfix">
+                                <label class="db" for="item-yiyi">
+                                    3.研究过程
+                                </label>
+                                <textarea id="item-yiyi" disabled="disabled">$!project.process</textarea>
+                            </li>
+                            <li class="clearfix">
+                                <label class="db" for="item-yiyi">
+                                    4.主要研究方法与步骤
+                                </label>
+                                <textarea id="item-yiyi" disabled="disabled">$!project.step</textarea>
+                            </li>
+                            <li class="clearfix">
+                                <label class="db" for="item-yiyi">
+                                    5.研究结果与分析
+                                </label>
+                                <textarea id="item-yiyi" disabled="disabled">$!project.result</textarea>
+                            </li>
+                            <li class="clearfix">
+                                <label class="db" for="item-yiyi">
+                                    6.实践效果或应用情况，社会影响等
+                                </label>
+                                <textarea id="item-yiyi" disabled="disabled">$!project.effect</textarea>
+                            </li>
+                        </ul>                   
+                    </div>     
+                </form>
+
+                <form class="form none" action="addTerminationReviews.htm" method="post">
+                	<input type="hidden" name="termination_id" value="$!project.id"/>
+                	<input type="hidden" name="review_id" value="$!review.id"/>
+                    <div class="declare-form">
+                        <h3 class="form-h3">专家组评审意见</h3>
+                        <ul>
+                            <li class="clearfix">
+                                <label class="db" for="item-yiyi"></label>
+                                <textarea id="item-yiyi" name="remark">$!review.remark</textarea>
+                            </li>
+                        </ul>
+                        <h3 class="form-h3">广东省教育厅意见</h3>
+                        <ul>
+                            <li class="clearfix">
+                                <label class="db" for="item-yiyi"></label>
+                                <textarea id="item-yiyi" name="eduRemark">$!review.eduRemark</textarea>
+                            </li>
+                            <li class="clearfix">
+                                <input class="formbt formbt-save" type="submit" value="保存"/>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--end right-content--> 
+    </div>
+
+    <div id="footer">
+        <div class="footer-content">
+            <p class="title">
+                <span>中山大学医学教育研究中心&nbsp;&nbsp;&nbsp;版权所有</span>
+            </p>
+            <p class="list">
+                <span class="span-list">地址：</span>
+                中国广州中山二路74号&nbsp;中山大学北校区&nbsp;&nbsp;&nbsp;
+                <span class="span-list">邮编：</span>
+                510080
+            </p>
+            <p class="list">
+                <span class="span-list">联系电话：</span>
+                8620－87330327&nbsp;&nbsp;
+                <span class="span-list">Email：</span>
+                yjzx87330327@qq.com
+            </p>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="resources/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="resources/js/indexTabChangeForm.js"></script>
+    <script type="text/javascript" src="resources/js/doFormRow.js"></script>
+    <script type="text/javascript" src="resources/js/index-declare-total-validite.js"></script>
+    <script type="text/javascript" src="resources/js/year_month_day.js"></script>
+
+
+<!--    <script type="text/javascript" src="../resources/js/upload-before-close.js"></script>-->
+
+    <!--<script type="text/javascript" src="../resources/js/index-tab.js"></script>
+-->
+<!--<script type="text/javascript" src="../resources/js/index-dropmenu.js"></script>
+-->
+
+</body>
+</html>

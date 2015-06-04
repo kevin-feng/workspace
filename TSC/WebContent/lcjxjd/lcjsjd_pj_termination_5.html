@@ -1,0 +1,65 @@
+<html>
+	<body>
+	<form action="addAchievements.htm" method="post" id="form_achievement">
+		<input type="hidden" name="size" value="$!achievements.size()"/>
+		<input type="hidden" name="trueSize" id="trueSize"/>
+		<input type="hidden" name="termination_id" value="$!termination.id"/>
+		<div class="declare-form">
+                        <h3 class="form-h3">主要阶段性成果
+                          <a class="addFormRow" href="#">添加</a>
+                        </h3>
+                        <table>
+                            <thead>
+	                            <tr>
+	                                <td>题目</td>
+	                                <td>作者</td>
+	                                <td>成果形式</td>
+	                                <td>刊物名或出版社</td>
+	                                <td>字数</td>
+	                                <td>发表时间</td>
+	                                <td>修改</td>
+	                            </tr>
+                            </thead>
+
+                            <tbody>
+                            #foreach($achievement in $!achievements)
+	                            <tr>
+                            		<input type="hidden" name="achievement_id" value="$!achievement.id" />
+		                            <td><input type='text' name='title' value='$!achievement.title'/></td>
+		                            <td><input type='text' name='author' value='$!achievement.author'/></td>
+		                            <td><input type='text' name='achiForm' value='$!achievement.achiForm'/></td>
+		                            <td><input type='text' name='publication' value='$!achievement.publication'/></td>
+		                            <td><input type='text' name='wordNumber' value='$!achievement.wordNumber'/></td>
+		                            <td><input type='text' name='publishTime' value='$!achievement.publishTime'/></td>
+		                            <td><a href='deleAchievement.htm?id=$!achievement.id&type=1' class='deleteFormRow'>删除</a></td>
+	                            </tr>
+	                         #end
+                            </tbody>
+                        </table>
+                        <ul>
+                            <li>
+                            	 <a class="formbt formbt-front" href="showTermination.htm?pageNo=4">上一步</a>
+                                <input class="formbt formbt-save" id="btn_submit" type="button" value="保存"/>
+                            </li>
+                        </ul>
+                    </div>
+              </form>
+                    
+                    
+              <script>
+              $(document).ready(function(){
+            	    $('.declare-form .addFormRow').click(function(){
+            	        var html = "<tr><td><input type='text' name='title'/></td><td><input type='text' name='author'/></td><td><input type='text' name='achiForm'/></td><td><input type='text' name='publication'/></td><td><input type='text' name='wordNumber'/></td><td><input type='text' name='publishTime'/></td><td><a href='#' class='deleteFormRow'>删除</a></td></tr>";
+            	        $('.declare-form table tbody').append(html);
+            	        return false;
+            	    });
+            	    $('.declare-form table').on("click",".deleteFormRow", deleterow);
+            	    $('#btn_submit').click(function(){
+            	    	$('#trueSize').val($('.declare-form table tbody tr').size());
+            	    	$('#form_achievement').submit();
+            	    });
+            	   
+            	});
+              </script>
+	</body>
+</html>

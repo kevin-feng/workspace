@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<div class="head-title">
+            <image src="resources/images/header-background2.png" alt="中山大学医学教育研究中心广东省本科高校临床教学基地教学指导委员会"/>
+    </div>
+    <div class="user">
+	        #if(!$!userName)
+	            <a href="login_index.htm" class="login-and-asign no-login">登录</a>
+	            <a href="register_index.htm" class="login-and-asign no-login">注册</a>
+	        #else
+	            <a class="login-and-asign">$!userName</a>
+	            <a href="logout.htm" class="login-and-asign">退出</a>
+	        #end
+	 </div>
+        
+        <div class="head-nav">
+            <a href="index.htm">本站首页</a>
+            <a href="#">机构介绍</a>
+            <a href="showMessages.htm?type=0&pageNo=1">通知文件</a>
+            <a href="showMessages.htm?type=4&pageNo=1">教学课程</a>
+            <a href="showMessages.htm?type=1&pageNo=1">工作动态</a>
+            <a href="showMessages.htm?type=2&pageNo=1">政策规定</a>
+            <a href="showMessages.htm?type=3&pageNo=1">理论探索</a>
+            <a href="showMessages.htm?type=7&pageNo=1">下载中心</a>
+    </div>
+</body>
+</html>

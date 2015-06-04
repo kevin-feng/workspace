@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>这里要改为通知的标题</title>
+    <link type="text/css" rel="stylesheet" href="resources/css/reset/reset.css">
+    <link type="text/css" rel="stylesheet" href="resources/css/medical-education/medical-education-index.css">
+    <link type="text/css" rel="stylesheet" href="resources/css/medical-education/medical-education-notice.css">
+    <style type="text/css">
+
+        a:link, a:visited { color:#333; text-decoration: none; outline: none; }
+        a:hover { color:#FFFFFF;}
+
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        #parse("lcjxjd/lcjxjd_index_header.html")
+    </div>
+
+    <div id="content">
+        <!--left-->
+        <div class="notice-left-content">
+            <div class="tm">
+                <div class="tit">
+                    <span class="tt"><a href="./">网站首页</a> &gt;&gt;
+                        <a href="./list.asp?id=95">通知动态</a> &gt;&gt;
+                        <a href="./list.asp?id=101">最新通知</a> &gt;&gt; 文章内容
+                    </span>
+                </div>
+            </div>
+
+            <div class="wrapper">
+                <div class="mm" id="bodyTd">
+                    <div id="printBody" style="WORD-BREAK: break-all"> <!--开始-->
+                        <div class="ac"><!--标题-->
+                            <h1 class="aTitle">$!message.title</h1>
+                        </div>
+                        <div class="luru_c"><!--备注-->
+                            <span style="float:left;">[日期：$!dateTools.format('yyyy-MM-dd',$!message.addTime)] &nbsp; 来源：$!message.source&nbsp; 作者：$!message.author &nbsp; 阅读：$!message.count次</span>
+                            <span style="float:right; color:#194d7d;">[字体：<a href="#">大</a>
+                                <a href="#">中</a>
+                                <a href="#">小</a>]
+                            </span>
+                        </div>
+                        <!-- 消息内容开始 -->
+                        <p class="mb10">$!message.text</p>
+                        <!-- 消息内容结束 -->
+						#if($!accessory)
+                        <p class="file_load"><!--附件-->
+                            <span style="background-color: yellow">
+                                <span style="font-size: 16">
+                                    <a href="downloadFile.htm?id=$!message.id">
+                                        <span style="font-size: 18">$!accessory.oldName</span>
+                                    </a>
+                                </span>
+                            </span>
+                        </p>
+                        #end
+                    </div> <!--主题内容结束-->
+
+                    <div class="nearNews">
+                        <div class="prevNews">
+                        	#if($!preMessage)
+                            <a href="showMessage.htm?id=$!preMessage.id">上一篇：$!preMessage.title</a>
+                            #else
+                            <a>上一篇：无</a>
+                            #end
+                        </div>
+                        <div class="nextNews">
+                        #if($!nextMessage)
+                            <a href="showMessage.htm?id=$!nextMessage.id">下一篇：$!nextMessage.title</a>
+                        #else
+                       		<a>下一篇：无</a>
+                        #end
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <!--right-->
+        <div class="notice-right-content">
+            <div class="lframe">
+                <div class="tm"><span class="tt">最新添加</span> </div>
+
+                <div class="wrapper">
+                    <div class="mm box2">
+                        <ul>
+                        #foreach($message in $!neweastMessages)
+                            <li><a href="showMessage.htm?id=$!message.id">$!message.title</a></li>  
+                        #end                     
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lframe">
+                <div class="tm"><span class="tt">热门阅读</span> </div>
+
+                <div class="wrapper">
+                    <div class="mm box3">
+                        <ul>
+                        #foreach($message in $!hotMessages)
+                            <li><a href="showMessage.htm?id=$!message.id">$!message.title</a></li>  
+                        #end       
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="footer-content">
+            <p class="title">
+                <span>中山大学医学教育研究中心&nbsp;&nbsp;&nbsp;版权所有</span>
+            </p>
+            <p class="list"><span class="span-list">地址：</span>中国广州中山二路74号&nbsp;中山大学北校区&nbsp;&nbsp;&nbsp;<span class="span-list">邮编：</span>510080</p>
+            <p class="list"><span class="span-list">联系电话：</span>8620－87330327&nbsp;&nbsp;<span class="span-list">Email：</span>yjzx87330327@qq.com</p>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="resources/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="resources/js/inputStype.js"></script>
+
+</body>
+</html>

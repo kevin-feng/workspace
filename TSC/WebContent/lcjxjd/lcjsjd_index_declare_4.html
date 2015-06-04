@@ -1,0 +1,48 @@
+<form class="form" action="addBudget.htm" method="post" id="budgetForm">
+          <div class="declare-form-six">
+              <h3 class="form-h3">经费预算
+                  <a class="addFormRow" href="#">添加</a>
+              </h3>
+              <table>
+                  <thead>
+                  <tr>
+                      <td class="numtd">序号</td>
+                      <td>经费开支科目</td>
+                      <td>经费预算金额（元）</td>
+                      
+                  </tr>
+                  </thead>
+
+                  	<input type="hidden" name="size" value="$!budgets.size()"/>
+                  	<input type="hidden" name="trueSize" id="trueSize"/>
+                  <tbody>
+                  #if($!budgets)
+	                   #foreach($budget in $!budgets)
+						<tr>
+							<input type="hidden" name="budget_id" value="$!budget.id"/> 
+							<td class='numtd'><input type='text' value="$!velocityCount"/></td>
+							<td><input type='text' name='subjectName' value="$!budget.subjectName"/></td>
+							<td><input type='text' name='amount' value="$!budget.amount"/></td><td>
+							<a href='deleteBudget.htm?budget_id=$!budget.id' class='deleteFormRow'>删除</a></td>
+						</tr>
+						#end
+				  #end
+                  </tbody>
+              </table>
+              <ul>
+                  <li>
+                      <input class="formbt formbt-next" type="button" value="保存并下一步" id="btn_submit" />
+                    <a class="formbt formbt-front" href="toDeclare.htm?pageNo=2">上一步</a>
+                </li>
+            </ul>
+        </div>
+</form>
+
+<script>
+	$(document).ready(function(){
+		$("#btn_submit").click(function(){
+			$("#trueSize").val($(".declare-form-six table tbody tr").size());
+			$("#budgetForm").submit();
+		});
+	});
+</script>

@@ -1,0 +1,65 @@
+<form class="form" action="addProject.htm" method="post">
+	<input type="hidden" name="project_id" value="$!project.id"/>
+                <div class="declare-form-one">
+                    <ul>
+                        <li class="clear"><h3 class="form-h3">广东省本科高校临床教学基地教学改革研究项目申报书&nbsp;-&nbsp;基本资料</h3></li>
+                        <li class="rel">
+                            <label for="item-name">项目名称:</label>
+                            <input type="text" id="item-name" name="name" value="$!project.name"/>
+                        </li>
+                        <li class="rel">
+                            <label for="item-kind">项目类别:</label>
+                            <input type="text" id="item-kind" name="category" value="$!project.category"/>
+                        </li>
+                        <li class="rel"> 
+                            <label for="item-unit">所在单位:</label>
+                            <input type="text" id="item-unit" name="organization" value="$!project.organization"/>
+                        </li>
+                        
+                        <li class="rel">
+                            <label for="item-money">申请金额:</label>
+                            <input type="text" id="item-money" name="amount" value="$!project.amount"/>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="declare-form-four">
+                    <h3 class="form-h3">立项依据及目标</h3>
+                    <ul>
+                        <li class="clearfix">
+                            <label class="db" for="item-yiyi">本课题所要解决的问题及其对临床教学的意义（包括已有研究实践基础）:</label>
+                            <textarea id="item-yiyi" name="meaning">$!project.meaning</textarea>
+                        </li>
+                    </ul>
+
+                    <ul>
+                        <li class="clearfix">
+                            <label class="db" for="item-yanjiu">研究设计、内容、目标、主要特色（具体可操作）:</label>
+                            <textarea id="item-yanjiu" name="content" >$!project.content</textarea>
+                        </li>
+                    </ul>
+
+                    <ul>
+                        <li class="clearfix">
+                            <label class="db" for="item-xiaoguo">预期效果与具体成果:</label>
+                            <textarea id="item-xiaoguo" name="expectedEffect">$!project.expectedEffect</textarea>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="declare-form-five">
+                    <h3 class="form-h3">具体安排及进度</h3>
+                    <ul>
+                        <li class="clearfix">
+                            <label class="db" for="item-jindu"></label>
+                            <textarea id="item-jindu" name="schedule">$!project.schedule</textarea>
+                        </li>
+                    </ul>
+	                <ul>
+	                     <li>
+	                         <input class="formbt formbt-next" type="submit" value="保存并下一步" />
+	                     </li>
+	              	</ul>           
+                </div>
+            </form>

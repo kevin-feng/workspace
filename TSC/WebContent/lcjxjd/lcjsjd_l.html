@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>临床基地</title>
+    <link type="text/css" rel="stylesheet" href="resources/css/reset/reset.css">
+    <link type="text/css" rel="stylesheet" href="resources/css/medical-education/medical-education-index.css">
+</head>
+
+<body>
+    <div id="header">
+        #parse("lcjxjd/lcjxjd_index_header.html")
+    </div>
+
+    <div id="content">
+        <div class="left-content">
+            <div class="s-r-title">专项评审</div>
+            <div class="s-t-nav">
+                <!--  <a href="showMessages.htm?type=0&pageNo=1">文件通知</a>
+                <a href="#">网上申报</a>
+                <a href="showMessages.htm?type=5&pageNo=1">网上评审</a>
+                <a href="showMessages.htm?type=6&pageNo=1">结果公示</a> -->
+                
+                <ul>
+                    <li class="dropdown"><a href="showMessages.htm?type=0&pageNo=1">文件通知</a></li>
+                    <li class="dropdown"><a href="toDeclare.htm">网上申报</a></li>
+                    <li class="dropdown"><a href="showProjects.htm?pageNo=1">网上评审</a></li>
+                    <li class="dropdown"><a href="showMessages.htm?type=6&pageNo=1">结果公布</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-menu-parent" href="#">立项管理</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="showProjectsBuilt.htm?type=0&pageNo=1">立项评审</a></li>
+                            <li><a href="showInterim.htm">中期检查</a></li>
+                            <li><a href="showTermination.htm?pageNo=1">结题材料</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-menu-parent" href="#">基地评审</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">教学医院</a></li>
+                            <li><a href="#">非直属附院</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                
+            </div>
+        </div>
+
+        <div class="right-content">
+            <div class="notice-work-slide">
+               
+                <div class="work">
+                    <div class="swr-title gzdt">
+                        <div class="swr-l-title"><a>工作动态</a></div>
+                        <div class="swr-r-title"><a class="more" href="showMessages.htm?type=1&pageNo=1">更多>></a></div>
+                    </div>
+                    <div class="work-content">
+                        <ul class="n-w-ul">
+                        #foreach($workMessage in $!workMessages)
+                            <li class="notice-list"><a class="notice-list" href="showMessage.htm?id=$!workMessage.id">$!workMessage.title</a></li>      
+                        #end
+                        </ul>
+                    </div>
+                </div>
+                 <div class="notice">
+                    <div class="swr-title tzwj">
+                        <div class="swr-l-title">通知文件</div>
+                        <div class="swr-r-title"><a class="more" href="showMessages.htm?type=0&pageNo=1">更多>></a></div>
+                    </div>
+                    <div class="notice-content">
+                        <ul class="n-w-ul">
+                        #foreach($message in $!messages)
+                            <li class="notice-list"><a class="notice-list" href="showMessage.htm?id=$!message.id">$!message.title</a></li>
+                        #end
+                        </ul>
+                    </div>
+                </div>
+                <div class="slide-pictures">
+                    <div class="slide-content">
+                        <a href="#" class="slide-link">
+                            <img src="resources/images/back-slide1.png"/>
+                        </a>
+                        <a href="#" class="slide-link">
+                            <img src="resources/images/back-slide2.png"/>
+                        </a>
+                        <a href="#" class="slide-link">
+                            <img src="resources/images/back-slide3.png"/>
+                        </a>
+
+                        <div class="pagination">
+                            <a href="#" class="selected"></a>
+                            <a href="#"></a>
+                            <a href="#"></a>
+                        </div>
+                    </div>
+                </div>
+                 <div class="education">
+                    <div class="swr-title jxkc">
+                        <div class="swr-l-title"><a>教学课程</a></div>
+                        <div class="swr-r-title"><a class="more" href="showMessages.htm?type=4&pageNo=1">更多>></a></div>
+                    </div>
+                     <div class="notice-content">
+                        <ul class="n-w-ul">
+                        #foreach($message in $!courseMessages)
+                            <li class="notice-list"><a class="notice-list" href="showMessage.htm?id=$!message.id">$!message.title</a></li>
+                        #end
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="related-links">
+                <div class="related-links-head">相关链接</div>
+                <div class="related-links-content">
+                    <a>医学院校</a>
+                    <a>教育厅</a>
+                    <a>省卫计委</a>
+                    <a>教学基地</a>
+                    <a>国家卫计委</a>
+                    <a>教育部</a>
+                </div>
+            </div>
+            <div class="search">
+                <input id="search-text" type="text" value="请输入查找关键字"/>
+                <input id="search-bt" type="button" value="全站搜索" onclick="search()"/>
+            </div>
+            
+             <div id="pop" class="none">
+                <div class="pop-cnt">
+                    <a class="pop_close" href="javascript:;">确定</a>
+                    <p class="pop_cnt_h4">对不起，您没有权限访问该页面！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="footer-content">
+            <p class="title">
+                <span>中山大学医学教育研究中心&nbsp;&nbsp;&nbsp;版权所有</span>
+            </p>
+            <p class="list"><span class="span-list">地址：</span>中国广州中山二路74号&nbsp;中山大学北校区&nbsp;&nbsp;&nbsp;<span class="span-list">邮编：</span>510080</p>
+            <p class="list"><span class="span-list">联系电话：</span>8620－87330327&nbsp;&nbsp;<span class="span-list">Email：</span>yjzx87330327@qq.com</p>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="resources/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="resources/js/inputStype.js"></script>
+    <script type="text/javascript" src="resources/js/imageSlide.js"></script>
+        <script type="text/javascript" src="resources/js/index-tab.js"></script>
+        <script type="text/javascript" src="resources/js/index-dropmenu.js"></script>
+    
+	<script type="text/javascript">
+		function search(){
+			var keyWord = document.getElementById("search-text").value;
+			window.location.href = "search.htm?pageNo=1&keyWord="+keyWord;
+		}
+        $(".pop_close").click(function(){
+	        $("#pop").hide();
+	    });
+	</script>
+</body>
+</html>

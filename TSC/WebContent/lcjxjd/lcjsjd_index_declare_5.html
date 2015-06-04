@@ -1,0 +1,34 @@
+<form action="addAccount.htm" method="post" class="form">
+	<input type="hidden" name="account_id" value="$!account.id"/>
+            	<div class="declare-form-seven">
+                    <h3 class="form-h3">拨款账号</h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <td class="numtd">医院开户行</td>
+                            <td>户名</td>
+                            <td>账号</td>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <td><input type="text" name="bank" value="$!account.bank"/></td>
+                            <td><input type="text" name="accountHolder" value="$!account.accountHolder"/></td>
+                            <td><input type="text" name="account" value="$!account.account"/></td>
+                            <td>
+                                <a class="changeFormRow">修改</a>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <ul>
+                        <li>
+                            <input class="formbt formbt-save" type="submit" value="提交"/>
+                            <a class="formbt formbt-front" href="toDeclare.htm?pageNo=3">上一步</a>
+
+                        </li>
+                    </ul>
+                </div>
+            </form>

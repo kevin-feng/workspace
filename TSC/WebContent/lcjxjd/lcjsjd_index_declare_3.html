@@ -1,0 +1,56 @@
+<form class="form" action="addOtherMember.htm" method="post" id="otherMemberForm">
+	<input type="hidden" name="trueSize" id="trueSize"/>
+	<input type="hidden" name="size" value="$!otherMembers.size()"/>
+        <div class="declare-form-three">
+            <h3 class="form-h3">项目组其他成员情况
+                <a class="addFormRow" href="#">添加</a>
+            </h3>
+            <table>
+                <thead>
+                <tr>
+                	<td class="numtd">序号</td>
+                    <td>姓名</td>
+                    <td>电话</td>
+                    <td>职务职称</td>
+                    <td>工作单位</td>
+                    <td>专业领域</td>
+                    <td>修改</td>
+                </tr>
+                </thead>
+    
+                <tbody>
+					#if($!otherMembers)
+						#foreach($member in $!otherMembers)
+							<tr>
+								<input type="hidden" name="member_id" value="$!member.id"/> 
+								<td class='numtd'><input type='text' value="$!velocityCount"/></td>
+								<td><input type='text' name='name' value="$!member.name"/></td>
+								<td><input type='text' name='mobileNo' value="$!member.mobileNo"/></td>
+								<td><input type='text' name='adminPosition' value="$!member.adminPosition"/></td>
+								<td><input type='text' name='organization' value="$!member.organization"/></td>
+								<td><input type='text' name='major' value="$!member.major"/></td>
+								<td>
+									<a href='deleMember.htm?id=$!member.id' class='deleteFormRow'>删除</a>
+								</td>
+							</tr>		
+						#end
+					#end
+                </tbody>
+            </table>
+            <ul>
+                <li>
+                    <input class="formbt formbt-next" type="button" value="保存并下一步" onclick="submitOtherMembers()" /> 
+                    <a class="formbt formbt-front" href="toDeclare.htm?pageNo=2">上一步</a>
+                </li>
+            </ul>
+        </div>
+</form>
+
+<script>
+function submitOtherMembers(){
+	var size = $('.declare-form-three tbody .numtd').size();
+	var trueSize = document.getElementById("trueSize");
+	trueSize.value = size; 
+	document.getElementById("otherMemberForm").submit();
+}
+</script>

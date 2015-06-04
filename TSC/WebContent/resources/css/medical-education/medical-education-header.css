@@ -1,0 +1,76 @@
+@charset "utf-8";
+body {
+    background-image: url(../../images/big-background.png);
+    background-repeat:no-repeat;
+    /*background-size: cover;*/
+    background-attachment: scroll;
+}
+/***********header**********/
+#header {
+    width: 985px;
+    margin: 0 auto;
+    height: 154px;
+}
+.user {
+    float: right;
+    margin: -110px -160px 0 0;
+}
+.user li{
+    float: left;
+    margin: 5px;
+}
+.user a{
+    color: #fff;
+    font-family: "微软雅黑";
+    font-size: 15px;
+    cursor: pointer;
+}
+.user a:hover{
+    color: #000;
+    text-decoration: underline;
+}
+.head-title {
+    width: 983px;
+    height: 115px;
+}
+.head-nav {
+    background-color: #31A5D5;
+    width: 985px;
+    margin: 0 auto;
+    height: 39px;
+    /*border-top: 1px solid #fff;*/
+}
+.head-nav a{
+    color: #000000;
+    float: left;
+    display: inline-block;
+    width: 122px;
+    height:39px;
+    background-color: #31A5D5;
+    line-height: 39px;
+    font-size: 15px;
+    font-weight: 800;
+    text-align: center;
+    border-left: 1px solid #fff;
+}
+.head-nav a:first-child {
+    border-left: none;
+}
+.head-nav a:last-child {
+    width: 124px;
+}
+.head-nav a:hover{
+    color: #31A5D5!important;
+    background-color: #fdfdfd !important;
+    border-bottom: 1px solid #31A5D5 !important;
+    height:38px;
+}
+.head-nav a.choose{
+    /*color: #fdfdfd;*/
+    background-color: #2b8ec7;
+    /*border-bottom: 2px solid #31A5D5;*/
+    /*height:37px;*/
+    /*width: 120px;
+    /*background: url("../../images/icons.png") no-repeat;*/
+    /*background-position: 0px -878px;*/
+}
