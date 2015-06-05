@@ -39,7 +39,7 @@
                         #foreach($!project in $!projects)
                         <tr>
                         	<input type="hidden" name="project_id" value="$!project.id"/>
-                            <td class="tc">$!velocityCount</td>
+                            <td class="tc">$!project.id</td>
                             <td class="tc">$!project.name</td>
                             <td class="tc">
                                 <p>专家一</p>
@@ -50,23 +50,23 @@
                             	<p>$!review.reviewResult</p>
                             	#end
                             </td>
-                            #if($!project.pass == 0)
+                            #if($!project.status == 0)
                             <td class="tc">--</td>
-                            #elseif($!project.pass == 1)
+                            #elseif($!project.status == 3)
                             <td class="tc">立项资助</td>
-                            #elseif($!project.pass == 2)
+                            #elseif($!project.status == 4)
                             <td class="tc">立项不资助</td>
-                            #elseif($!project.pass == 3)
+                            #elseif($!project.status == 5)
                             <td class="tc">不立项</td>
                             #end
                            
-                            #if($!project.pass == 0)
+                            #if($!project.status == 0)
                             <td class="tc">
-                                <select name="pass_select">  
-                                  <option value ="0">无</option>  
-                                  <option value ="1">立项资助</option>  
-                                  <option value="2">立项不资助</option>  
-                                  <option value="3">不立项</option>  
+                                <select name="status_select">  
+                                  <option value ="2">无</option>  
+                                  <option value ="3">立项资助</option>  
+                                  <option value="4">立项不资助</option>  
+                                  <option value="5">不立项</option>  
                                 </select>  
                             </td>
                             #else
@@ -102,15 +102,15 @@ $(document).ready(function(){
 	
 	$("#btn_submit").click(function(){
 		var id = "";
-		var pass = "";
+		var status = "";
 		$("[name='project_id']").each(function(){
 			id += $(this).val();
 		});
-		$("[name='pass_select']").each(function(){
-			pass += $(this).val();
+		$("[name='status_select']").each(function(){
+			status += $(this).val();
 		});
-		alert("id = "+id+"  pass = "+pass);
-		jQuery.get("updateProjectPass.htm",{id:id,pass:pass});
+		alert("id = "+id+"  status = "+status);
+		jQuery.get("updateProjectStatus.htm",{id:id,status:status});
 	});
 });
 </script>

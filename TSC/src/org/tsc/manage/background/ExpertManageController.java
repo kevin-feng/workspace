@@ -87,7 +87,7 @@ public class ExpertManageController {
 	public ModelAndView showAssignExpert(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("lcjxjd_back/ps-index-assign_expert.html");
 		List<Map<String, Object>>experts = userService.queryForList("select * from tsc_user where userRole='EXPERT'");
-		List<Map<String, Object>>projects = projectService.queryForList("select * from tsc_project where pass=0");
+		List<Map<String, Object>>projects = projectService.queryForList("select * from tsc_project where status=0");
 		mv.addObject("experts", experts);
 		mv.addObject("projects", projects);
 		return mv;

@@ -8,6 +8,7 @@ import org.tsc.core.bean.IdEntity;
  * */
 public class Project extends IdEntity {
 	
+	private String projectCode;//项目编码，立项时才有，格式为2014JDA001,2014JDB002，其中A代表立项资助，B代表立项不资助
 	private String name;//项目名称
 	private String category;//项目类别
 	private String organization;//所在单位
@@ -26,6 +27,13 @@ public class Project extends IdEntity {
 	private List<Review> reviews;//项目对应的评审
 	
 	
+	
+	public String getProjectCode() {
+		return projectCode;
+	}
+	public void setProjectCode(String projectCode) {
+		this.projectCode = projectCode;
+	}
 	public String getName() {
 		return name;
 	}

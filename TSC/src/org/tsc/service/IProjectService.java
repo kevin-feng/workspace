@@ -23,6 +23,10 @@ public interface IProjectService {
 		 * @param pass 0为未立项项目，1为立项项目
 		 * @return
 		 */
-		public List<Map<String, Object>> getProjectsAndReviews(int pass);
+		public List<Map<String, Object>> getProjectsAndReviews(String status);
+		
+		public int[] batchUpdateProjectStatus(Map<String, Object> map);
+		
+		public List<Map<String, Object>> setProjectCodeByStatus(String ids,String statuses);
 
 }
