@@ -118,6 +118,10 @@ a{text-decoration: none;}
             color:#fff;
             background-color: #000;
         }
+        #content .right-cnt-nav a.disabled{
+            color:#fff;
+            background-color: #ccc;
+        }
         #content .right-cnt-nav.fixed{
             margin: 0;
             position: fixed;
@@ -303,3 +307,4 @@ textarea {
     background: #282828 !important;
     color: #fff;
 }
+.J-tab .tab-child{display: none;}

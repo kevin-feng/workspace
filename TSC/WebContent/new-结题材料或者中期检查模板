@@ -11,6 +11,17 @@
     #content .right-content {
         padding: 62px 0;
     }
+    #content .rcnt-nav-first{
+        padding-left: 92px;
+    }
+    #content .rcnt-nav-first a{
+        color:#fff;
+        background-color: #ccc;
+        border-color: #ccc;
+    }
+    #content .rcnt-nav-first a.choose{
+        border-color: #000;
+    }
     </style>
 </head>
 
@@ -27,25 +38,36 @@
             <div class="right-content row">
                 <div class="right-cnt-nav">
                 <!-- 通知动态 -->
-                    <a href="javascript:;">最新通知</a>
+                    <!-- <a href="javascript:;">最新通知</a>
                     <a href="javascript:;">工作动态</a>
                     <a href="javascript:;">政策规定</a>
                     <a href="javascript:;">理论探索</a>
                     <a href="javascript:;">教学课程</a>
-                    <a href="javascript:;">基地评审</a>
-
+                    <a href="javascript:;">基地评审</a> -->
+                <!-- 项目管理 -->
+                    <div class="rcnt-nav-first clearfix">
+                        <a href="javascript:;">立项资助</a>
+                        <a href="javascript:;">立项不资助</a>
+                    </div>
+                    <div class="rcnt-nav-second">
+                        <a href="javascript:;">已填写</a>
+                        <a href="javascript:;">已分配</a>
+                        <a href="javascript:;">已评审</a>
+                        <a href="javascript:;">通过</a>
+                        <a href="javascript:;">不通过</a>
+                    </div>
                 </div>
 
                 <div class="J-tab col-sm-12"><!-- 父类J-tab，子类tab-child -->
                 <!-- 通知动态 -->
-                    <div class="tab-child col-sm-12">
+                   <!--  <div class="tab-child col-sm-12">
                         <div class="col-sm-12">
                             <h4 class="col-sm-offset-5 child-head">最新通知</h4>
                         </div>
                         <div class="col-sm-offset-1 col-sm-10 part1-notice">
                             <ul class="n-w-ul">
                                 #if($!messages.size() == 0) 
-                                	暂无通知 
+                                    暂无通知 
                                 #end 
                                 #foreach($message in $!messages)
                                 <li class="notice-list">
@@ -64,7 +86,7 @@
                         <div class="col-sm-offset-1 col-sm-10 part1-notice">
                             <ul class="n-w-ul">
                                 #if($!workMessages.size() == 0) 
-                                	暂无工作动态 
+                                    暂无工作动态 
                                 #end
                                 #foreach($message in $!workMessages)
                                 <li class="notice-list">
@@ -190,8 +212,87 @@
                                 #end
                             </ul>
                         </div>
+                    </div> -->
+                <!-- 项目管理 -->
+                    <div class="tab-child col-sm-12">
+                        <table class="table table-hover table-bordered mt20">
+                            <thead>
+                                <tr>
+                                    <td class="th">序号</td>
+                                    <td class="th">项目名称</td>
+                                    <td class="th">评审专家</td>
+                                    <td class="th">专家评语</td>
+                                    <td class="th">评审结果</td>
+                                    <td class="th">状态</td>
+                                    <td class="th">操作</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>序号</td>
+                                    <td>项目名称</td>
+                                    <td> 
+                                        <select class="expert-select-one">
+                                        #foreach($expert in $!experts)
+                                            <option value ="$!expert.id">$!expert.trueName</option>
+                                        #end
+                                        </select>
+                                        <select class="expert-select-two">
+                                        #foreach($expert in $!experts)
+                                            <option value ="$!expert.id">$!expert.trueName</option>
+                                        #end
+                                        </select>
+                                    </td>
+                                    <td>专家评语</td>
+                                    <td>评审结果</td>
+                                    <td>状态</td>
+                                    <td><button class="j-lixiang-edit">修改</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-            
+                    <div class="tab-child col-sm-12">
+                        <table class="table table-hover table-bordered mt20">
+                            <thead>
+                                <tr>
+                                    <td class="th">序号</td>
+                                    <td class="th">项目名称</td>
+                                    <td class="th">评审专家</td>
+                                    <td class="th">专家评语</td>
+                                    <td class="th">评审结果</td>
+                                    <td class="th">状态</td>
+                                    <td class="th">操作</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>序号</td>
+                                    <td>项目名称</td>
+                                    <td> 
+                                        <p>专家1</p>
+                                        <p>专家2</p>
+                                    </td>
+                                    <td>专家评语</td>
+                                    <td>评审结果</td>
+                                    <td>状态</td>
+                                    <td><button class="j-lixiang-edit">修改</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-child col-sm-12">
+
+                    </div>
+                    <div class="tab-child col-sm-12">
+
+                    </div>
+                    <div class="tab-child col-sm-12">
+
+                    </div>
+                    <div class="tab-child col-sm-12">
+
+                    </div>
+
                 </div>
             </div>
             <!--<div class="col-md-11 right-content row">-->
@@ -209,11 +310,26 @@
     <script>
     $(function(){
         FIX.fixbar.set('.right-cnt-nav');
+        // var $JTabs = $('.J-tab .tab-child');
+        // $('.right-cnt-nav a').click(function(event) {
+        //     $(this).siblings().removeClass('choose').end().addClass('choose');
+        //     $JTabs.eq($(this).index()).show().siblings().hide();
+        // }).eq(0).click();;
+
         var $JTabs = $('.J-tab .tab-child');
-        $('.right-cnt-nav a').click(function(event) {
+        $('.rcnt-nav-first a').click(function(event) {
+            if($(this).index() != $('.rcnt-nav-first .choose').index()){
+                $JTabs.hide();
+                $('.rcnt-nav-second a').removeClass('choose');
+            }
+            $(this).siblings().removeClass('choose').end().addClass('choose');
+            $('.rcnt-nav-second a').show();
+        }).eq(0).click();
+
+        $('.rcnt-nav-second a').click(function(event) {
             $(this).siblings().removeClass('choose').end().addClass('choose');
             $JTabs.eq($(this).index()).show().siblings().hide();
-        }).eq(0).click();;
+        });
     });
     </script>
 
