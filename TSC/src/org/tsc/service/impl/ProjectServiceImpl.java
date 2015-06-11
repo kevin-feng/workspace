@@ -2,8 +2,10 @@ package org.tsc.service.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +16,7 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tsc.core.base.IBaseDao;
+import org.tsc.core.init.InitializeProcessor;
 import org.tsc.service.IProjectService;
 
 import com.sun.org.glassfish.external.statistics.Statistic;
@@ -112,11 +115,8 @@ public class ProjectServiceImpl implements IProjectService{
 	}
 
 	@Override
-	public int[] batchUpdateProjectStatus(Map<String, Object> map) {
+	public int[] batchUpdateProjectStatus(final List<Map<String, Object>> list) {
 		// TODO Auto-generated method stub
-		final String[] statuses = map.get("statuses").toString().split(",");
-		final String[] ids = map.get("ids").toString().split(",");
-		final String projectCode = "";
 		
 		String sql = "update tsc_project set status=?,project_code=? where id=?";
 		int[] updateCount = this.projectDao.getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
@@ -124,15 +124,15 @@ public class ProjectServiceImpl implements IProjectService{
 			@Override
 			public void setValues(PreparedStatement arg0, int arg1) throws SQLException {
 				// TODO Auto-generated method stub
-				arg0.setInt(1,Integer.parseInt(statuses[arg1]));
-				arg0.setString(2, projectCode);
-				arg0.setLong(3, Long.parseLong(ids[arg1]));
+				arg0.setInt(1,Integer.parseInt(list.get(arg1).get("status").toString()));
+				arg0.setString(2, list.get(arg1).get("projectCode").toString());
+				arg0.setLong(3, Long.parseLong(list.get(arg1).get("id").toString()));
 			}
 			
 			@Override
 			public int getBatchSize() {
 				// TODO Auto-generated method stub
-				return 0;
+				return list.size();
 			}
 		});
 		return updateCount;
@@ -144,7 +144,7 @@ public class ProjectServiceImpl implements IProjectService{
 		// TODO Auto-generated method stub
 		char[] id = ids.toCharArray();
 		char[] status = statuses.toCharArray();
-		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		for (int i = 0; i < id.length; i++) {
 			StringBuilder projectCode = new StringBuilder();
 			Calendar calendar = Calendar.getInstance();
@@ -155,15 +155,36 @@ public class ProjectServiceImpl implements IProjectService{
 			}else if (status[i] == 4) {
 				projectCode.append("B");
 			}
+			SimpleDateFormat sFormat = new SimpleDateFormat("hhmmss");
+			String time = sFormat.format(new Date());
+			projectCode.append(time).append(i);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", id[i]);
+			map.put("status", status[i]);
+			map.put("projectCode", projectCode);
+			list.add(map);
 		}
-		return null;
+		return list;
 	}
 	
-	public String generateProjectCode() {
-		StringBuilder projectCode = new StringBuilder();
-		Calendar calendar = Calendar.getInstance();
-		int year = calendar.get(Calendar.YEAR);
-		
+	/**
+	 * 产生project_code的最后3位数字
+	 * @return
+	 */
+	public String generateLast3Code(String code) {
+		StringBuilder sb = new StringBuilder();
+		if (code.length() == 1) {
+			sb.append("00").append(code);
+		}else if (code.length() == 2) {
+			sb.append("0").append(code);
+		}else if (code.length() == 3) {
+			sb.append(code);
+		}
+		return sb.toString();
+	}
+	
+	public String getMaxProCode() {
+		String projectCode = InitializeProcessor.getProjectCode();
 		return null;
 	}
 

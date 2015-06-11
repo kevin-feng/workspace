@@ -25,8 +25,20 @@ public interface IProjectService {
 		 */
 		public List<Map<String, Object>> getProjectsAndReviews(String status);
 		
-		public int[] batchUpdateProjectStatus(Map<String, Object> map);
+		/**
+		 * 批量更新项目的status以及projectCode
+		 * @param list
+		 * @return
+		 */
+		public int[] batchUpdateProjectStatus(List<Map<String, Object>> list);
 		
+		/**
+		 * 根据project的status，设置相应的项目编码，格式为2015JDA0511241，2015JDB0511242，
+		 * 其中如果立项资助则为A，立项不资助则为B
+		 * @param ids
+		 * @param statuses
+		 * @return
+		 */
 		public List<Map<String, Object>> setProjectCodeByStatus(String ids,String statuses);
 
 }

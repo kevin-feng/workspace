@@ -72,4 +72,6 @@
 		<property name="uploadTempDir" value="upload/temp" /> <!-- 上传文件的临时路径 -->
 	</bean>
 	
+	<bean id="init" class="org.tsc.core.init.InitializeProcessor"></bean>
+	
 </beans>
