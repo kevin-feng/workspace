@@ -18,9 +18,16 @@ public interface IProjectService {
 		
 		//获取一行数据通过id
 		public Map<String, Object> getById(Long id);
+		
 		/**
-		 * 获取项目列表以及每个项目对应的评审
-		 * @param pass 0为未立项项目，1为立项项目
+		 * 获取项目列表
+		 * @param
+		 * @return
+		 */
+		public List<Map<String, Object>> getProjectsByStatus(String status);
+		/**
+		 * 获取每个项目对应的评审
+		 * @param 
 		 * @return
 		 */
 		public List<Map<String, Object>> getProjectsAndReviews(String status);
@@ -33,11 +40,11 @@ public interface IProjectService {
 		public int[] batchUpdateProjectStatus(List<Map<String, Object>> list);
 		
 		/**
-		 * 根据project的status，设置相应的项目编码，格式为2015JDA0511241，2015JDB0511242，
+		 * 根据project的status，设置相应的项目编码，格式为2015JDA001，2015JDB002，
 		 * 其中如果立项资助则为A，立项不资助则为B
 		 * @param ids
 		 * @param statuses
-		 * @return
+		 * @return [{id="1",status="3",projectCode="2015JDA001"},{}]
 		 */
 		public List<Map<String, Object>> setProjectCodeByStatus(String ids,String statuses);
 

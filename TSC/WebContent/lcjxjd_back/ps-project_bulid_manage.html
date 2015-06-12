@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link type="text/css" rel="stylesheet" href="/TSC/resources/css/reset/reset.css">
+    <link href="/TSC/resources/css/bootstrap.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="/TSC/resources/css/manage-background/ps-index.css">
+    <style>
+    #content .right-content {
+        padding: 62px 0;
+    }
+    #content .rcnt-nav-first{
+        padding-left: 92px;
+    }
+    #content .rcnt-nav-first a{
+        color:#fff;
+        background-color: #ccc;
+        border-color: #ccc;
+    }
+    #content .rcnt-nav-first a.choose{
+        border-color: #000;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="total-wrapper">
+        #parse("lcjxjd_back/ps-index-header.html")
+
+        <div class="row" id="content">
+            <div class="main-side-nav">
+                #parse("lcjxjd_back/ps-index-left.html")
+            </div>
+
+
+            <div class="right-content row">
+                <div class="right-cnt-nav">
+                <!-- 项目管理 -->
+                    <div class="rcnt-nav-first clearfix">
+                        <a href="javascript:;">立项资助</a>
+                        <a href="javascript:;">立项不资助</a>
+                    </div>
+                    <div class="rcnt-nav-second">
+                        <a href="javascript:;">已填写</a>
+                        <a href="javascript:;">已分配</a>
+                        <a href="javascript:;">已评审</a>
+                        <a href="javascript:;">通过</a>
+                        <a href="javascript:;">不通过</a>
+                    </div>
+                </div>
+
+                <div class="J-tab col-sm-12"><!-- 父类J-tab，子类tab-child -->
+                <!-- 项目管理 -->
+                    <div class="tab-child col-sm-12">
+                        <table class="table table-hover table-bordered mt20">
+                            <thead>
+                                <tr>
+                                    <td class="th">序号</td>
+                                    <td class="th">项目名称</td>
+                                    <td class="th">评审专家</td>
+                                    <td class="th">专家评语</td>
+                                    <td class="th">评审结果</td>
+                                    <td class="th">状态</td>
+                                    <td class="th">操作</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>序号</td>
+                                    <td>项目名称</td>
+                                    <td> 
+                                        <select class="expert-select-one">
+                                        #foreach($expert in $!experts)
+                                            <option value ="$!expert.id">$!expert.trueName</option>
+                                        #end
+                                        </select>
+                                        <select class="expert-select-two">
+                                        #foreach($expert in $!experts)
+                                            <option value ="$!expert.id">$!expert.trueName</option>
+                                        #end
+                                        </select>
+                                    </td>
+                                    <td>专家评语</td>
+                                    <td>评审结果</td>
+                                    <td>状态</td>
+                                    <td><button class="j-lixiang-edit">修改</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-child col-sm-12">
+                        <table class="table table-hover table-bordered mt20">
+                            <thead>
+                                <tr>
+                                    <td class="th">序号</td>
+                                    <td class="th">项目名称</td>
+                                    <td class="th">评审专家</td>
+                                    <td class="th">专家评语</td>
+                                    <td class="th">评审结果</td>
+                                    <td class="th">状态</td>
+                                    <td class="th">操作</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>序号</td>
+                                    <td>项目名称</td>
+                                    <td> 
+                                        <p>专家1</p>
+                                        <p>专家2</p>
+                                    </td>
+                                    <td>专家评语</td>
+                                    <td>评审结果</td>
+                                    <td>状态</td>
+                                    <td><button class="j-lixiang-edit">修改</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-child col-sm-12">
+
+                    </div>
+                    <div class="tab-child col-sm-12">
+
+                    </div>
+                    <div class="tab-child col-sm-12">
+
+                    </div>
+                    <div class="tab-child col-sm-12">
+
+                    </div>
+
+                </div>
+            </div>
+            <!--<div class="col-md-11 right-content row">-->
+        </div>
+        <!--end <div class="row" id="content">-->
+    </div>
+
+
+    <script src="/TSC/resources/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="/TSC/resources/js/bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript" charset="utf-8" src="/TSC/resources/web_manage_back/ueditor1_4_3/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/TSC/resources/web_manage_back/ueditor1_4_3/ueditor.all.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/TSC/resources/web_manage_back/ueditor1_4_3/lang/zh-cn/zh-cn.js"></script>
+    <script src="/TSC/resources/js/manege-back/ps-tab.js" type="text/javascript"></script>
+    <script>
+    $(function(){
+        FIX.fixbar.set('.right-cnt-nav');
+        // var $JTabs = $('.J-tab .tab-child');
+        // $('.right-cnt-nav a').click(function(event) {
+        //     $(this).siblings().removeClass('choose').end().addClass('choose');
+        //     $JTabs.eq($(this).index()).show().siblings().hide();
+        // }).eq(0).click();;
+
+        var $JTabs = $('.J-tab .tab-child');
+        $('.rcnt-nav-first a').click(function(event) {
+            if($(this).index() != $('.rcnt-nav-first .choose').index()){
+                $JTabs.hide();
+                $('.rcnt-nav-second a').removeClass('choose');
+            }
+            $(this).siblings().removeClass('choose').end().addClass('choose');
+            $('.rcnt-nav-second a').show();
+        }).eq(0).click();
+
+        $('.rcnt-nav-second a').click(function(event) {
+            $(this).siblings().removeClass('choose').end().addClass('choose');
+            $JTabs.eq($(this).index()).show().siblings().hide();
+        });
+    });
+    </script>
+
+</body>
+
+</html>

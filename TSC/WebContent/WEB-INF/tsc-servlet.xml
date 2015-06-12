@@ -70,8 +70,5 @@
 		<property name="maxInMemorySize" value="4096" />
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="uploadTempDir" value="upload/temp" /> <!-- 上传文件的临时路径 -->
-	</bean>
-	
-	<bean id="init" class="org.tsc.core.init.InitializeProcessor"></bean>
-	
+	</bean>	
 </beans>

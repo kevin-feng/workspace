@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.tsc.bean.Project;
 import org.tsc.service.IProjectService;
+import org.tsc.service.IUserService;
 
 import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 
@@ -22,6 +23,8 @@ import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 public class ProjectManageController {
 	@Autowired
 	public IProjectService projectService;
+	@Autowired
+	public IUserService userService;
 
 	//显示未立项和立项的项目列表
 	@RequestMapping(value="showProjects.htm")
@@ -31,13 +34,15 @@ public class ProjectManageController {
 		List<Map<String, Object>> projects = new ArrayList<Map<String,Object>>();
 		//type=0为项目管理页面，1为立项管理的中期检查项目的页面，2为立项管理的结题材料的页面
 		if (type == 0) {
-			modelAndView = new ModelAndView("lcjxjd_back/ps-index-project-list_weilixiang.html");			
+			modelAndView = new ModelAndView("lcjxjd_back/ps-project_manage.html");			
 			projects = projectService.getProjectsAndReviews("0,1,2,5");
+			List<Map<String, Object>>experts = userService.queryForList("select id,trueName from tsc_user where userRole='EXPERT'");
+			modelAndView.addObject("experts", experts);
 		}else if (type == 1) {
-			modelAndView = new ModelAndView("lcjxjd_back/ps-index-project-list_lixiang.html");
+			modelAndView = new ModelAndView("lcjxjd_back/ps-project_bulid_manage.html");
 			projects = projectService.getProjectsAndReviews("3,4,6,7,8,9,10");
 		}else if (type == 2) {
-			modelAndView = new ModelAndView("lcjxjd_back/ps-index-project-list_lixiang.html");
+			modelAndView = new ModelAndView("lcjxjd_back/ps-project_bulid_manage.html");
 			projects = projectService.getProjectsAndReviews("11,12,13,14,15");	
 		}
 		System.out.println(projects);
@@ -49,13 +54,9 @@ public class ProjectManageController {
 	@RequestMapping(value="updateProjectStatus.htm",method=RequestMethod.GET)
 	public String updateProjectStatus(HttpServletRequest request,HttpServletResponse response,
 			String id,String status) {
-		char[] ids = id.toCharArray();
-		char[] statuses = status.toCharArray();
-		for (int i = 0; i < ids.length; i++) {
-			System.out.println(ids[i]+"-------"+statuses[i]);
-			String sqlString = "update tsc_project set status="+statuses[i]+" where id="+ids[i];
-			projectService.update(sqlString);
-		}
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		list = projectService.setProjectCodeByStatus(id, status);
+		projectService.batchUpdateProjectStatus(list);
 		return "redirect:showProjects.htm?type=0";
 	}
 }
