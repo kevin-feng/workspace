@@ -119,7 +119,7 @@ public class ProjectServiceImpl implements IProjectService{
 				String sqlString = "select user.id,user.trueName from tsc_user2project u2p inner join "
 						+ "tsc_user user on user.id=u2p.user_id where u2p.project_id="+id;
 				List<Map<String, Object>> experts = new ArrayList<Map<String,Object>>();
-				experts = queryForList(sqlString);
+				experts = queryForList(sqlString); 
 				map.put("experts", experts);
 				int sta = Integer.parseInt(map.get("status").toString());
 				if (sta >= 2) {
