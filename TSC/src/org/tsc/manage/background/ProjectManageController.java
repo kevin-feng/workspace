@@ -35,15 +35,15 @@ public class ProjectManageController {
 		//type=0为项目管理页面，1为立项管理的中期检查项目的页面，2为立项管理的结题材料的页面
 		if (type == 0) {
 			modelAndView = new ModelAndView("lcjxjd_back/ps-project_manage.html");			
-			projects = projectService.getProjectsAndReviews("0,1,2,5");
+			projects = projectService.getProjectsAndReviews("0,1,2,5",0);
 			List<Map<String, Object>>experts = userService.queryForList("select id,trueName from tsc_user where userRole='EXPERT'");
 			modelAndView.addObject("experts", experts);
 		}else if (type == 1) {
 			modelAndView = new ModelAndView("lcjxjd_back/ps-project_bulid_manage.html");
-			projects = projectService.getProjectsAndReviews("3,4,6,7,8,9,10");
+			projects = projectService.getProjectsAndReviews("3,4,6,7,8,9,10",1);
 		}else if (type == 2) {
 			modelAndView = new ModelAndView("lcjxjd_back/ps-project_bulid_manage.html");
-			projects = projectService.getProjectsAndReviews("11,12,13,14,15");	
+			projects = projectService.getProjectsAndReviews("11,12,13,14,15",2);	
 		}
 		System.out.println(projects);
 		modelAndView.addObject("projects", projects);

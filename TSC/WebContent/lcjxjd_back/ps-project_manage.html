@@ -55,6 +55,7 @@
                             #foreach($!project in $!projects)
                 			    #if($!project.status == 0)
                                 <tr>
+                                	<input type="hidden" name="project_id" value="$!project.id"/>
                                     <td>$!velocityCount</td>
                                     <td>$!project.name</td>             
                                     <td> 
@@ -79,7 +80,7 @@
                             </tbody>
                         </table>
                     <div class="col-sm-12">
-                    	<button class="j-lixiang-save btn btn-success" id="btn_submit">保存</button>
+                    	<button class="j-lixiang-save btn btn-success" id="btn_assign">保存</button>
                 	</div>
                     </div>
                     <div class="tab-child col-sm-12">
@@ -151,10 +152,16 @@
                                 	#end
                                     </td>
                                     #if($!project.reviews.size() > 0)
+	                                    <td>
 	                                    #foreach($review in $!project.reviews)
-	                                    <td>$!review.remark</td>
-	                                    <td>$!review.reviewResult</td>
+	                                    	<p>$!review.remark</p>
 	                                    #end
+	                                    </td>
+	                                    <td>
+	                                    #foreach($review in $!project.reviews)
+	                                    	<p>$!review.reviewResult</p>
+	                                    #end
+	                                    </td>
 	                                #else
 	                                    <td></td>
 	                                    <td></td>
@@ -180,7 +187,7 @@
                             </tbody>
                         </table>
                         <div class="col-sm-12">
-                    		<button class="j-lixiang-save btn btn-success" id="btn_submit">保存</button>
+                    		<button class="j-lixiang-save btn btn-success" id="btn_build">保存</button>
                 		</div>
                     </div>
                     <div class="tab-child col-sm-12">
@@ -219,6 +226,64 @@
             $JTabs.eq($(this).index()).show().siblings().hide();
         }).eq(0).click();;
     });
+    
+	var expertArray = new Array();
+	var expertNameArray = new Array();
+	$(".expert-select-one").eq(0).find("option").each(function(){
+		expertArray.push($(this).val());
+		expertNameArray.push($(this).text()); 
+	});
+	
+	$(document).ready(function(){
+		$("#btn_assign").click(function(){
+			var user_ids = "";
+			$(".expert-select-one").each(function(){
+				user_ids += $(this).val()+",";
+			});
+			$(".expert-select-two").each(function(){
+				user_ids += $(this).val()+",";
+			});
+			var project_ids = "";
+			$("input[name='project_id']").each(function(){
+				project_ids += $(this).val()+",";
+			});
+			project_ids += project_ids;
+			alert(user_ids+" "+project_ids);
+			
+			jQuery.ajax({
+				url:'batchAssignExpert.htm',
+				type:'post',
+				data:{project_ids:project_ids,user_ids:user_ids},
+				success:function(){
+					window.location.href = "index.htm";
+				},
+				error:function(){
+	    			alert("对不起网络延迟，暂时无法加载信息");
+	    		}
+			});
+			
+		});
+		
+		$(".expert-select-one").change(function(){
+			//$(this).each(function(index){
+				var userId1 = $(this).val();
+				$(this).parent().children().eq(1).children().remove();
+				for(var i=0; i<expertArray.length; i++){
+					$(".expert-select-two").append("<option value='" + expertArray[i]+"'>" + expertNameArray[i]+ "</option>");
+				} 
+				$(".expert-select-two option").each(function(){
+					if($(this).val() == userId1){
+						$(this).remove();
+					}
+				}); 
+			//});
+		});
+		
+		$("#btn_build").click(function(){
+			
+		});
+	});
+
     </script>
 
 </body>

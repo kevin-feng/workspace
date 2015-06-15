@@ -12,12 +12,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tsc.core.base.IBaseDao;
 import org.tsc.core.tools.SysUtils;
+import org.tsc.service.IProjectService;
 import org.tsc.service.IUserService;
 
 @Service
@@ -25,6 +27,8 @@ import org.tsc.service.IUserService;
 public class UserService implements IUserService {
 	@Resource(name="userDao")
 	private IBaseDao userDao;
+	@Autowired
+	private IProjectService projectService;
 	
 	@Override
 	public boolean save(String sql) {
@@ -210,6 +214,14 @@ public class UserService implements IUserService {
 				return user_id.length;
 			}
 		});
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		for (int i = 0; i < project_id.length; i++) {
+			Map<String, Object> map2 = new HashMap<String, Object>();
+			map2.put("id", project_id[i]);
+			map2.put("status", 1);
+			list.add(map2);
+		}
+		projectService.batchUpdateProjectStatus(list);
 		return updateCounts;
 	}
 

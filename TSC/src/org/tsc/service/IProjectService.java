@@ -26,11 +26,11 @@ public interface IProjectService {
 		 */
 		public List<Map<String, Object>> getProjectsByStatus(String status);
 		/**
-		 * 获取每个项目对应的评审
-		 * @param 
+		 * 获取已申报项目对应的评审
+		 * @param  status为项目的状态，type为评审专家的类型
 		 * @return
 		 */
-		public List<Map<String, Object>> getProjectsAndReviews(String status);
+		public List<Map<String, Object>> getProjectsAndReviews(String status,int type);
 		
 		/**
 		 * 批量更新项目的status以及projectCode
