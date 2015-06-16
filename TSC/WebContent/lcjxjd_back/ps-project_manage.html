@@ -30,8 +30,6 @@
                     <a href="javascript:;">已申报</a>
                     <a href="javascript:;">已分配</a>
                     <a href="javascript:;">已评审</a>
-                    <a href="javascript:;">立项资助</a>
-                    <a href="javascript:;">立项不资助</a>
                     <a href="javascript:;">不立项</a>
                 </div>
 
@@ -144,6 +142,7 @@
                              #foreach($!project in $!projects)
                 			    #if($!project.status == 2)
                                 <tr>
+                                	<input type="hidden" name="projectId" value="$!project.id"/>
                                     <td>$!velocityCount</td>
                                     <td>$!project.name</td>
                                     <td> 
@@ -191,18 +190,58 @@
                 		</div>
                     </div>
                     <div class="tab-child col-sm-12">
-
+                        <table class="table table-hover table-bordered mt20">
+                            <thead>
+                                <tr>
+                                    <td class="th">序号</td>
+                                    <td class="th">项目名称</td>
+                                    <td class="th">评审专家</td>
+                                    <td class="th">专家评语</td>
+                                    <td class="th">评审结果</td>
+                                    <td class="th">状态</td>
+                                    <td class="th">操作</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                             #foreach($!project in $!projects)
+                			    #if($!project.status == 5)
+                                <tr>
+                                	<input type="hidden" name="projectId" value="$!project.id"/>
+                                    <td>$!velocityCount</td>
+                                    <td>$!project.name</td>
+                                    <td> 
+                                   	#foreach($expert in $!project.experts)
+                                        <p>$!expert.trueName</p>
+                                	#end
+                                    </td>
+                                    #if($!project.reviews.size() > 0)
+	                                    <td>
+	                                    #foreach($review in $!project.reviews)
+	                                    	<p>$!review.remark</p>
+	                                    #end
+	                                    </td>
+	                                    <td>
+	                                    #foreach($review in $!project.reviews)
+	                                    	<p>$!review.reviewResult</p>
+	                                    #end
+	                                    </td>
+	                                #else
+	                                    <td></td>
+	                                    <td></td>
+	                                #end
+                                    <td>不立项</td>
+		                             <td class="tc">
+		                                <button class="j-lixiang-edit">修改</button>
+		                            </td>
+		                                </tr>
+		                                 #end   
+		                   			#end
+                            </tbody>
+                        </table>
+                        <div class="col-sm-12">
+                    		<button class="j-lixiang-save btn btn-success" id="btn_build">保存</button>
+                		</div>
                     </div>
-                    <div class="tab-child col-sm-12">
-
-                    </div>
-                    <div class="tab-child col-sm-12">
-
-                    </div>
-                    <div class="tab-child col-sm-12">
-
-                    </div>
-
                 </div>
             </div>
             <!--<div class="col-md-11 right-content row">-->
@@ -280,7 +319,18 @@
 		});
 		
 		$("#btn_build").click(function(){
-			
+			var project_id = "";
+			$("input[name='projectId']").each(function(){
+				project_id += $(this).val() + ",";
+			});
+			var status = "";
+			$("select[name='status_select']").each(function(){
+				status += $(this).val() + ",";
+			});
+			alert(project_id + " " + status);
+			jQuery.post("updateProjectStatus.htm",{id:project_id,status:status},function(){
+				window.location.href = "showProjects.htm?type=0";
+			});
 		});
 	});
 

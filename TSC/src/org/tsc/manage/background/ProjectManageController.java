@@ -51,12 +51,11 @@ public class ProjectManageController {
 	}
 	
 	//保存项目的立不立项的操作
-	@RequestMapping(value="updateProjectStatus.htm",method=RequestMethod.GET)
-	public String updateProjectStatus(HttpServletRequest request,HttpServletResponse response,
+	@RequestMapping(value="updateProjectStatus.htm",method=RequestMethod.POST)
+	public void updateProjectStatus(HttpServletRequest request,HttpServletResponse response,
 			String id,String status) {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		list = projectService.setProjectCodeByStatus(id, status);
 		projectService.batchUpdateProjectStatus(list);
-		return "redirect:showProjects.htm?type=0";
 	}
 }
