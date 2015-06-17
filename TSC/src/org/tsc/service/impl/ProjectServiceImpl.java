@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.persistence.criteria.CriteriaBuilder.In;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -127,8 +128,7 @@ public class ProjectServiceImpl implements IProjectService{
 				String sql = "";
 				if (type == 0 && sta >= 2 && sta <= 5) {
 					sql = "select user.id as user_id,user.trueName,review.id as review_id,review.reviewResult,review.suggestion,review.remark"
-							+ " from tsc_review review inner join tsc_user user on review.user_id=user.id  where review.project_id="
-							+ id;
+							+ " from tsc_review review inner join tsc_user user on review.user_id=user.id  where review.project_id="+ id;
 				}else if (type == 1 && sta >= 8 && sta <= 10) {
 					sql = "SELECT `user`.id as user_id,`user`.trueName,interim_id,interim.workSituation,"
 							+ "review.id as review_id,review.remark FROM tsc_review review INNER JOIN tsc_interim interim "
