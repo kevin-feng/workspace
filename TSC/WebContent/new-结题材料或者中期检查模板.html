@@ -319,7 +319,7 @@
         var $JTabs = $('.J-tab .tab-child');
         $('.rcnt-nav-first a').click(function(event) {
             if($(this).index() != $('.rcnt-nav-first .choose').index()){
-                $JTabs.hide();
+                $JTabs.show();
                 $('.rcnt-nav-second a').removeClass('choose');
             }
             $(this).siblings().removeClass('choose').end().addClass('choose');
