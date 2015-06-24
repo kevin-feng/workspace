@@ -59,160 +59,6 @@
                 </div>
 
                 <div class="J-tab col-sm-12"><!-- 父类J-tab，子类tab-child -->
-                <!-- 通知动态 -->
-                   <!--  <div class="tab-child col-sm-12">
-                        <div class="col-sm-12">
-                            <h4 class="col-sm-offset-5 child-head">最新通知</h4>
-                        </div>
-                        <div class="col-sm-offset-1 col-sm-10 part1-notice">
-                            <ul class="n-w-ul">
-                                #if($!messages.size() == 0) 
-                                    暂无通知 
-                                #end 
-                                #foreach($message in $!messages)
-                                <li class="notice-list">
-                                    <a class="content" href="#">$!message.title</a>
-                                    <a href="deleteMessage.htm?id=$!message.id" class="notice-delete btn btn-danger btn-sm">删除</a>
-                                    <a href="toAddMessage.htm?id=$!message.id" class="notice-change btn btn-primary btn-sm">修改</a>
-                                </li>
-                                #end
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="tab-child col-sm-12">
-                        <div class="col-sm-12">
-                            <h4 class="col-sm-offset-5 child-head">工作动态</h4>
-                        </div>
-                        <div class="col-sm-offset-1 col-sm-10 part1-notice">
-                            <ul class="n-w-ul">
-                                #if($!workMessages.size() == 0) 
-                                    暂无工作动态 
-                                #end
-                                #foreach($message in $!workMessages)
-                                <li class="notice-list">
-                                    <a class="content" href="#">$!message.title</a>
-                                    <a href="deleteMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
-                                    </a>
-                                    <a href="toAddMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
-                                    </a>
-                                </li>
-                                #end
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="tab-child col-sm-12">
-                        <div class="col-sm-12">
-                            <h4 class="col-sm-offset-5 child-head">政策规定</h4>
-                        </div>
-                        <div class="col-sm-offset-1 h307 col-sm-10 part1-notice">
-                            <ul class="n-w-ul">
-                                #if($!policyMessages.size() == 0) 
-                                    暂无政策规定
-                                 #end 
-                                 #foreach($message in $!policyMessages)
-                                <li class="notice-list">
-                                    <a class="content" href="#">$!message.title</a>
-                                    <a href="deleteMessage.htm?id=$!message.id" class="notice-delete btn btn-danger btn-sm">删除</a>
-                                    <a href="toAddMessage.htm?id=$!message.id" class="notice-change btn btn-primary btn-sm">修改</a>
-                                </li>
-                                #end
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="tab-child col-sm-12">
-                        <div class="col-sm-12">
-                            <h4 class="col-sm-offset-5 child-head">理论探索</h4>
-                        </div>
-                        <div class="col-sm-offset-1 h307 col-sm-10 part1-notice">
-                            <ul class="n-w-ul">
-                                #if($!theoryMessages.size() == 0) 
-                                    暂无理论探索
-                                 #end 
-                                #foreach($message in $!theoryMessages)
-                                <li class="notice-list">
-                                    <a class="content" href="#">$!message.title</a>
-                                    <a href="deleteMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
-                                    </a>
-                                    <a href="toAddMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
-                                    </a>
-                                </li>
-                                #end
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="tab-child col-sm-12">
-                        <div class="col-sm-12">
-                            <h4 class="col-sm-offset-5 child-head">教学课程</h4>
-                        </div>
-                        <div class="col-sm-offset-1 h307 col-sm-10 part1-notice">
-                            <ul class="n-w-ul">
-                                #if($!courseMessages.size() == 0) 
-                                    暂无教学课程
-                                 #end 
-                                #foreach($message in $!courseMessages)
-                                <li class="notice-list">
-                                    <a class="content" href="#">$!message.title</a>
-                                    <a href="deleteMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
-                                    </a>
-                                    <a href="toAddMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
-                                    </a>
-                                </li>
-                                #end
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="tab-child col-sm-12">
-                        <div class="col-sm-12">
-                            <h4 class="col-sm-offset-5 child-head">基地评审</h4>
-                        </div>
-                        <div class="col-sm-offset-1 h307 col-sm-10 part1-notice">
-                            <ul class="n-w-ul">
-                                #if($!reviewMessages.size() == 0) 
-                                    暂无网上评审
-                                 #end 
-                                #foreach($message in $!reviewMessages)
-                                <li class="notice-list">
-                                    <a class="content" href="#">$!message.title</a>
-                                    <a href="deleteMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
-                                    </a>
-                                    <a href="toAddMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
-                                    </a>
-                                </li>
-                                #end
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="tab-child col-sm-12">
-                        <div class="col-sm-12">
-                            <h4 class="col-sm-offset-5 child-head">结果公示</h4>
-                        </div>
-                        <div class="col-sm-offset-1 col-sm-10 h307 part1-notice">
-                            <ul class="n-w-ul">
-                                #if($!resultMessages.size() == 0) 
-                                    暂无结果公示
-                                 #end 
-                                #foreach($message in $!resultMessages)
-                                <li class="notice-list">
-                                    <a class="content" href="#">$!message.title</a>
-                                    <a href="deleteMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
-                                    </a>
-                                    <a href="toAddMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
-                                    </a>
-                                </li>
-                                #end
-                            </ul>
-                        </div>
-                    </div> -->
                 <!-- 项目管理 -->
                     <div class="tab-child col-sm-12">
                         <table class="table table-hover table-bordered mt20">
@@ -281,16 +127,13 @@
                         </table>
                     </div>
                     <div class="tab-child col-sm-12">
-
+3
                     </div>
                     <div class="tab-child col-sm-12">
-
+4
                     </div>
                     <div class="tab-child col-sm-12">
-
-                    </div>
-                    <div class="tab-child col-sm-12">
-
+5
                     </div>
 
                 </div>
@@ -319,7 +162,7 @@
         var $JTabs = $('.J-tab .tab-child');
         $('.rcnt-nav-first a').click(function(event) {
             if($(this).index() != $('.rcnt-nav-first .choose').index()){
-                $JTabs.show();
+                $JTabs.hide();
                 $('.rcnt-nav-second a').removeClass('choose');
             }
             $(this).siblings().removeClass('choose').end().addClass('choose');

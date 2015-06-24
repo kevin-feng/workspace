@@ -9,9 +9,11 @@
     <link type="text/css" rel="stylesheet" href="/TSC/resources/css/manage-background/ps-index.css">
     <style>
     #content .right-content {
-        padding: 62px 0;
+        padding: 90px 0;
     }
     #content .rcnt-nav-first{
+        border: 1px solid #282828;
+        border-bottom: none;
         padding-left: 92px;
     }
     #content .rcnt-nav-first a{
@@ -22,6 +24,7 @@
     #content .rcnt-nav-first a.choose{
         border-color: #000;
     }
+    #content .tab-child .tab-tit{margin-top: 20px;text-align: center;font-size: 16px;color: #fff;line-height: 32px;background-color: #555555;}
     </style>
 </head>
 
@@ -54,6 +57,7 @@
                 <div class="J-tab col-sm-12"><!-- 父类J-tab，子类tab-child -->
                 <!-- 项目管理 -->
                     <div class="tab-child col-sm-12">
+                        <p class="tab-tit">已填写</p>
                         <table class="table table-hover table-bordered mt20">
                             <thead>
                                 <tr>
@@ -96,6 +100,7 @@
                         </table>
                     </div>
                     <div class="tab-child col-sm-12">
+                        <p class="tab-tit">已分配</p>
                         <table class="table table-hover table-bordered mt20">
                             <thead>
                                 <tr>
@@ -125,16 +130,22 @@
                         </table>
                     </div>
                     <div class="tab-child col-sm-12">
-
+                        <p class="tab-tit">已评审</p>
+                        <p>3</p>
+                        <p>3</p>
+                        <p>3</p>
                     </div>
                     <div class="tab-child col-sm-12">
-
+                        <p class="tab-tit">通过</p>
+                        <p>4</p>
+                        <p>4</p>
+                        <p>4</p>
                     </div>
                     <div class="tab-child col-sm-12">
-
-                    </div>
-                    <div class="tab-child col-sm-12">
-
+                        <p class="tab-tit">不通过</p>  
+                        <p>5</p>
+                        <p>5</p>
+                        <p>5</p>
                     </div>
 
                 </div>
@@ -154,22 +165,17 @@
     <script>
     $(function(){
         FIX.fixbar.set('.right-cnt-nav');
-        // var $JTabs = $('.J-tab .tab-child');
-        // $('.right-cnt-nav a').click(function(event) {
-        //     $(this).siblings().removeClass('choose').end().addClass('choose');
-        //     $JTabs.eq($(this).index()).show().siblings().hide();
-        // }).eq(0).click();;
-
         var $JTabs = $('.J-tab .tab-child');
         $('.rcnt-nav-first a').click(function(event) {
-            if($(this).index() != $('.rcnt-nav-first .choose').index()){
-                $JTabs.hide();
-                $('.rcnt-nav-second a').removeClass('choose');
-            }
+            // if($(this).index() != $('.rcnt-nav-first .choose').index()){
+            //     $JTabs.show();//1
+            //     $('.rcnt-nav-second a').removeClass('choose');
+            // }
+            $JTabs.show();//1
+            $('.rcnt-nav-second a').removeClass('choose');
             $(this).siblings().removeClass('choose').end().addClass('choose');
             $('.rcnt-nav-second a').show();
         }).eq(0).click();
-
         $('.rcnt-nav-second a').click(function(event) {
             $(this).siblings().removeClass('choose').end().addClass('choose');
             $JTabs.eq($(this).index()).show().siblings().hide();
