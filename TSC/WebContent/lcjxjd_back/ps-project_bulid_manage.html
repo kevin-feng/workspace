@@ -56,6 +56,7 @@
                 <div class="J-tab col-sm-12"><!-- 父类J-tab，子类tab-child -->
                 <!-- 项目管理 -->
                     <div class="tab-child col-sm-12">
+                    点击了立项资助或者立项不资助
                         <table class="table table-hover table-bordered mt20">
                             <thead>
                                 <tr>
@@ -97,51 +98,28 @@
                             </tbody>
                         </table>
                     </div>
+
                     <div class="tab-child col-sm-12">
-                        <table class="table table-hover table-bordered mt20">
-                            <thead>
-                                <tr>
-                                    <td class="th">序号</td>
-                                    <td class="th">项目名称</td>
-                                    <td class="th">评审专家</td>
-                                    <td class="th">专家评语</td>
-                                    <td class="th">评审结果</td>
-                                    <td class="th">状态</td>
-                                    <td class="th">操作</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>序号</td>
-                                    <td>项目名称</td>
-                                    <td> 
-                                        <p>专家1</p>
-                                        <p>专家2</p>
-                                    </td>
-                                    <td>专家评语</td>
-                                    <td>评审结果</td>
-                                    <td>状态</td>
-                                    <td><button class="j-lixiang-edit">修改</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <p>点击已填写</p>
+
                     </div>
                     <div class="tab-child col-sm-12">
-                        <p>3</p>
-                        <p>3</p>
-                        <p>3</p>
-                    </div>
-                    <div class="tab-child col-sm-12">
-                        <p>4</p>
-                        <p>4</p>
-                        <p>4</p>
+                        <p>点击已分配</p>
+
+
                     </div>
                     <div class="tab-child col-sm-12">  
-                        <p>5</p>
-                        <p>5</p>
-                        <p>5</p>
-                    </div>
+                        <p>点击已评审</p>
 
+                    </div>
+                    <div class="tab-child col-sm-12">  
+                        <p>通过</p>
+
+                    </div>
+                    <div class="tab-child col-sm-12">  
+                        <p>不通过</p>
+
+                    </div>
                 </div>
             </div>
             <!--<div class="col-md-11 right-content row">-->
@@ -161,18 +139,14 @@
         FIX.fixbar.set('.right-cnt-nav');
         var $JTabs = $('.J-tab .tab-child');
         $('.rcnt-nav-first a').click(function(event) {
-            // if($(this).index() != $('.rcnt-nav-first .choose').index()){
-            //     $JTabs.show();//1
-            //     $('.rcnt-nav-second a').removeClass('choose');
-            // }
-            $JTabs.show();//1
+            $JTabs.eq(0).show().siblings().hide();
             $('.rcnt-nav-second a').removeClass('choose');
             $(this).siblings().removeClass('choose').end().addClass('choose');
             $('.rcnt-nav-second a').show();
         }).eq(0).click();
         $('.rcnt-nav-second a').click(function(event) {
             $(this).siblings().removeClass('choose').end().addClass('choose');
-            $JTabs.eq($(this).index()).show().siblings().hide();
+            $JTabs.eq($(this).index()+1).show().siblings().hide();
         });
     });
     </script>
