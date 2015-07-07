@@ -24,7 +24,7 @@ import org.tsc.service.IUserService;
 
 @Service
 @Transactional
-public class UserService implements IUserService {
+public class UserServiceImpl implements IUserService {
 	@Resource(name="userDao")
 	private IBaseDao userDao;
 	@Autowired

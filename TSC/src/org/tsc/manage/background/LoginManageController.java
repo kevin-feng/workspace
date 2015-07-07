@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.tsc.core.tools.MD5;
 import org.tsc.service.IUserService;
 
 @Controller
@@ -32,8 +33,9 @@ public class LoginManageController {
 	public String login(HttpServletRequest request,HttpServletResponse response,
 			String userName,String password) {
 		if (userName != null && !userName.equals("") && password != null && !password.equals("")) {
+			String encodePassword = MD5.md5Encode(password);
 			String sqlString = "SELECT * FROM tsc_user WHERE userName='"
-		+userName+"' AND password='"+password+"'";
+		+userName+"' AND password='"+encodePassword+"'";
 			Map<String, Object> map = userService.queryForMap(sqlString);
 			//登录成功
 			if (map != null) {

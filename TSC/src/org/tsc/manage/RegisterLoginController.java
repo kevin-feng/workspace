@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.tsc.bean.User;
+import org.tsc.core.tools.MD5;
 import org.tsc.service.IUserService;
 
 @Controller
@@ -30,12 +31,14 @@ public class RegisterLoginController {
 	@RequestMapping(value="/register.htm",method=RequestMethod.POST)
 	public String register(HttpServletRequest request,HttpServletResponse response,
 			User user) {
-		System.out.println("user = "+user.getUserName());
-		String sqlString = "INSERT INTO tsc_user (addTime,userName,password,trueName,email,userRole) "
-				+ "VALUES (NOW(),'"+user.getUserName()+"','"+user.getPassword()+"','"+user.getTrueName()+"',"
-						+ "'"+user.getEmail()+"','DECLARER')";
-		System.out.println(sqlString);
-		userService.save(sqlString);
+		String password = user.getPassword();
+		if (!"".equals(password)) {
+			String encodePassword = MD5.md5Encode(password);
+			String sqlString = "INSERT INTO tsc_user (addTime,userName,password,trueName,email,userRole) "
+					+ "VALUES (NOW(),'"+user.getUserName()+"','"+encodePassword+"','"+user.getTrueName()+"',"
+					+ "'"+user.getEmail()+"','DECLARER')";
+			userService.save(sqlString);
+		}
 		return "redirect:login_index.htm";
 	}
 	
@@ -51,8 +54,9 @@ public class RegisterLoginController {
 	public String login(HttpServletRequest request,HttpServletResponse response,
 			String userName,String password) {
 		if (userName != null && !userName.equals("") && password != null && !password.equals("")) {
+			String encodePassword = MD5.md5Encode(password);
 			String sqlString = "SELECT * FROM tsc_user WHERE userName='"
-		+userName+"' AND password='"+password+"'";
+		+userName+"' AND password='"+encodePassword+"'";
 			Map<String, Object> map = userService.queryForMap(sqlString);
 			//登录成功
 			if (map != null) {

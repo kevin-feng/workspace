@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.tsc.core.tools.MD5;
 import org.tsc.core.tools.SysUtils;
 import org.tsc.service.IUserService;
 
@@ -65,12 +66,12 @@ public class UserManageController {
 	@RequestMapping(value="/addUser.htm",method=RequestMethod.POST)
 	public String addUser(HttpServletRequest request,HttpServletResponse response,
 			String userName,String password,Long id) {
-		System.out.println("id = "+id);
+		String encodePassword = MD5.md5Encode(password);
 		if (id != null) {
-			String sqlString = "UPDATE tsc_user SET password='"+password+"' WHERE id="+id;
+			String sqlString = "UPDATE tsc_user SET password='"+encodePassword+"' WHERE id="+id;
 			userService.update(sqlString);
 		}else {
-			String sqlString="INSERT INTO tsc_user (userName,password) VALUES ('"+userName+"','"+password+"')";
+			String sqlString="INSERT INTO tsc_user (userName,password) VALUES ('"+userName+"','"+encodePassword+"')";
 			userService.save(sqlString);		
 		}
 		return "redirect:showUsers.htm";

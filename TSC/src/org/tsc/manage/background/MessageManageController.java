@@ -26,7 +26,7 @@ import org.tsc.dao.IMessageDao;
 import org.tsc.service.IAccessoryService;
 import org.tsc.service.IMessageService;
 import org.tsc.service.IUserService;
-import org.tsc.service.impl.UserService;
+import org.tsc.service.impl.UserServiceImpl;
 
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.sun.xml.internal.ws.resources.PolicyMessages;
