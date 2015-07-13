@@ -110,6 +110,15 @@ public class ProjectServiceImpl implements IProjectService{
 		projects = queryForList("select id,name,status,project_code from tsc_project where status in ("+status+")");
 		return projects;
 	}
+	
+	/**
+	 * 通过项目编号和项目状态获取项目列表
+	 * @param status
+	 * @return
+	 */
+	public List<Map<String, Object>> getProjectByCodeAndStatus(String status) {
+		return null;
+	}
 
 	@Override
 	public List<Map<String, Object>> getProjectsAndReviews(String status,int type) {
