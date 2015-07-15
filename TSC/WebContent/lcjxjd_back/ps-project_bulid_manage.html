@@ -58,7 +58,7 @@
                     <div class="tab-child col-sm-12">
                         <table class="table table-hover table-bordered mt20">
                             <thead>
-                                <tr>
+                                <tr>`
                                     <td class="th">项目编号</td>
                                     <td class="th">项目名称</td>
                                     <td class="th">中期检查</td>
@@ -71,6 +71,7 @@
                             </thead>
                             <tbody>
                               #foreach($!project in $!projects)
+                           		#if($!project.status == 4)
                                 <tr>
                                     <td>$!project.project_code</td>
                                     <td>$!project.name</td>
@@ -93,6 +94,52 @@
                                     <td>状态</td>
                                     <td><button class="j-lixiang-edit">修改</button></td>
                                 </tr>
+                                #end
+                                #end
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="tab-child col-sm-12">
+                        <table class="table table-hover table-bordered mt20">
+                            <thead>
+                                <tr>`
+                                    <td class="th">项目编号</td>
+                                    <td class="th">项目名称</td>
+                                    <td class="th">中期检查</td>
+                                    <td class="th">评审专家</td>
+                                    <td class="th">专家评语</td>
+                                    <td class="th">评审结果</td>
+                                    <td class="th">状态</td>
+                                    <td class="th">操作</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              #foreach($!project in $!projects)
+                              #if($!project.status == 5)
+                                <tr>
+                                    <td>$!project.project_code</td>
+                                    <td>$!project.name</td>
+                                    <td>中期材料</td>
+                                    #foreach($expert in $!project.experts)
+                                    <td> 
+                                        <p>$!expert.trueName</p>
+                                    </td>
+                                	#end
+                                    #if($!project.reviews.size() > 0)
+	                                    #foreach($review in $!project.reviews)
+	                                    <td>$!review.remark</td>
+	                                    <td>$!review.reviewResult</td>
+	                                    #end
+	                                #else
+	                                    <td></td>
+	                                    <td></td>
+	                                #end
+                                    <td></td>
+                                    <td>状态</td>
+                                    <td><button class="j-lixiang-edit">修改</button></td>
+                                </tr>
+                                #end
                                 #end
                             </tbody>
                         </table>

@@ -129,7 +129,7 @@ public class ProjectServiceImpl implements IProjectService{
 			for (Map<String, Object> map : projects) {
 				Long id = (Long) map.get("id");
 				String sqlString = "select user.id,user.trueName from tsc_user2project u2p inner join "
-						+ "tsc_user user on user.id=u2p.user_id where u2p.type="+type+" and u2p.project_id="+id;
+						+ "tsc_user user on user.id=u2p.user_id where u2p.type="+type+" and u2p.project_id="+id+" and user.userRole='EXPERT'";
 				List<Map<String, Object>> experts = new ArrayList<Map<String,Object>>();
 				experts = queryForList(sqlString); 
 				map.put("experts", experts);
