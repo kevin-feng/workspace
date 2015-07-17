@@ -36,20 +36,22 @@ public class ExpertManageController {
 	//批量生成专家的账号密码
 	@RequestMapping(value="batchAddAccount.htm",method=RequestMethod.POST)
 	public ModelAndView batchAddAccount(HttpServletRequest request,HttpServletResponse response,
-			int count) {
+			int count,int type) {
 		ModelAndView mv = new ModelAndView("lcjxjd_back/ps-index-addexpert_list.html");
 		List<Map<String, Object>> accounts = new ArrayList<Map<String,Object>>();
 		accounts = userService.batchCreateAccount(count);
 		mv.addObject("accounts", accounts);
+		mv.addObject("type", type);
 		return mv;
 	}
 	
 	//批量保存专家的信息
 	@RequestMapping(value="/batchAddExpert.htm",method=RequestMethod.POST)
 	public void batchAddExpert(HttpServletRequest request,HttpServletResponse response,
-			User user) {
+			User user,int type) {
 		System.out.println(user.getTrueName()+"   "+user.getUserName()+"   "+user.getPassword());
 		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("type", type);
 		map.put("trueName", user.getTrueName());
 		map.put("userName", user.getUserName());
 		map.put("password", user.getPassword());

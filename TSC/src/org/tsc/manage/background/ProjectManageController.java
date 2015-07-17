@@ -33,18 +33,22 @@ public class ProjectManageController {
 		ModelAndView modelAndView = null;
 		List<Map<String, Object>> projects = new ArrayList<Map<String,Object>>();
 		//type=0为项目管理页面，1为立项管理的中期检查项目的页面，2为立项管理的结题材料的页面
+		String sql = "";
 		if (type == 0) {
 			modelAndView = new ModelAndView("lcjxjd_back/ps-project_manage.html");			
 			projects = projectService.getProjectsAndReviews("0,1,2,5",0);
-			List<Map<String, Object>>experts = userService.queryForList("select id,trueName from tsc_user where userRole='EXPERT'");
-			modelAndView.addObject("experts", experts);
+			sql = "select id,trueName from tsc_user where userRole='EXPERT'";
 		}else if (type == 1) {
 			modelAndView = new ModelAndView("lcjxjd_back/ps-project_bulid_manage.html");
 			projects = projectService.getProjectsAndReviews("3,4,6,7,8,9,10",1);
+			sql = "select id,trueName from tsc_user where userRole='INTERIM_EXPERT'";
 		}else if (type == 2) {
 			modelAndView = new ModelAndView("lcjxjd_back/ps-project_bulid_manage.html");
 			projects = projectService.getProjectsAndReviews("11,12,13,14,15",2);	
+			sql = "select id,trueName from tsc_user where userRole='TERMINATION_EXPERT'";
 		}
+		List<Map<String, Object>>experts = userService.queryForList(sql);
+		modelAndView.addObject("experts", experts);
 		System.out.println(projects);
 		modelAndView.addObject("projects", projects);
 		return modelAndView;

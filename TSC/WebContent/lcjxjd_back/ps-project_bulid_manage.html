@@ -71,11 +71,11 @@
                             </thead>
                             <tbody>
                               #foreach($!project in $!projects)
-                           		#if($!project.status == 4)
+                           		#if($!project.status == 3)
                                 <tr>
                                     <td>$!project.project_code</td>
                                     <td>$!project.name</td>
-                                    <td>中期材料</td>
+                                    <td></td>
                                     #foreach($expert in $!project.experts)
                                     <td> 
                                         <p>$!expert.trueName</p>
@@ -91,7 +91,7 @@
 	                                    <td></td>
 	                                #end
                                     <td></td>
-                                    <td>状态</td>
+                                    <td>立项资助</td>
                                     <td><button class="j-lixiang-edit">修改</button></td>
                                 </tr>
                                 #end
@@ -116,11 +116,11 @@
                             </thead>
                             <tbody>
                               #foreach($!project in $!projects)
-                              #if($!project.status == 5)
+                              #if($!project.status == 4)
                                 <tr>
                                     <td>$!project.project_code</td>
                                     <td>$!project.name</td>
-                                    <td>中期材料</td>
+                                    <td></td>
                                     #foreach($expert in $!project.experts)
                                     <td> 
                                         <p>$!expert.trueName</p>
@@ -136,7 +136,7 @@
 	                                    <td></td>
 	                                #end
                                     <td></td>
-                                    <td>状态</td>
+                                    <td>立项不资助</td>
                                     <td><button class="j-lixiang-edit">修改</button></td>
                                 </tr>
                                 #end
@@ -385,14 +385,14 @@
         FIX.fixbar.set('.right-cnt-nav');
         var $JTabs = $('.J-tab .tab-child');
         $('.rcnt-nav-first a').click(function(event) {
-            $JTabs.eq(0).show().siblings().hide();
+            $JTabs.eq($(this).index()).show().siblings().hide();
             $('.rcnt-nav-second a').removeClass('choose');
             $(this).siblings().removeClass('choose').end().addClass('choose');
             $('.rcnt-nav-second a').show();
         }).eq(0).click();
         $('.rcnt-nav-second a').click(function(event) {
             $(this).siblings().removeClass('choose').end().addClass('choose');
-            $JTabs.eq($(this).index()+1).show().siblings().hide();
+            $JTabs.eq($(this).index()+2).show().siblings().hide();
         });
     });
     </script>

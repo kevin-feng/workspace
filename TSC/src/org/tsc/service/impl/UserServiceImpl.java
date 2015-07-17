@@ -155,11 +155,19 @@ public class UserServiceImpl implements IUserService {
 		String trueNames = (String)map.get("trueName");
 		String userNames = (String)map.get("userName");
 		String passwords = (String)map.get("password");
+		int type = (Integer)map.get("type");
 		final String[] trueName = trueNames.split(",");
 		final String[] userName = userNames.split(",");
 		final String[] password = passwords.split(",");
-		
-		String sql = "insert into tsc_user (addTime,trueName,userName,password,userRole) values (NOW(),?,?,?,'EXPERT')";
+		String userRole = "";
+		if(type == 0){
+			userRole = "EXPERT";
+		}else if (type == 1) {
+			userRole = "INTERIM_EXPERT";
+		}else {
+			userRole = "TERMINATION_EXPERT";
+		}
+		String sql = "insert into tsc_user (addTime,trueName,userName,password,userRole) values (NOW(),?,?,?,'"+userRole+"')";
 		int[] updateCounts = this.userDao.getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
 			
 			@Override

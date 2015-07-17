@@ -32,7 +32,9 @@
 
             <div class="tab col-sm-12 mt20">
                 <div class="col-sm-12">
-                    <button type="button" id="btAddExpert" class="btn btn-primary" data-toggle="modal">添加专家</button>
+                    <button type="button"  class="btn btn-primary" data-toggle="modal" onclick="addExpert(0)">添加项目评审专家</button>
+                    <button type="button"  class="btn btn-primary" data-toggle="modal" onclick="addExpert(1)">添加中期评审专家</button>
+                    <button type="button"  class="btn btn-primary" data-toggle="modal" onclick="addExpert(2)">添加结题评审专家</button>
                     <label for="expertCount">生成数量</label>
                     <input class="num"  id="expertCount" placeholder="1" value="1"/>
                 </div>
@@ -56,7 +58,22 @@
 
 <script src="/TSC/resources/js/manege-back/ps-tab.js" type="text/javascript"></script>
 <script>
-    $(document).ready(function(){
+	function addExpert(type){
+		var expertCount = $("#expertCount").val();
+    	jQuery.ajax({
+    		url: 'batchAddAccount.htm',
+    		type: 'post',
+    		dataType: 'html',
+    		data:{count:expertCount,type:type},
+    		success:function(data){
+    			$("#expert_div").empty().append(data);
+    		},
+    		error:function(){
+    			alert("对不起网络延迟，暂时无法加载信息");
+    		}
+    	});
+	}
+   /*  $(document).ready(function(){
 	    $("#btAddExpert").click(function(){
 	    	var expertCount = $("#expertCount").val();
 	    	jQuery.ajax({
@@ -72,7 +89,7 @@
 	    		}
 	    	});
 	    });  	
-    });
+    }); */
 </script>
 </body>
 </html>

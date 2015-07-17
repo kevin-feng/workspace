@@ -14,6 +14,7 @@
 		                        </thead>
 		
 		                        <tbody id="showExpert">
+		                        <input type="hidden" id="type" value="$!type"/>
 									#foreach($account in $!accounts)
 									<tr>
 										<td class='expert'> <input type="text" name="trueName"/></td> 
@@ -34,6 +35,7 @@
 				var trueName =  "";
 				var userName = "";
 				var password = "";
+				var type = $("#type").val();
 				$("input[name='trueName']").each(function(){
 					trueName += $(this).val()+",";
 				});
@@ -46,9 +48,9 @@
 				jQuery.ajax({
 					url:'batchAddExpert.htm',
 					type:'post',
-					data:{trueName:trueName,userName:userName,password:password},
+					data:{trueName:trueName,userName:userName,password:password,type:type},
 					success:function(){
-						window.location.href="bg_index.htm";
+						window.location.href="index.htm";
 					},
 					error:function(){
 		    			alert("对不起网络延迟，暂时无法加载信息");
