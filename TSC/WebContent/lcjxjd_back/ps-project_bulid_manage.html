@@ -162,6 +162,7 @@
                             <tbody>
                               #foreach($!project in $!projects)
                               	#if($!project.status == 6)
+                              	<input type="hidden" name="project_id" value="$!project.id"/>
                                 <tr>
                                     <td>$!project.project_code</td>
                                     <td>$!project.name</td>
@@ -189,7 +190,9 @@
                               #end
                             </tbody>
                         </table>
-
+						<div class="col-sm-12">
+                    		<button class="j-lixiang-save btn btn-success" id="btn_assign">保存</button>
+                		</div>
                     </div>
                     <div class="tab-child col-sm-12">
                         <table class="table table-hover table-bordered mt20">
@@ -280,7 +283,9 @@
                               #end
                             </tbody>
                         </table>
-
+						<div class="col-sm-12">
+                    		<button class="j-lixiang-save btn btn-success" id="btn_submit">保存</button>
+                		</div>
                     </div>
                     <div class="tab-child col-sm-12">  
                         <table class="table table-hover table-bordered mt20">
@@ -394,6 +399,33 @@
             $(this).siblings().removeClass('choose').end().addClass('choose');
             $JTabs.eq($(this).index()+2).show().siblings().hide();
         });
+        
+        
+        $("#btn_assign").click(function(){
+			var user_ids = "";
+			$(".expert-select-one").each(function(){
+				user_ids += $(this).val()+",";
+			});
+			var project_ids = "";
+			$("input[name='project_id']").each(function(){
+				project_ids += $(this).val()+",";
+			});
+			project_ids += project_ids;
+			alert(user_ids+" "+project_ids);
+			
+			jQuery.ajax({
+				url:'batchAssignExpert.htm',
+				type:'post',
+				data:{project_ids:project_ids,user_ids:user_ids},
+				success:function(){
+					window.location.href = "index.htm";
+				},
+				error:function(){
+	    			alert("对不起网络延迟，暂时无法加载信息");
+	    		}
+			});
+			
+		});
     });
     </script>
 
