@@ -121,28 +121,30 @@ public class ProjectServiceImpl implements IProjectService{
 	}
 
 	@Override
-	public List<Map<String, Object>> getProjectsAndReviews(String status,int type) {
+	public List<Map<String, Object>> getProjectsAndReviews(String status,String userRole) {
 		// TODO Auto-generated method stub
 		List<Map<String, Object>> projects = new ArrayList<Map<String,Object>>();
 		projects = getProjectsByStatus(status);
 		if (projects != null && projects.size() > 0) {
 			for (Map<String, Object> map : projects) {
 				Long id = (Long) map.get("id");
-				String sqlString = "select user.id,user.trueName from tsc_user2project u2p inner join "
-						+ "tsc_user user on user.id=u2p.user_id where u2p.type="+type+" and u2p.project_id="+id+" and user.userRole='EXPERT'";
+//				String sqlString = "select user.id,user.trueName from tsc_user2project u2p inner join "
+//						+ "tsc_user user on user.id=u2p.user_id where u2p.type="+type+" and u2p.project_id="+id+" and user.userRole='EXPERT'";
+				String sqlString = "SELECT user.id,user.trueName FROM tsc_user2project u2p INNER JOIN tsc_user user ON u2p.user_id = `user`.id WHERE `user`.userRole = '"+userRole+"' AND u2p.project_id = '"+id+"' ";
+				System.out.println(sqlString);
 				List<Map<String, Object>> experts = new ArrayList<Map<String,Object>>();
 				experts = queryForList(sqlString); 
 				map.put("experts", experts);
 				int sta = Integer.parseInt(map.get("status").toString());
 				String sql = "";
-				if (type == 0 && sta >= 2 && sta <= 5) {
+				if (userRole.equals("EXPERT") && sta >= 2 && sta <= 5) {
 					sql = "select user.id as user_id,user.trueName,review.id as review_id,review.reviewResult,review.suggestion,review.remark"
 							+ " from tsc_review review inner join tsc_user user on review.user_id=user.id  where review.project_id="+ id;
-				}else if (type == 1 && sta >= 8 && sta <= 10) {
+				}else if (userRole.equals("INTERIM_EXPERT") && sta >= 8 && sta <= 10) {
 					sql = "SELECT `user`.id as user_id,`user`.trueName,interim_id,interim.workSituation,"
 							+ "review.id as review_id,review.remark FROM tsc_review review INNER JOIN tsc_interim interim "
 							+ "ON review.interim_id = interim.id INNER JOIN tsc_user user ON `user`.id = review.user_id  WHERE interim.project_id=1";
-				}else if (type == 2 && sta >=13 && sta <=15) {
+				}else if (userRole.equals("TERMINATION_EXPERT") && sta >=13 && sta <=15) {
 					sql = "SELECT `user`.id as user_id,`user`.trueName,termination_id,termination.*,"
 							+ "review.id as review_id,review.remark FROM tsc_review review INNER JOIN tsc_termination termination "
 							+ "ON review.termination_id = termination.id INNER JOIN tsc_user user ON `user`.id = review.user_id  WHERE termination.project_id=1";
@@ -155,6 +157,29 @@ public class ProjectServiceImpl implements IProjectService{
 		return projects;
 	}
 
+	@Override
+	public int[] batchUpdateStatusById(String id,String status) {
+		final String[] ids = id.split(",");
+		final String[] statuses = status.split(",");
+		String sql = "update tsc_project set status=? where id=?";
+		int[] updateCount = this.projectDao.getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
+			
+			@Override
+			public void setValues(PreparedStatement arg0, int arg1) throws SQLException {
+				// TODO Auto-generated method stub
+				arg0.setInt(1, Integer.parseInt(statuses[arg1]));
+				arg0.setLong(2, Long.parseLong(ids[arg1]));
+			}
+			
+			@Override
+			public int getBatchSize() {
+				// TODO Auto-generated method stub
+				return ids.length;
+			}
+		});
+		return updateCount;
+	}
+	
 	@Override
 	public int[] batchUpdateProjectStatus(final List<Map<String, Object>> list) {
 		// TODO Auto-generated method stub

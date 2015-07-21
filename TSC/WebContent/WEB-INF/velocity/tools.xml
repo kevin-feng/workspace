@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <toolbox>
+	<!-- <tool>
+		<key>StringUtils</key>
+		<scope>application</scope>
+		<class>org.apache.commons.lang3.StringUtils</class>
+	</tool> -->
 	<tool>
 		<key>dateTools</key>
 		<scope>application</scope>
@@ -9,11 +14,6 @@
 		<key>esc</key>
 		<scope>application</scope>
 		<class>org.apache.velocity.tools.generic.EscapeTool</class>
-	</tool>
-	<tool>
-		<key>StringUtils</key>
-		<scope>application</scope>
-		<class>org.apache.commons.lang3.StringUtils</class>
 	</tool>
 	<!--  
 	<tool>

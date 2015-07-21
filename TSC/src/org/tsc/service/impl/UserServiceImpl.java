@@ -226,7 +226,7 @@ public class UserServiceImpl implements IUserService {
 		for (int i = 0; i < project_id.length; i++) {
 			Map<String, Object> map2 = new HashMap<String, Object>();
 			map2.put("id", project_id[i]);
-			map2.put("status", 1);
+			map2.put("status", map.get("status"));
 			list.add(map2);
 		}
 		projectService.batchUpdateProjectStatus(list);

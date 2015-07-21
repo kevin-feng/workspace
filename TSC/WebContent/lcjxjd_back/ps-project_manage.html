@@ -50,6 +50,7 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            <input type="hidden" name="status" value="1"/>
                             #foreach($!project in $!projects)
                 			    #if($!project.status == 0)
                                 <tr>
@@ -287,12 +288,13 @@
 				project_ids += $(this).val()+",";
 			});
 			project_ids += project_ids;
+			var status = $("input[name='status']").val();
 			alert(user_ids+" "+project_ids);
 			
 			jQuery.ajax({
 				url:'batchAssignExpert.htm',
 				type:'post',
-				data:{project_ids:project_ids,user_ids:user_ids},
+				data:{project_ids:project_ids,user_ids:user_ids,status:status},
 				success:function(){
 					window.location.href = "index.htm";
 				},

@@ -30,7 +30,7 @@ public interface IProjectService {
 		 * @param  status为项目的状态，type为评审专家的类型
 		 * @return
 		 */
-		public List<Map<String, Object>> getProjectsAndReviews(String status,int type);
+		public List<Map<String, Object>> getProjectsAndReviews(String status,String userRole);
 		
 		/**
 		 * 批量更新项目的status以及projectCode
@@ -47,5 +47,13 @@ public interface IProjectService {
 		 * @return [{id="1",status="3",projectCode="2015JDA001"},{}]
 		 */
 		public List<Map<String, Object>> setProjectCodeByStatus(String ids,String statuses);
+		
+		/**
+		 * 批量更新项目状态通过id
+		 * @param id
+		 * @param status
+		 * @return
+		 */
+		public int[] batchUpdateStatusById(String id,String status);
 
 }

@@ -1,12 +1,14 @@
 package org.tsc.manage.background;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,16 +38,33 @@ public class ProjectManageController {
 		String sql = "";
 		if (type == 0) {
 			modelAndView = new ModelAndView("lcjxjd_back/ps-project_manage.html");			
-			projects = projectService.getProjectsAndReviews("0,1,2,5",0);
+			projects = projectService.getProjectsAndReviews("0,1,2,5","EXPERT");
 			sql = "select id,trueName from tsc_user where userRole='EXPERT'";
 		}else if (type == 1) {
-			modelAndView = new ModelAndView("lcjxjd_back/ps-project_bulid_manage.html");
-			projects = projectService.getProjectsAndReviews("3,4,6,7,8,9,10",1);
+			modelAndView = new ModelAndView("lcjxjd_back/ps-project_interim_manage.html");
+			projects = projectService.getProjectsAndReviews("3,4,6,7,8,9,10","INTERIM_EXPERT");
 			sql = "select id,trueName from tsc_user where userRole='INTERIM_EXPERT'";
 		}else if (type == 2) {
-			modelAndView = new ModelAndView("lcjxjd_back/ps-project_bulid_manage.html");
-			projects = projectService.getProjectsAndReviews("11,12,13,14,15",2);	
+			modelAndView = new ModelAndView("lcjxjd_back/ps-project_termination_manage.html");
+			projects = projectService.getProjectsAndReviews("9,11,12,13,14,15","TERMINATION_EXPERT");	
 			sql = "select id,trueName from tsc_user where userRole='TERMINATION_EXPERT'";
+		}
+		if (projects.size() > 0) {
+			String projectCode = null;
+			List<Map<String, Object>> fundProjects = new ArrayList<Map<String, Object>>();
+			List<Map<String, Object>> unfundProjects = new ArrayList<Map<String, Object>>();
+			for (int i = 0; i < projects.size(); i++) {
+				projectCode = (String) projects.get(i).get("projectCode");
+				if (projectCode != null) {
+					if (projectCode.contains("A")) {
+						fundProjects.add(projects.get(i));
+					} else if (projectCode.contains("B")) {
+						unfundProjects.add(projects.get(i));
+					}
+				}
+			}
+			modelAndView.addObject("fundProjects", fundProjects);
+			modelAndView.addObject("unFundProjects", unfundProjects);
 		}
 		List<Map<String, Object>>experts = userService.queryForList(sql);
 		modelAndView.addObject("experts", experts);
@@ -61,5 +80,11 @@ public class ProjectManageController {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		list = projectService.setProjectCodeByStatus(id, status);
 		projectService.batchUpdateProjectStatus(list);
+	}
+	
+	@RequestMapping(value="updateStatus.htm",method=RequestMethod.POST)
+	public void updateStatus(HttpServletRequest request,HttpServletResponse response,
+			String id,String status) {
+		projectService.batchUpdateStatusById(id, status);
 	}
 }
