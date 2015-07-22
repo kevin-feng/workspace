@@ -22,6 +22,8 @@ import org.tsc.core.tools.SysUtils;
 import org.tsc.service.IProjectService;
 import org.tsc.service.IUserService;
 
+import com.sun.mail.iap.Response;
+
 @Service
 @Transactional
 public class UserServiceImpl implements IUserService {
@@ -113,15 +115,14 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public String getUserRole(HttpServletRequest request,
-			HttpServletResponse response) {
+	public String getUserRole(HttpServletRequest request,HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		String userRole = (String) request.getSession().getAttribute("userRole");
-		if (null == userRole) {
+		if (userRole == null) {
 			try {
 				response.sendRedirect("login_index.htm");
-			} catch (Exception e) {
-				// TODO: handle exception
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

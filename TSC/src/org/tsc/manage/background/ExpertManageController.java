@@ -74,9 +74,20 @@ public class ExpertManageController {
 	//显示专家列表页
 	@RequestMapping(value="/showExpertsList.htm",method=RequestMethod.GET)
 	public ModelAndView showExpertsList(HttpServletRequest request,HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView("lcjxjd_back/ps-index-expert_list.html");
-		List<Map<String, Object>>experts = userService.queryForList("select * from tsc_user where userRole like'EXPERT%'");
-		mv.addObject("experts", experts);
+		ModelAndView mv = null;
+		String userRole = userService.getUserRole(request,response);
+		if (userRole == null) {
+			try {
+				response.sendRedirect("login.htm");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {
+			mv = new ModelAndView("lcjxjd_back/ps-index-expert_list.html");
+			List<Map<String, Object>>experts = userService.queryForList("select * from tsc_user where userRole like'EXPERT%'");
+			mv.addObject("experts", experts);			
+		}
 		return mv;
 	}
 	
