@@ -1,5 +1,6 @@
 package org.tsc.manage.background;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,8 +29,20 @@ public class ExpertManageController {
 	
 	//显示添加专家页面
 	@RequestMapping(value="/showExperts.htm",method=RequestMethod.GET)
-	public ModelAndView showExperts(HttpServletRequest request,HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView("lcjxjd_back/ps-index-addexpert.html");
+	public ModelAndView showExperts(HttpServletRequest request,HttpServletResponse response){
+		String userName = userService.getUserName(request, response);
+		ModelAndView mv = null;
+		if (userName != null) {
+			mv = new ModelAndView("lcjxjd_back/ps-index-addexpert.html");
+		}else {
+			try {
+				response.sendRedirect("login.htm");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 		return mv;
 	}
 	
@@ -62,7 +75,7 @@ public class ExpertManageController {
 	@RequestMapping(value="/showExpertsList.htm",method=RequestMethod.GET)
 	public ModelAndView showExpertsList(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("lcjxjd_back/ps-index-expert_list.html");
-		List<Map<String, Object>>experts = userService.queryForList("select * from tsc_user where userRole='EXPERT'");
+		List<Map<String, Object>>experts = userService.queryForList("select * from tsc_user where userRole like'EXPERT%'");
 		mv.addObject("experts", experts);
 		return mv;
 	}
@@ -82,17 +95,6 @@ public class ExpertManageController {
 			String userIds) {
 		userService.batchDeleById(userIds);
 		return "redirect:showExpertsList.htm";
-	}
-	
-	//显示专家分配页面
-	@RequestMapping(value="/showAssignExpert.htm",method=RequestMethod.GET)
-	public ModelAndView showAssignExpert(HttpServletRequest request,HttpServletResponse response) {
-		ModelAndView mv = new ModelAndView("lcjxjd_back/ps-index-assign_expert.html");
-		List<Map<String, Object>>experts = userService.queryForList("select * from tsc_user where userRole='EXPERT'");
-		List<Map<String, Object>>projects = projectService.queryForList("select * from tsc_project where status=0");
-		mv.addObject("experts", experts);
-		mv.addObject("projects", projects);
-		return mv;
 	}
 	
 	//批量保存专家的分配情况

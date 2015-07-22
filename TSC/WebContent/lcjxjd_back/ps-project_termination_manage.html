@@ -70,31 +70,34 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              #foreach($!project in $!projects)
-                           		#if($!project.status == 3)
+                              #foreach($!project in $!fundProjects)
                                 <tr>
                                     <td>$!project.project_code</td>
                                     <td>$!project.name</td>
-                                    <td></td>
-                                    #foreach($expert in $!project.experts)
+                                    <td>结题材料</td>
                                     <td> 
+                                        #foreach($!expert in $!project.experts)
                                         <p>$!expert.trueName</p>
+                                        #end
                                     </td>
-                                	#end
                                     #if($!project.reviews.size() > 0)
+	                                    <td>
 	                                    #foreach($review in $!project.reviews)
-	                                    <td>$!review.remark</td>
-	                                    <td>$!review.reviewResult</td>
+		                                    $!review.remark
 	                                    #end
+	                                    </td>                    
+	                                    <td>
+	                                    #foreach($review in $!project.reviews)
+	                                   		$!review.reviewResult
+	                                   	#end
+	                                    </td>
 	                                #else
 	                                    <td></td>
 	                                    <td></td>
 	                                #end
-                                    <td></td>
                                     <td>立项资助</td>
                                     <td><button class="j-lixiang-edit">修改</button></td>
                                 </tr>
-                                #end
                                 #end
                             </tbody>
                         </table>
@@ -115,31 +118,34 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              #foreach($!project in $!projects)
-                              #if($!project.status == 4)
+                              #foreach($!project in $!unfundProjects)
                                 <tr>
                                     <td>$!project.project_code</td>
                                     <td>$!project.name</td>
                                     <td></td>
-                                    #foreach($expert in $!project.experts)
                                     <td> 
+                                        #foreach($!expert in $!project.experts)
                                         <p>$!expert.trueName</p>
+                                        #end
                                     </td>
-                                	#end
                                     #if($!project.reviews.size() > 0)
+	                                    <td>
 	                                    #foreach($review in $!project.reviews)
-	                                    <td>$!review.remark</td>
-	                                    <td>$!review.reviewResult</td>
+		                                    $!review.remark
 	                                    #end
+	                                    </td>                    
+	                                    <td>
+	                                    #foreach($review in $!project.reviews)
+	                                   		$!review.reviewResult
+	                                   	#end
+	                                    </td>
 	                                #else
 	                                    <td></td>
 	                                    <td></td>
 	                                #end
-                                    <td></td>
                                     <td>立项不资助</td>
                                     <td><button class="j-lixiang-edit">修改</button></td>
                                 </tr>
-                                #end
                                 #end
                             </tbody>
                         </table>
@@ -160,14 +166,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            	<input type="hidden" name="status" value="7"/>
+                            	<input type="hidden" name="status" value="12"/>
                               #foreach($!project in $!projects)
-                              	#if($!project.status == 6)
+                              	#if($!project.status == 11)
                               	<input type="hidden" name="project_id" value="$!project.id"/>
                                 <tr>
                                     <td>$!project.project_code</td>
                                     <td>$!project.name</td>
-                                    <td>中期材料</td>
+                                    <td>结题材料</td>
                                     <td> 
                                         <select class="expert-select-one">
                                         #foreach($expert in $!experts)
@@ -176,10 +182,16 @@
                                         </select>
                                     </td>
                                     #if($!project.reviews.size() > 0)
+	                                   <td>
 	                                    #foreach($review in $!project.reviews)
-	                                    <td>$!review.remark</td>
-	                                    <td>$!review.reviewResult</td>
+		                                    $!review.remark
 	                                    #end
+	                                    </td>                    
+	                                    <td>
+	                                    #foreach($review in $!project.reviews)
+	                                   		$!review.reviewResult
+	                                   	#end
+	                                    </td>
 	                                #else
 	                                    <td></td>
 	                                    <td></td>
@@ -211,19 +223,27 @@
                             </thead>
                             <tbody>
                               #foreach($!project in $!projects)
-                              	#if($!project.status == 7)
+                              	#if($!project.status == 12)
                                 <tr>
                                     <td>$!project.project_code</td>
                                     <td>$!project.name</td>
-                                    <td>中期材料</td>
+                                    <td>结题材料</td>
                                     <td> 
+                                    	#foreach($!expert in $!project.experts)
                                         <p>$!expert.trueName</p>
+                                        #end
                                     </td>
                                     #if($!project.reviews.size() > 0)
+	                                   <td>
 	                                    #foreach($review in $!project.reviews)
-	                                    <td>$!review.remark</td>
-	                                    <td>$!review.reviewResult</td>
+		                                    $!review.remark
 	                                    #end
+	                                    </td>                    
+	                                    <td>
+	                                    #foreach($review in $!project.reviews)
+	                                   		$!review.reviewResult
+	                                   	#end
+	                                    </td>
 	                                #else
 	                                    <td></td>
 	                                    <td></td>
@@ -254,20 +274,28 @@
                             </thead>
                             <tbody>
                               #foreach($!project in $!projects)
-                              	#if($!project.status == 8)
+                              	#if($!project.status == 13)
                               	<input type="hidden" name="projectId" value="$project.id"/>
                                 <tr>
                                     <td>$!project.project_code</td>
                                     <td>$!project.name</td>
-                                    <td>中期材料</td>
+                                    <td>结题材料</td>
                                    <td> 
+                                        #foreach($!expert in $!project.experts)
                                         <p>$!expert.trueName</p>
+                                        #end
                                     </td>
                                     #if($!project.reviews.size() > 0)
+	                                    <td>
 	                                    #foreach($review in $!project.reviews)
-	                                    <td>$!review.remark</td>
-	                                    <td>$!review.reviewResult</td>
+		                                    $!review.remark
 	                                    #end
+	                                    </td>                    
+	                                    <td>
+	                                    #foreach($review in $!project.reviews)
+	                                   		$!review.reviewResult
+	                                   	#end
+	                                    </td>
 	                                #else
 	                                    <td></td>
 	                                    <td></td>
@@ -275,9 +303,9 @@
                                     <td>已评审</td>
                                     <td class="tc">
 		                                <select name="status_select">  
-		                                  <option value ="8">无</option>  
-		                                  <option value ="9">通过</option>  
-		                                  <option value="10">不通过</option>  
+		                                  <option value ="13">无</option>  
+		                                  <option value ="14">通过</option>  
+		                                  <option value="15">不通过</option>  
 		                                </select>  
 		                            </td>
                                 </tr>
@@ -305,19 +333,27 @@
                             </thead>
                             <tbody>
                               #foreach($!project in $!projects)
-                              	#if($!project.status == 9)
+                              	#if($!project.status == 14)
                                 <tr>
                                     <td>$!project.project_code</td>
                                     <td>$!project.name</td>
-                                    <td>中期材料</td>
+                                    <td>结题材料</td>
                                     <td> 
+                                        #foreach($!expert in $!project.experts)
                                         <p>$!expert.trueName</p>
+                                        #end
                                     </td>
                                     #if($!project.reviews.size() > 0)
+	                                    <td>
 	                                    #foreach($review in $!project.reviews)
-	                                    <td>$!review.remark</td>
-	                                    <td>$!review.reviewResult</td>
+		                                    $!review.remark
 	                                    #end
+	                                    </td>                    
+	                                    <td>
+	                                    #foreach($review in $!project.reviews)
+	                                   		$!review.reviewResult
+	                                   	#end
+	                                    </td>
 	                                #else
 	                                    <td></td>
 	                                    <td></td>
@@ -347,19 +383,27 @@
                             </thead>
                             <tbody>
                               #foreach($!project in $!projects)
-                             	 #if($!project.status == 10)
+                             	 #if($!project.status == 15)
                                 <tr>
                                     <td>$!project.project_code</td>
                                     <td>$!project.name</td>
-                                    <td>中期材料</td>
+                                    <td>结题材料</td>
                                     <td> 
+                                        #foreach($!expert in $!project.experts)
                                         <p>$!expert.trueName</p>
+                                        #end
                                     </td>
                                     #if($!project.reviews.size() > 0)
+	                                   <td>
 	                                    #foreach($review in $!project.reviews)
-	                                    <td>$!review.remark</td>
-	                                    <td>$!review.reviewResult</td>
+		                                    $!review.remark
 	                                    #end
+	                                    </td>                    
+	                                    <td>
+	                                    #foreach($review in $!project.reviews)
+	                                   		$!review.reviewResult
+	                                   	#end
+	                                    </td>
 	                                #else
 	                                    <td></td>
 	                                    <td></td>

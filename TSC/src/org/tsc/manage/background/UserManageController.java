@@ -36,8 +36,8 @@ public class UserManageController {
 		boolean flag = false;
 		if (userName == null) {
 			try {
-				//response.sendRedirect("login_index.htm");
-				request.getRequestDispatcher("login.htm").forward(request, response);
+				response.sendRedirect("login.htm");
+				//request.getRequestDispatcher("login.htm").forward(request, response);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

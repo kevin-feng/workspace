@@ -86,14 +86,6 @@ public class UserServiceImpl implements IUserService {
 		// TODO Auto-generated method stub
 		System.out.println((String)request.getSession().getAttribute("userName"));
 		String userName = (String)request.getSession().getAttribute("userName");
-		if(null == userName){
-			try {
-				response.sendRedirect("login_index.htm");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 		return userName;
 	}
 
@@ -111,7 +103,7 @@ public class UserServiceImpl implements IUserService {
 		Long userId = (Long) request.getSession().getAttribute("userId");
 		if (null == userId) {
 			try {
-				response.sendRedirect("login_index.htm");
+				response.sendRedirect("login.htm");
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
@@ -163,9 +155,9 @@ public class UserServiceImpl implements IUserService {
 		if(type == 0){
 			userRole = "EXPERT";
 		}else if (type == 1) {
-			userRole = "INTERIM_EXPERT";
+			userRole = "EXPERT_INTERIM";
 		}else {
-			userRole = "TERMINATION_EXPERT";
+			userRole = "EXPERT_TERMINATION";
 		}
 		String sql = "insert into tsc_user (addTime,trueName,userName,password,userRole) values (NOW(),?,?,?,'"+userRole+"')";
 		int[] updateCounts = this.userDao.getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {

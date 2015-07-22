@@ -183,19 +183,24 @@ public class ProjectServiceImpl implements IProjectService{
 	@Override
 	public int[] batchUpdateProjectStatus(final List<Map<String, Object>> list) {
 		// TODO Auto-generated method stub
-		String	sql = "update tsc_project set status=?,project_code=? where id=?";
+		String sql = "";
+		if (list.get(0).containsKey("projectCode")) {
+			sql = "update tsc_project set status=?,project_code=? where id=?";			
+		}else {
+			sql = "update tsc_project set status=? where id=?";
+		}
 		int[] updateCount = this.projectDao.getJdbcTemplate().batchUpdate(sql, new BatchPreparedStatementSetter() {
 			
 			@Override
 			public void setValues(PreparedStatement arg0, int arg1) throws SQLException {
 				// TODO Auto-generated method stub
 				arg0.setInt(1,Integer.parseInt(list.get(arg1).get("status").toString()));
-				if (list.get(arg1).containsKey("projectCode")) {
+				if (list.get(0).containsKey("projectCode")) {
 					arg0.setString(2, list.get(arg1).get("projectCode").toString());
+					arg0.setLong(3, Long.parseLong(list.get(arg1).get("id").toString()));
 				}else {
-					arg0.setString(2,"");
+					arg0.setLong(2, Long.parseLong(list.get(arg1).get("id").toString()));
 				}
-				arg0.setLong(3, Long.parseLong(list.get(arg1).get("id").toString()));
 			}
 			
 			@Override
@@ -236,16 +241,14 @@ public class ProjectServiceImpl implements IProjectService{
 				}
 				code++;
 				String proCode = generateLast3Code(String.valueOf(code));
-				projectCode.append(proCode);
-				map.put("id", id[i]);
-				map.put("status", status[i]);
+				projectCode.append(proCode);;
 				map.put("projectCode", projectCode);					
-				list.add(map);
 			}else if (Integer.parseInt(status[i]) == 5) {
-				map.put("id", id[i]);
-				map.put("status", status[i]);
-				list.add(map);
+				map.put("projectCode", "");	
 			}
+			map.put("id", id[i]);
+			map.put("status", status[i]);
+			list.add(map);
 		}
 		return list;
 	}

@@ -30,15 +30,18 @@
 
 
         <div class="right-content row">
-
+			<div class="right-cnt-nav">
+                <!-- 项目管理 -->
+                    <a href="javascript:;">项目评审专家列表</a>
+                    <a href="javascript:;">中期评审专家列表</a>
+                    <a href="javascript:;">结题评审专家列表</a>
+            </div>
+            <p></p><br>
+            
+			<!-- 项目评审专家列表  start -->
             <div class="tab col-sm-12 mt20">
                 <div class="col-sm-12">
-                </div>
-
-                <div class="col-sm-12">
-
                     <table class="table table-hover table-bordered mt20">
-
                         <thead>
                             <tr>
                                 <th class="checked">选中</th>
@@ -51,6 +54,7 @@
 
                         <tbody id="showExpert">
                         #foreach($expert in $!experts)
+                        	#if($!expert.userRole == "EXPERT")
                             <tr>
                                 <td class="checked"><input type="checkbox" name="userId" value="$!expert.id"/></td>
                                 <td class="expert">$!expert.trueName</td>
@@ -58,6 +62,7 @@
                                 <td>$!expert.password</td>
                                 <td> <a type="button" class="btn btn-sm btn-danger" href="deleteExpert.htm?userId=$!expert.id">删除</a></td>
                             </tr>
+                            #end
                          #end   
                         </tbody>
                     </table>
@@ -67,9 +72,82 @@
                     <button type="button"  class="btn btn-sm btn-primary all_choose" >全选</button>
                     <button type="button"  class="btn btn-sm btn-danger cancel_choose" >取消全选</button>
                     <button type="button"  class="btn btn-sm btn-danger save_expert" id="btn_delete" >批量删除</button>
-
                 </div>
 
+            </div>
+           
+            <!-- 中期评审专家列表   start-->
+            <div class="tab col-sm-12 mt20">
+                <div class="col-sm-12">
+                    <table class="table table-hover table-bordered mt20">
+                        <thead>
+                            <tr>
+                                <th class="checked">选中</th>
+                                <th class="expert">专家姓名</th>
+                                <th class="w300">账号</th>
+                                <th>密码</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="showExpert">
+                        #foreach($expert in $!experts)
+                        	#if($!expert.userRole == "EXPERT_INTERIM")
+                            <tr>
+                                <td class="checked"><input type="checkbox" name="userId" value="$!expert.id"/></td>
+                                <td class="expert">$!expert.trueName</td>
+                                <td>$!expert.userName</td>
+                                <td>$!expert.password</td>
+                                <td> <a type="button" class="btn btn-sm btn-danger" href="deleteExpert.htm?userId=$!expert.id">删除</a></td>
+                            </tr>
+                            #end
+                         #end   
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-sm-12">
+                    <button type="button"  class="btn btn-sm btn-primary all_choose" >全选</button>
+                    <button type="button"  class="btn btn-sm btn-danger cancel_choose" >取消全选</button>
+                    <button type="button"  class="btn btn-sm btn-danger save_expert" id="btn_delete" >批量删除</button>
+                </div>
+            </div>
+            
+            <!-- 结题评审专家列表  start -->
+            <div class="tab col-sm-12 mt20">
+                <div class="col-sm-12">
+                    <table class="table table-hover table-bordered mt20">
+                        <thead>
+                            <tr>
+                                <th class="checked">选中</th>
+                                <th class="expert">专家姓名</th>
+                                <th class="w300">账号</th>
+                                <th>密码</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="showExpert">
+                        #foreach($expert in $!experts)
+                        	#if($!expert.userRole == "EXPERT_TERMINATION")
+                            <tr>
+                                <td class="checked"><input type="checkbox" name="userId" value="$!expert.id"/></td>
+                                <td class="expert">$!expert.trueName</td>
+                                <td>$!expert.userName</td>
+                                <td>$!expert.password</td>
+                                <td> <a type="button" class="btn btn-sm btn-danger" href="deleteExpert.htm?userId=$!expert.id">删除</a></td>
+                            </tr>
+                            #end
+                         #end   
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-sm-12">
+                    <button type="button"  class="btn btn-sm btn-primary all_choose" >全选</button>
+                    <button type="button"  class="btn btn-sm btn-danger cancel_choose" >取消全选</button>
+                    <button type="button"  class="btn btn-sm btn-danger save_expert" id="btn_delete" >批量删除</button>
+                </div>
             </div>
         </div><!--<div class="col-md-11 right-content row">-->
     </div>
@@ -88,6 +166,16 @@
 <script src="/TSC/resources/js/manege-back/ps-tab.js" type="text/javascript"></script>
 <script>
 $(document).ready(function(){
+	
+     FIX.fixbar.set('.right-cnt-nav');
+     //var $JTabs = $('.J-tab .tab-child');
+     var $JTabs = $(".tab");
+     $('.right-cnt-nav a').click(function(event) {
+     alert("aaa");
+         $(this).siblings().removeClass('choose').end().addClass('choose');
+       //  $JTabs.eq($(this).index()).show().siblings().hide();
+     }).eq(0).click();
+	 
     $(".all_choose").click(function () {
         $("input[name='userId']").each(function() {
             $(this).prop("checked", true);

@@ -89,14 +89,23 @@ public class MessageManageController {
 	public ModelAndView toAddMessage(HttpServletRequest request,HttpServletResponse response,
 			Integer type,Long id) {
 		//判断用户是否已登录，若未登录则重定向到登录页面，若已登录，则返回用户名
-		//String userName = userService.getUserName(request,response);
-		//System.out.println(userName);
-		ModelAndView mv = new ModelAndView("lcjxjd_back/ps-index-notice.html");	
-		if (id != null && !id.equals("")) {
-			Map<String, Object> message = messageDao.getById(id);
-			mv.addObject("message", message);
+		String userName = userService.getUserName(request,response);
+		ModelAndView mv = null;
+		if (userName != null) {
+			mv = new ModelAndView("lcjxjd_back/ps-index-notice.html");	
+			if (id != null && !id.equals("")) {
+				Map<String, Object> message = messageDao.getById(id);
+				mv.addObject("message", message);
+			}
+			mv.addObject("type", type);		
+		}else {
+			try {
+				response.sendRedirect("login.htm");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		mv.addObject("type", type);	
 		return mv;
 	}
 	
@@ -164,9 +173,13 @@ public class MessageManageController {
 	public String deleteMessage(HttpServletRequest request,HttpServletResponse response,Long id) {
 		//判断用户是否已登录，若未登录则重定向到登录页面，若已登录，则返回用户名
 		String userName = userService.getUserName(request,response);
-		String sqlString = "UPDATE tsc_message SET deleteStatus=1 WHERE id="+id;
-		messageDao.updateData(sqlString);
-		return "redirect:index.htm";
+		if (userName != null) {
+			String sqlString = "UPDATE tsc_message SET deleteStatus=1 WHERE id="+id;
+			messageDao.updateData(sqlString);
+			return "redirect:index.htm";			
+		}else {
+			return "redirect:login.htm";
+		}
 	}
 	
 	//上传文件
