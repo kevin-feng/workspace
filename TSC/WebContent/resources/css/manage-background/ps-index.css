@@ -319,7 +319,7 @@ textarea {
 .page {
     margin-top: 10px;
     clear: both;
-    padding: 10px 5px 0;
+    padding: 10px 5px 0 118px;;
     font-size: 12px;
     word-break: keep-all;
     font-family: "verdana";
@@ -342,7 +342,7 @@ textarea {
 }
 
 .page li {
-    display: inline-block;
+    float: left;
     margin: 0px 5px 0px 0px;
     color: #999;
     border:#5D94E0 1px solid;
