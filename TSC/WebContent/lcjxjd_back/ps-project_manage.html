@@ -11,6 +11,7 @@
     #content .right-content {
         padding: 62px 0;
     }
+    .page{padding: 10px 5px 0 30px;}
     </style>
 </head>
 
@@ -24,7 +25,7 @@
             </div>
 
 
-            <div class="right-content row">
+            <div class="right-content">
                 <div class="right-cnt-nav">
                 <!-- 项目管理 -->
                     <a href="javascript:;">已申报</a>
@@ -240,8 +241,19 @@
                         </table>
                     </div>
                 </div>
+
+                <div class="col-sm-12 page">
+                        <ul>
+                            <li class="p_total">1/2</li>
+                            <li><a href="javascript:;">«</a></li>
+                            <li><a href="javascript:;">‹</a></li>
+                            <li class="pager-li p_current"><a href="javascript:;">1</a></li>
+                            <li class="pager-li"><a href="javascript:;">2</a></li>
+                            <li><a href="javascript:;">›</a></li><li><a href="javascript:;">»</a></li>
+                        </ul>
+                    </div>
             </div>
-            <!--<div class="col-md-11 right-content row">-->
+            <!--<div class="col-md-11 right-content">-->
         </div>
         <!--end <div class="row" id="content">-->
     </div>
@@ -306,9 +318,9 @@
 				var userId1 = $(this).val();
 				$(this).parent().children().eq(1).children().remove();
 				for(var i=0; i<expertArray.length; i++){
-					$(".expert-select-two").append("<option value='" + expertArray[i]+"'>" + expertNameArray[i]+ "</option>");
+                    $(this).parent().children('.expert-select-two').append("<option value='" + expertArray[i]+"'>" + expertNameArray[i]+ "</option>");
 				} 
-				$(".expert-select-two option").each(function(){
+				$(this).parent().children('.expert-select-two').children('option').each(function(){
 					if($(this).val() == userId1){
 						$(this).remove();
 					}

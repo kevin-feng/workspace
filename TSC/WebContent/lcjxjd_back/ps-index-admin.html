@@ -20,7 +20,7 @@
         </div>
 
 			#if($!flag == true)   
-        	<div class="right-content row">
+        	<div class="right-content">
 
             <div class="tab col-sm-12 mt20">
                 <div class="col-sm-12">
@@ -76,12 +76,23 @@
                     </table>
                 </div>
 
+                <div class="col-sm-12 page">
+                    <ul>
+                        <li class="p_total">1/2</li>
+                        <li><a href="javascript:;">«</a></li>
+                        <li><a href="javascript:;">‹</a></li>
+                        <li class="pager-li p_current"><a href="javascript:;">1</a></li>
+                        <li class="pager-li"><a href="javascript:;">2</a></li>
+                        <li><a href="javascript:;">›</a></li><li><a href="javascript:;">»</a></li>
+                    </ul>
+                </div>
+
 
 
             </div>
-        </div><!--<div class="col-md-11 right-content row">-->
+        </div><!--<div class="col-md-11 right-content">-->
     		#else
-    		<div class="right-content row">
+    		<div class="right-content">
     			<h3 style="text-align:center;color:#ff0000">您没有权限访问该页面...</h3>
     		</div>
     		#end
