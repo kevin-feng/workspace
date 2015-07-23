@@ -212,6 +212,24 @@ public class ProjectServiceImpl implements IProjectService{
 		return updateCount;
 	}
 
+	public int[] batchUpdateUsers(List<Map<String, Object>> list) {
+		int size = list.size();
+		String projectCode = null;
+		List<Map<String, Object>> list2 = new ArrayList<Map<String,Object>>();
+		StringBuilder projectIds = null;
+		for (int i = 0; i < size; i++) {
+			projectCode = (String)list.get(i).get("projectCode");
+			projectIds = new StringBuilder();
+			if (!"".equals(projectCode)) {
+				list2.add(list.get(i));
+				projectIds.append(list.get(i).get("id")).append(",");  
+			}
+		}
+		String projectId = projectIds.substring(0, projectIds.lastIndexOf(","));
+		
+		return null;
+	}
+
 	@Override
 	public List<Map<String, Object>> setProjectCodeByStatus(String ids,
 			String statuses) {

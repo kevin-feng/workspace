@@ -75,12 +75,11 @@ public class ExpertManageController {
 	@RequestMapping(value="/showExpertsList.htm",method=RequestMethod.GET)
 	public ModelAndView showExpertsList(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mv = null;
-		String userRole = userService.getUserRole(request,response);
+		String userRole = (String) request.getSession().getAttribute("userRole");
 		if (userRole == null) {
 			try {
 				response.sendRedirect("login.htm");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else {

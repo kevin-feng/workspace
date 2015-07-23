@@ -171,9 +171,8 @@ $(document).ready(function(){
      //var $JTabs = $('.J-tab .tab-child');
      var $JTabs = $(".tab");
      $('.right-cnt-nav a').click(function(event) {
-     alert("aaa");
          $(this).siblings().removeClass('choose').end().addClass('choose');
-       //  $JTabs.eq($(this).index()).show().siblings().hide();
+         $JTabs.eq($(this).index()).show().siblings(".tab").hide();
      }).eq(0).click();
 	 
     $(".all_choose").click(function () {

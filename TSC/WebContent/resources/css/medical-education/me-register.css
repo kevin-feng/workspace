@@ -18,15 +18,25 @@
 .ps-login-content
 {
     float: right;
-
     width: 435px;
-    height: 413px;
+    height: 484px;
     /*margin-top: 50px;*/
     padding: 50px 20px 0;
 
     border: 1px solid #f4d7c5;
     border-radius: 5px;
     background-color: #fff;
+}
+.ps-login-content .error
+{
+  color: red;
+  position: absolute;
+  bottom: -22px;
+  left: 112px;
+  font-size: 12px;
+}
+.ps-login-content .mt30{
+    position: relative;
 }
 .ps-login-title
 {
@@ -56,14 +66,15 @@
 {
     margin-left: 62px;
 }
-#psPasswordAgain
+#psPasswordAgain, #psTrueName
 {
     margin-left: 20px;
 }
 #psUser,
 #psPassword,
 #psPasswordAgain,
-#psEmail
+#psEmail,
+#psTrueName
 {
     font-size: 15px;
 
