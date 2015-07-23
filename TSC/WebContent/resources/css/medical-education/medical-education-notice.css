@@ -218,31 +218,30 @@ p.list {
 .pager {
     margin-top: 10px;
     clear: both;
-    padding: 10 5px 0;
-    FONT-SIZE: 12px;
+    padding: 10px 5px 0;
+    font-size: 12px;
     word-break: keep-all;
     font-family: "verdana";
-    HEIGHT: 25px;
 }
 
 .pager li.p_total {
     border:#ddd 1px solid;
     padding: 3px 5px;
-    FONT-WEIGHT: bold;
-    BACKGROUND: #fff;
-    COLOR: #3F6EAF;
+    font-weight: bold;
+    background: #fff;
+    color: #3F6EAF;
 }
 
 .pager li.p_current {
     border:#5D94E0 1px solid;
-    BACKGROUND: #5D94E0;
-    COLOR: #fff;
+    background: #5D94E0;
+    color: #fff;
 }
 
 .pager li {
     float: left;
     margin: 0px 5px 0px 0px;
-    COLOR: #999;
+    color: #999;
     border:#5D94E0 1px solid;
     /*height: 20px;*/
     /*padding: 2px 5px;*/

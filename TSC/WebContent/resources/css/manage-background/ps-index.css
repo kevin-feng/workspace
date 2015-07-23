@@ -68,15 +68,20 @@ a{text-decoration: none;}
 #content {
     min-width: 1366px;
     margin: 0 auto;
+    position: relative;
 }
     #content .main-side-nav {
         background-color: #fff;
         padding: 0 0;
         width: 225px;
-        float: left;
+        /* float: left; */
         text-align: center;
         border-bottom: 1px solid #282828;
-    }
+    
+        position: absolute;
+        top: 0;
+        left: 0;
+}
     #content .main-side-nav.fixed{
         position: fixed;
         top: 0;
@@ -84,10 +89,12 @@ a{text-decoration: none;}
     }
     #content .right-content {
         position: relative;
-        float: right;
+        float: left;
         padding: 0 0;
         width: 1124px;
-    }
+    
+        margin-left: 240px;
+}
     .right-content .declare-kind{
         margin: 10px;
     }
@@ -308,3 +315,46 @@ textarea {
     color: #fff;
 }
 .J-tab .tab-child{display: none;}
+
+.page {
+    margin-top: 10px;
+    clear: both;
+    padding: 10px 5px 0;
+    font-size: 12px;
+    word-break: keep-all;
+    font-family: "verdana";
+    text-align: center;
+    list-style: none;
+}
+
+.page li.p_total {
+    border:#ddd 1px solid;
+    padding: 3px 5px;
+    font-weight: bold;
+    background: #fff;
+    color: #3F6EAF;
+}
+
+.page li.p_current {
+    border:#5D94E0 1px solid;
+    background: #5D94E0;
+    color: #fff;
+}
+
+.page li {
+    display: inline-block;
+    margin: 0px 5px 0px 0px;
+    color: #999;
+    border:#5D94E0 1px solid;
+    line-height: 22px;
+    text-align: center;
+}
+.page li a{
+    display: block;
+    padding: 2px 5px;
+    color: #000;
+}
+.page li a:hover {
+    color: #e66100;
+    background-color: rgba(93, 148, 224, 0.17);
+}

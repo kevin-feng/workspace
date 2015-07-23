@@ -1,222 +1,221 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>后台管理</title>
-    <link type="text/css" rel="stylesheet" href="/TSC/resources/css/reset/reset.css">
-    <link href="/TSC/resources/css/bootstrap.css" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="/TSC/resources/css/manage-background/ps-index.css">
-    <style>
-    #content .right-content {
+    <head>
+        <meta charset="UTF-8">
+        <title>后台管理</title>
+        <link type="text/css" rel="stylesheet" href="/TSC/resources/css/reset/reset.css">
+        <link href="/TSC/resources/css/bootstrap.css" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="/TSC/resources/css/manage-background/ps-index.css">
+        <style>
+        #content .right-content {
         padding: 62px 0;
-    }
-    </style>
-</head>
-
-<body>
-    <div class="total-wrapper">
-        #parse("lcjxjd_back/ps-index-header.html")
-
-        <div class="row" id="content">
-            <div class="main-side-nav">
-                #parse("lcjxjd_back/ps-index-left.html")
-            </div>
-
-
-            <div class="right-content row">
-                <div class="right-cnt-nav">
-                <!-- 通知动态 -->
-                    <a href="javascript:;">最新通知</a>
-                    <a href="javascript:;">工作动态</a>
-                    <a href="javascript:;">政策规定</a>
-                    <a href="javascript:;">理论探索</a>
-                    <a href="javascript:;">教学课程</a>
-                    <a href="javascript:;">基地评审</a>
-
+        }
+        </style>
+    </head>
+    <body>
+        <div class="total-wrapper">
+            #parse("lcjxjd_back/ps-index-header.html")
+            <div class="row" id="content">
+                <div class="main-side-nav">
+                    #parse("lcjxjd_back/ps-index-left.html")
                 </div>
-
-                <div class="J-tab col-sm-12"><!-- 父类J-tab，子类tab-child -->
-                <!-- 通知动态 -->
-                    <div class="tab-child col-sm-12">
-                        <div class="col-sm-12">
-                            <h4 class="col-sm-offset-5 child-head">最新通知</h4>
-                        </div>
-                        <div class="col-sm-offset-1 col-sm-10 part1-notice">
-                            <ul class="n-w-ul">
-                                #if($!messages.size() == 0) 
-                                	暂无通知 
-                                #end 
-                                #foreach($message in $!messages)
-                                <li class="notice-list">
-                                    <a class="content" href="#">$!message.title</a>
-                                    <a href="deleteMessage.htm?id=$!message.id" class="notice-delete btn btn-danger btn-sm">删除</a>
-                                    <a href="toAddMessage.htm?id=$!message.id" class="notice-change btn btn-primary btn-sm">修改</a>
-                                </li>
-                                #end
-                            </ul>
-                        </div>
+                <div class="right-content">
+                    <div class="right-cnt-nav">
+                        <!-- 通知动态 -->
+                        <a href="javascript:;">最新通知</a>
+                        <a href="javascript:;">工作动态</a>
+                        <a href="javascript:;">政策规定</a>
+                        <a href="javascript:;">理论探索</a>
+                        <a href="javascript:;">教学课程</a>
+                        <a href="javascript:;">基地评审</a>
                     </div>
-                    <div class="tab-child col-sm-12">
-                        <div class="col-sm-12">
-                            <h4 class="col-sm-offset-5 child-head">工作动态</h4>
+                    <div class="J-tab col-sm-12"><!-- 父类J-tab，子类tab-child -->
+                    <!-- 通知动态 -->
+                        <div class="tab-child col-sm-12">
+                            <div class="col-sm-12">
+                                <h4 class="col-sm-offset-5 child-head">最新通知</h4>
+                            </div>
+                            <div class="col-sm-offset-1 col-sm-10 part1-notice">
+                                <ul class="n-w-ul">
+                                    #if($!messages.size() == 0)
+                                    暂无通知
+                                    #end
+                                    #foreach($message in $!messages)
+                                    <li class="notice-list">
+                                        <a class="content" href="#">$!message.title</a>
+                                        <a href="deleteMessage.htm?id=$!message.id" class="notice-delete btn btn-danger btn-sm">删除</a>
+                                        <a href="toAddMessage.htm?id=$!message.id" class="notice-change btn btn-primary btn-sm">修改</a>
+                                    </li>
+                                    #end
+                                </ul>
+                            </div>
                         </div>
-                        <div class="col-sm-offset-1 col-sm-10 part1-notice">
-                            <ul class="n-w-ul">
-                                #if($!workMessages.size() == 0) 
-                                	暂无工作动态 
-                                #end
-                                #foreach($message in $!workMessages)
-                                <li class="notice-list">
-                                    <a class="content" href="#">$!message.title</a>
-                                    <a href="deleteMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
-                                    </a>
-                                    <a href="toAddMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
-                                    </a>
-                                </li>
-                                #end
-                            </ul>
+                        <div class="tab-child col-sm-12">
+                            <div class="col-sm-12">
+                                <h4 class="col-sm-offset-5 child-head">工作动态</h4>
+                            </div>
+                            <div class="col-sm-offset-1 col-sm-10 part1-notice">
+                                <ul class="n-w-ul">
+                                    #if($!workMessages.size() == 0)
+                                    暂无工作动态
+                                    #end
+                                    #foreach($message in $!workMessages)
+                                    <li class="notice-list">
+                                        <a class="content" href="#">$!message.title</a>
+                                        <a href="deleteMessage.htm?id=$!message.id">
+                                            <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
+                                        </a>
+                                        <a href="toAddMessage.htm?id=$!message.id">
+                                            <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
+                                        </a>
+                                    </li>
+                                    #end
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="tab-child col-sm-12">
-                        <div class="col-sm-12">
-                            <h4 class="col-sm-offset-5 child-head">政策规定</h4>
-                        </div>
-                        <div class="col-sm-offset-1 h307 col-sm-10 part1-notice">
-                            <ul class="n-w-ul">
-                                #if($!policyMessages.size() == 0) 
+                        <div class="tab-child col-sm-12">
+                            <div class="col-sm-12">
+                                <h4 class="col-sm-offset-5 child-head">政策规定</h4>
+                            </div>
+                            <div class="col-sm-offset-1 h307 col-sm-10 part1-notice">
+                                <ul class="n-w-ul">
+                                    #if($!policyMessages.size() == 0)
                                     暂无政策规定
-                                 #end 
-                                 #foreach($message in $!policyMessages)
-                                <li class="notice-list">
-                                    <a class="content" href="#">$!message.title</a>
-                                    <a href="deleteMessage.htm?id=$!message.id" class="notice-delete btn btn-danger btn-sm">删除</a>
-                                    <a href="toAddMessage.htm?id=$!message.id" class="notice-change btn btn-primary btn-sm">修改</a>
-                                </li>
-                                #end
-                            </ul>
+                                    #end
+                                    #foreach($message in $!policyMessages)
+                                    <li class="notice-list">
+                                        <a class="content" href="#">$!message.title</a>
+                                        <a href="deleteMessage.htm?id=$!message.id" class="notice-delete btn btn-danger btn-sm">删除</a>
+                                        <a href="toAddMessage.htm?id=$!message.id" class="notice-change btn btn-primary btn-sm">修改</a>
+                                    </li>
+                                    #end
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="tab-child col-sm-12">
-                        <div class="col-sm-12">
-                            <h4 class="col-sm-offset-5 child-head">理论探索</h4>
-                        </div>
-                        <div class="col-sm-offset-1 h307 col-sm-10 part1-notice">
-                            <ul class="n-w-ul">
-                                #if($!theoryMessages.size() == 0) 
+                        <div class="tab-child col-sm-12">
+                            <div class="col-sm-12">
+                                <h4 class="col-sm-offset-5 child-head">理论探索</h4>
+                            </div>
+                            <div class="col-sm-offset-1 h307 col-sm-10 part1-notice">
+                                <ul class="n-w-ul">
+                                    #if($!theoryMessages.size() == 0)
                                     暂无理论探索
-                                 #end 
-                                #foreach($message in $!theoryMessages)
-                                <li class="notice-list">
-                                    <a class="content" href="#">$!message.title</a>
-                                    <a href="deleteMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
-                                    </a>
-                                    <a href="toAddMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
-                                    </a>
-                                </li>
-                                #end
-                            </ul>
+                                    #end
+                                    #foreach($message in $!theoryMessages)
+                                    <li class="notice-list">
+                                        <a class="content" href="#">$!message.title</a>
+                                        <a href="deleteMessage.htm?id=$!message.id">
+                                            <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
+                                        </a>
+                                        <a href="toAddMessage.htm?id=$!message.id">
+                                            <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
+                                        </a>
+                                    </li>
+                                    #end
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="tab-child col-sm-12">
-                        <div class="col-sm-12">
-                            <h4 class="col-sm-offset-5 child-head">教学课程</h4>
-                        </div>
-                        <div class="col-sm-offset-1 h307 col-sm-10 part1-notice">
-                            <ul class="n-w-ul">
-                                #if($!courseMessages.size() == 0) 
+                        <div class="tab-child col-sm-12">
+                            <div class="col-sm-12">
+                                <h4 class="col-sm-offset-5 child-head">教学课程</h4>
+                            </div>
+                            <div class="col-sm-offset-1 h307 col-sm-10 part1-notice">
+                                <ul class="n-w-ul">
+                                    #if($!courseMessages.size() == 0)
                                     暂无教学课程
-                                 #end 
-                                #foreach($message in $!courseMessages)
-                                <li class="notice-list">
-                                    <a class="content" href="#">$!message.title</a>
-                                    <a href="deleteMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
-                                    </a>
-                                    <a href="toAddMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
-                                    </a>
-                                </li>
-                                #end
-                            </ul>
+                                    #end
+                                    #foreach($message in $!courseMessages)
+                                    <li class="notice-list">
+                                        <a class="content" href="#">$!message.title</a>
+                                        <a href="deleteMessage.htm?id=$!message.id">
+                                            <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
+                                        </a>
+                                        <a href="toAddMessage.htm?id=$!message.id">
+                                            <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
+                                        </a>
+                                    </li>
+                                    #end
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="tab-child col-sm-12">
-                        <div class="col-sm-12">
-                            <h4 class="col-sm-offset-5 child-head">基地评审</h4>
-                        </div>
-                        <div class="col-sm-offset-1 h307 col-sm-10 part1-notice">
-                            <ul class="n-w-ul">
-                                #if($!reviewMessages.size() == 0) 
+                        <div class="tab-child col-sm-12">
+                            <div class="col-sm-12">
+                                <h4 class="col-sm-offset-5 child-head">基地评审</h4>
+                            </div>
+                            <div class="col-sm-offset-1 h307 col-sm-10 part1-notice">
+                                <ul class="n-w-ul">
+                                    #if($!reviewMessages.size() == 0)
                                     暂无网上评审
-                                 #end 
-                                #foreach($message in $!reviewMessages)
-                                <li class="notice-list">
-                                    <a class="content" href="#">$!message.title</a>
-                                    <a href="deleteMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
-                                    </a>
-                                    <a href="toAddMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
-                                    </a>
-                                </li>
-                                #end
-                            </ul>
+                                    #end
+                                    #foreach($message in $!reviewMessages)
+                                    <li class="notice-list">
+                                        <a class="content" href="#">$!message.title</a>
+                                        <a href="deleteMessage.htm?id=$!message.id">
+                                            <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
+                                        </a>
+                                        <a href="toAddMessage.htm?id=$!message.id">
+                                            <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
+                                        </a>
+                                    </li>
+                                    #end
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="tab-child col-sm-12">
-                        <div class="col-sm-12">
-                            <h4 class="col-sm-offset-5 child-head">结果公示</h4>
-                        </div>
-                        <div class="col-sm-offset-1 col-sm-10 h307 part1-notice">
-                            <ul class="n-w-ul">
-                                #if($!resultMessages.size() == 0) 
+                        <div class="tab-child col-sm-12">
+                            <div class="col-sm-12">
+                                <h4 class="col-sm-offset-5 child-head">结果公示</h4>
+                            </div>
+                            <div class="col-sm-offset-1 col-sm-10 h307 part1-notice">
+                                <ul class="n-w-ul">
+                                    #if($!resultMessages.size() == 0)
                                     暂无结果公示
-                                 #end 
-                                #foreach($message in $!resultMessages)
-                                <li class="notice-list">
-                                    <a class="content" href="#">$!message.title</a>
-                                    <a href="deleteMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
-                                    </a>
-                                    <a href="toAddMessage.htm?id=$!message.id">
-                                        <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
-                                    </a>
-                                </li>
-                                #end
-                            </ul>
+                                    #end
+                                    #foreach($message in $!resultMessages)
+                                    <li class="notice-list">
+                                        <a class="content" href="#">$!message.title</a>
+                                        <a href="deleteMessage.htm?id=$!message.id">
+                                            <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
+                                        </a>
+                                        <a href="toAddMessage.htm?id=$!message.id">
+                                            <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
+                                        </a>
+                                    </li>
+                                    #end
+                                </ul>
+                            </div>
                         </div>
                     </div>
-            
-                </div>
-            </div>
-            <!--<div class="col-md-11 right-content row">-->
-        </div>
-        <!--end <div class="row" id="content">-->
+
+                    <div class="col-sm-12 page">
+                        <ul>
+                            <li class="p_total">1/2</li>
+                            <li><a href="javascript:;">«</a></li>
+                            <li><a href="javascript:;">‹</a></li>
+                            <li class="pager-li p_current"><a href="javascript:;">1</a></li>
+                            <li class="pager-li"><a href="javascript:;">2</a></li>
+                            <li><a href="javascript:;">›</a></li><li><a href="javascript:;">»</a></li>
+                        </ul>
+                    </div>
     </div>
-
-
-    <script src="/TSC/resources/js/jquery-1.10.2.min.js" type="text/javascript"></script>
-    <script src="/TSC/resources/js/bootstrap.min.js" type="text/javascript"></script>
-    <script type="text/javascript" charset="utf-8" src="/TSC/resources/web_manage_back/ueditor1_4_3/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/TSC/resources/web_manage_back/ueditor1_4_3/ueditor.all.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="/TSC/resources/web_manage_back/ueditor1_4_3/lang/zh-cn/zh-cn.js"></script>
-    <script src="/TSC/resources/js/manege-back/ps-tab.js" type="text/javascript"></script>
-    <script>
+    <!--<div class="col-md-11 right-content">-->
+</div>
+<!--end <div class="row" id="content">-->
+</div>
+<script src="/TSC/resources/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="/TSC/resources/js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8" src="/TSC/resources/web_manage_back/ueditor1_4_3/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/TSC/resources/web_manage_back/ueditor1_4_3/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/TSC/resources/web_manage_back/ueditor1_4_3/lang/zh-cn/zh-cn.js"></script>
+<script src="/TSC/resources/js/manege-back/ps-tab.js" type="text/javascript"></script>
+<script>
     $(function(){
-        FIX.fixbar.set('.right-cnt-nav');
-        var $JTabs = $('.J-tab .tab-child');
-        $('.right-cnt-nav a').click(function(event) {
-            $(this).siblings().removeClass('choose').end().addClass('choose');
-            $JTabs.eq($(this).index()).show().siblings().hide();
-        }).eq(0).click();;
+    FIX.fixbar.set('.right-cnt-nav');
+    var $JTabs = $('.J-tab .tab-child');
+    $('.right-cnt-nav a').click(function(event) {
+    $(this).siblings().removeClass('choose').end().addClass('choose');
+    $JTabs.eq($(this).index()).show().siblings().hide();
+    }).eq(0).click();;
     });
-    </script>
-
+</script>
 </body>
-
 </html>

@@ -46,7 +46,7 @@
         <!--left-->
         <div class="notice-left-content">
             <div class="tm">
-                <a class="choose" href="showProjectsBuilt.htm?type=0&pageNo=1">中期评审</a>
+                <a href="showProjectsBuilt.htm?type=0&pageNo=1">中期评审</a>
                 <a href="showProjectsBuilt.htm?type=1&pageNo=1">结题评审</a>
             </div>
 
@@ -140,8 +140,10 @@
 	    		}
 	    	}
 
-            $(".tm a").click(function(event) {
-                $(this).addClass('choose').siblings().removeClass('choose');
+            $(".tm a").each(function(index, el) {
+                if(location.href.indexOf($(this).attr('href')) != -1){
+                    $(this).addClass('choose');
+                }
             });
     	})
     	
