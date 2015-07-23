@@ -37,7 +37,7 @@ public interface IProjectService {
 		 * @param list
 		 * @return
 		 */
-		public int[] batchUpdateProjectStatus(List<Map<String, Object>> list);
+		public int[] batchUpdateProjectStatus(List<Map<String, Object>> list) throws Exception;
 		
 		/**
 		 * 根据project的status，设置相应的项目编码，格式为2015JDA001，2015JDB002，

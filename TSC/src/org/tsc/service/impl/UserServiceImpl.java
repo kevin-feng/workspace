@@ -193,7 +193,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public int[] batchAssignExperts(Map<String, Object> map) {
+	public int[] batchAssignExperts(Map<String, Object> map)throws Exception {
 		// TODO Auto-generated method stub
 		String project_ids = (String)map.get("project_ids");
 		String user_ids = (String)map.get("user_ids");

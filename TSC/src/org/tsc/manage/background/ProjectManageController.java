@@ -87,7 +87,7 @@ public class ProjectManageController {
 	//保存项目的立不立项的操作
 	@RequestMapping(value="updateProjectStatus.htm",method=RequestMethod.POST)
 	public void updateProjectStatus(HttpServletRequest request,HttpServletResponse response,
-			String id,String status) {
+			String id,String status)throws Exception {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		list = projectService.setProjectCodeByStatus(id, status);
 		projectService.batchUpdateProjectStatus(list);

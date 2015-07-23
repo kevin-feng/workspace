@@ -19,6 +19,7 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tsc.core.base.IBaseDao;
+import org.tsc.core.tools.MD5;
 import org.tsc.service.IProjectService;
 
 import com.sun.org.glassfish.external.statistics.Statistic;
@@ -181,7 +182,7 @@ public class ProjectServiceImpl implements IProjectService{
 	}
 	
 	@Override
-	public int[] batchUpdateProjectStatus(final List<Map<String, Object>> list) {
+	public int[] batchUpdateProjectStatus(final List<Map<String, Object>> list)throws Exception {
 		// TODO Auto-generated method stub
 		String sql = "";
 		if (list.get(0).containsKey("projectCode")) {
@@ -196,39 +197,76 @@ public class ProjectServiceImpl implements IProjectService{
 				// TODO Auto-generated method stub
 				arg0.setInt(1,Integer.parseInt(list.get(arg1).get("status").toString()));
 				if (list.get(0).containsKey("projectCode")) {
+					System.out.println(list.get(arg1).get("projectCode"));
 					arg0.setString(2, list.get(arg1).get("projectCode").toString());
 					arg0.setLong(3, Long.parseLong(list.get(arg1).get("id").toString()));
 				}else {
 					arg0.setLong(2, Long.parseLong(list.get(arg1).get("id").toString()));
 				}
 			}
-			
 			@Override
 			public int getBatchSize() {
 				// TODO Auto-generated method stub
 				return list.size();
 			}
 		});
+		batchUpdateUsers(list);
 		return updateCount;
 	}
 
-	public int[] batchUpdateUsers(List<Map<String, Object>> list) {
+	/**
+	 * 进行立项操作的同时，如果是立项资助或者立项不资助，则批量更新用户的账号密码，账号为项目编码，密码默认为123456
+	 * @param list 项目列表
+	 * @return
+	 * @throws Exception
+	 */
+	public int[] batchUpdateUsers(List<Map<String, Object>> list) throws Exception {
 		int size = list.size();
 		String projectCode = null;
-		List<Map<String, Object>> list2 = new ArrayList<Map<String,Object>>();
-		StringBuilder projectIds = null;
+		final List<Map<String, Object>> list2 = new ArrayList<Map<String,Object>>();
+		StringBuilder projectIds = new StringBuilder();
 		for (int i = 0; i < size; i++) {
-			projectCode = (String)list.get(i).get("projectCode");
-			projectIds = new StringBuilder();
+			projectCode = list.get(i).get("projectCode").toString();
 			if (!"".equals(projectCode)) {
 				list2.add(list.get(i));
 				projectIds.append(list.get(i).get("id")).append(",");  
 			}
 		}
+		System.out.println("ids = "+projectIds.toString());
 		String projectId = projectIds.substring(0, projectIds.lastIndexOf(","));
-		
-		return null;
+		System.out.println("id = "+projectId);
+		String sql = "SELECT u2p.user_id,project_id,userName FROM tsc_user2project u2p INNER JOIN tsc_user user "
+				+ "ON u2p.user_id = `user`.id WHERE `user`.userRole = 'DECLARER' AND u2p.project_id in (?)";
+		final List<Map<String, Object>> users =  projectDao.getJdbcTemplate().queryForList(sql,projectId);
+		int[] updateCount = null;
+		if (users.size() > 0) {
+			final String password = MD5.md5Encode("123456");
+			String sql2 = "update tsc_user set userName=?, password=? where id=?";
+			System.out.println("list2.size = "+list2.size());
+			System.out.println("user.size = "+users.size());
+			updateCount = this.projectDao.getJdbcTemplate().batchUpdate(sql2, new BatchPreparedStatementSetter() {
+				@Override
+				public void setValues(PreparedStatement arg0, int arg1) throws SQLException {
+					// TODO Auto-generated method stub
+					arg0.setString(1, list2.get(arg1).get("projectCode").toString());
+					arg0.setString(2, password);
+					arg0.setLong(3, (Long)users.get(arg1).get("user_id"));
+				}
+				
+				@Override
+				public int getBatchSize() {
+					// TODO Auto-generated method stub
+					if (list2.size() <= users.size()) {
+						return list2.size();
+					}else {
+						return users.size();
+					}
+				}
+			});	
+		}
+		return updateCount;
 	}
+
 
 	@Override
 	public List<Map<String, Object>> setProjectCodeByStatus(String ids,
@@ -241,32 +279,34 @@ public class ProjectServiceImpl implements IProjectService{
 		int code = 0;
 		boolean flag = true;//记录是否是第一次查询最大projectCode的标识
 		for (int i = 0; i < id.length; i++) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			if (Integer.parseInt(status[i]) == 3 || Integer.parseInt(status[i]) == 4) {
-				StringBuilder projectCode = new StringBuilder();
-				Calendar calendar = Calendar.getInstance();
-				int year = calendar.get(Calendar.YEAR);
-				projectCode.append(year).append("JD");
-				if (Integer.parseInt(status[i]) == 3) {
-					projectCode.append("A");
-				} else if (Integer.parseInt(status[i]) == 4) {
-					projectCode.append("B");
+			if (Integer.parseInt(status[i]) != 2) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				if (Integer.parseInt(status[i]) == 3 || Integer.parseInt(status[i]) == 4) {
+					StringBuilder projectCode = new StringBuilder();
+					Calendar calendar = Calendar.getInstance();
+					int year = calendar.get(Calendar.YEAR);
+					projectCode.append(year).append("JD");
+					if (Integer.parseInt(status[i]) == 3) {
+						projectCode.append("A");
+					} else if (Integer.parseInt(status[i]) == 4) {
+						projectCode.append("B");
+					}
+					
+					if (flag) {
+						code = getMaxProCode();
+						flag = false;
+					}
+					code++;
+					String proCode = generateLast3Code(String.valueOf(code));
+					projectCode.append(proCode);;
+					map.put("projectCode", projectCode);					
+				}else if (Integer.parseInt(status[i]) == 5) {
+					map.put("projectCode", "");	
 				}
-				
-				if (flag) {
-					code = getMaxProCode();
-					flag = false;
-				}
-				code++;
-				String proCode = generateLast3Code(String.valueOf(code));
-				projectCode.append(proCode);;
-				map.put("projectCode", projectCode);					
-			}else if (Integer.parseInt(status[i]) == 5) {
-				map.put("projectCode", "");	
+				map.put("id", id[i]);
+				map.put("status", status[i]);
+				list.add(map);		
 			}
-			map.put("id", id[i]);
-			map.put("status", status[i]);
-			list.add(map);
 		}
 		return list;
 	}

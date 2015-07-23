@@ -207,7 +207,6 @@
                              #foreach($!project in $!projects)
                 			    #if($!project.status == 5)
                                 <tr>
-                                	<input type="hidden" name="projectId" value="$!project.id"/>
                                     <td>$!velocityCount</td>
                                     <td>$!project.name</td>
                                     <td> 
@@ -239,9 +238,6 @@
 		                   			#end
                             </tbody>
                         </table>
-                        <div class="col-sm-12">
-                    		<button class="j-lixiang-save btn btn-success" id="btn_build">保存</button>
-                		</div>
                     </div>
                 </div>
             </div>

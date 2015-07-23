@@ -32,5 +32,5 @@ public interface IUserService {
 			//批量删除user通过id
 			public int batchDeleById(String id);
 			//批量分配专家给项目
-			public int[] batchAssignExperts(Map<String, Object> map);
+			public int[] batchAssignExperts(Map<String, Object> map)throws Exception;
 }

@@ -110,7 +110,7 @@ public class ExpertManageController {
 	//批量保存专家的分配情况
 	@RequestMapping(value="/batchAssignExpert.htm",method=RequestMethod.POST)
 	public void batchAssignExpert(HttpServletRequest request,HttpServletResponse response,
-			String project_ids,String user_ids,int status){
+			String project_ids,String user_ids,int status)throws Exception{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("project_ids", project_ids);
 		map.put("user_ids", user_ids);
