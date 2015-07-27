@@ -45,14 +45,14 @@
 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/tsc?useUnicode=true&amp;characterEncoding=utf8" />
-		<property name="username" value="root" />
-		<property name="password" value="root" />
-		<property name="initialSize" value="3" />
-		<property name="maxActive" value="100" />
-		<property name="maxIdle" value="50" />
-		<property name="minIdle" value="10" />
+		<property name="driverClassName" value="${tsc_mysql_jdbc_driver}" />
+		<property name="url" value="${tsc_mysql_jdbc_url}" />
+		<property name="username" value="${tsc_mysql_jdbc_user}" />
+		<property name="password" value="${tsc_mysql_jdbc_password}" />
+		<property name="initialSize" value="${tsc_mysql_jdbc_pool_initialSize}" />
+		<property name="maxActive" value="${tsc_mysql_jdbc_pool_maxActive}" />
+		<property name="maxIdle" value="${tsc_mysql_jdbc_pool_maxIdle}" />
+		<property name="maxWait" value="${tsc_mysql_jdbc_pool_maxWait}" />
 	</bean>
 	<!--  事务管理器 -->  
     <bean id="TransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
@@ -71,4 +71,11 @@
 		<property name="defaultEncoding" value="UTF-8" />
 		<property name="uploadTempDir" value="upload/temp" /> <!-- 上传文件的临时路径 -->
 	</bean>	
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+  		<property name="locations">
+		    <list>
+		        <value>/WEB-INF/db.properties</value>
+		    </list>
+  		</property>
+	</bean>
 </beans>

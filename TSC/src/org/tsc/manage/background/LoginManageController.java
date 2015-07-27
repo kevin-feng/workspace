@@ -56,4 +56,11 @@ public class LoginManageController {
 		request.getSession(false).removeAttribute("userRole");
 		return "redirect:index.htm";
 	}
+	
+	//返回权限页面
+	@RequestMapping(value="/authority.htm",method=RequestMethod.GET)
+	public ModelAndView authority(HttpServletRequest request,HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView("lcjxjd_back/ps-authority.html");
+		return mv;
+	}
 }

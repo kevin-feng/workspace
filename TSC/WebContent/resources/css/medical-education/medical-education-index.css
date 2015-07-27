@@ -312,13 +312,16 @@ body {
     background-color:#9CCFE0;
     color: #000;
     height: 30px;
-    width: 99px;
+    width: 107px;
     display: inline-block;
     border-left: 1px solid #FFFFFF;
     float: left;
     text-align: center;
     font-size: 14px;
     cursor: pointer;
+}
+.related-links-content a.last-links{
+    width: 167px;
 }
 .related-links-content a:hover {
     color: #35A8D4;

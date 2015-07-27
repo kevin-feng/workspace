@@ -128,6 +128,20 @@ public class UserServiceImpl implements IUserService {
 		}
 		return userRole;
 	}
+	
+	@Override
+	public String getAdminRole(HttpServletRequest request,HttpServletResponse response) {
+		String userRole = (String)request.getSession().getAttribute("userRole");
+		if (userRole == null) {
+			try {
+				response.sendRedirect("login.htm");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return userRole;
+	}
 
 	@Override
 	public List<Map<String, Object>> batchCreateAccount(int count) {

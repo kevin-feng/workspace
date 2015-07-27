@@ -49,21 +49,27 @@ public class ProjectBuildController {
 	public ModelAndView showInterim(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView("lcjxjd/lcjsjd_pj_interim.html");
 		String userRole = userService.getUserRole(request, response);
-		if (userRole != null && userRole.equals("DECLARER")) {
-			Long userId = (Long)request.getSession().getAttribute("userId");
-			String sql = "select project.id, project.name, project.organization from tsc_user2project u2p "
-					+ "inner join tsc_project project on u2p.project_id=project.id  where user_id="+userId;
-			Map<String, Object> project = projectService.queryForMap(sql);
-			Long project_id = (Long)project.get("id");
-			Map<String, Object> member = memberService.queryForMap("select name,email from tsc_member where type=1 and project_id="+project_id);
-			Map<String, Object> interim = interimService.queryForMap("select * from tsc_interim where project_id="+project_id);
-			if (interim != null) {
-				List<Map<String, Object>> achievements = achievementService.queryForList("select * from tsc_achievement where interim_id="+interim.get("id"));
-				mv.addObject("achievements", achievements);		
+		if (userRole != null) {
+			if (userRole.equals("DECLARER")) {
+				Long userId = (Long)request.getSession().getAttribute("userId");
+				String sql = "select project.id, project.name, project.organization from tsc_user2project u2p "
+						+ "inner join tsc_project project on u2p.project_id=project.id  where user_id="+userId;
+				Map<String, Object> project = projectService.queryForMap(sql);
+				if (project != null) {
+					Long project_id = (Long)project.get("id");
+					Map<String, Object> member = memberService.queryForMap("select name,email from tsc_member where type=1 and project_id="+project_id);
+					Map<String, Object> interim = interimService.queryForMap("select * from tsc_interim where project_id="+project_id);
+					if (interim != null) {
+						List<Map<String, Object>> achievements = achievementService.queryForList("select * from tsc_achievement where interim_id="+interim.get("id"));
+						mv.addObject("achievements", achievements);		
+					}
+					mv.addObject("project", project);
+					mv.addObject("member", member);
+					mv.addObject("interim", interim);	
+				}
+			}else {
+				mv = new ModelAndView("lcjxjd/lcjsjd_no_authority.html");
 			}
-			mv.addObject("project", project);
-			mv.addObject("member", member);
-			mv.addObject("interim", interim);
 		}
 		return mv;
 	}
@@ -130,25 +136,31 @@ public class ProjectBuildController {
 			Integer pageNo) {
 		ModelAndView mv = new ModelAndView("lcjxjd/lcjsjd_pj_termination.html");
 		String userRole = userService.getUserRole(request, response);
-		if (userRole != null && userRole.equals("DECLARER")) {
-			Long userId = (Long)request.getSession().getAttribute("userId");
-			String sql = "select project.id, project.name, project.organization from tsc_user2project u2p "
-					+ "inner join tsc_project project on u2p.project_id=project.id  where user_id="+userId;
-			Map<String, Object> project = projectService.queryForMap(sql);
-			Long project_id = (Long)project.get("id");
-			Map<String, Object> member = memberService.queryForMap("select name,email from tsc_member where type=1 and project_id="+project_id);
-			List<Map<String, Object>> otherMembers = memberService.queryForList("select id,name,adminPosition,finishWork from tsc_member where type=0 and project_id="+project_id);
-			Map<String, Object> termination = terminationService.queryForMap("select * from tsc_termination where project_id="+project_id);
-			if (termination != null) {
-				List<Map<String, Object>> budgets = budgetService.queryForList("select * from tsc_budget where termination_id="+termination.get("id"));
-				List<Map<String, Object>> achievements = achievementService.queryForList("select * from tsc_achievement where termination_id="+termination.get("id"));
-				mv.addObject("budgets", budgets);
-				mv.addObject("achievements", achievements);
-			}
-			mv.addObject("project", project);
-			mv.addObject("member", member);
-			mv.addObject("otherMembers", otherMembers);
-			mv.addObject("termination", termination);
+		if (userRole != null) {
+			if (userRole.equals("DECLARER")) {
+				Long userId = (Long)request.getSession().getAttribute("userId");
+				String sql = "select project.id, project.name, project.organization from tsc_user2project u2p "
+						+ "inner join tsc_project project on u2p.project_id=project.id  where user_id="+userId;
+				Map<String, Object> project = projectService.queryForMap(sql);
+				if (project != null) {
+					Long project_id = (Long)project.get("id");
+					Map<String, Object> member = memberService.queryForMap("select name,email from tsc_member where type=1 and project_id="+project_id);
+					List<Map<String, Object>> otherMembers = memberService.queryForList("select id,name,adminPosition,finishWork from tsc_member where type=0 and project_id="+project_id);
+					Map<String, Object> termination = terminationService.queryForMap("select * from tsc_termination where project_id="+project_id);
+					if (termination != null) {
+						List<Map<String, Object>> budgets = budgetService.queryForList("select * from tsc_budget where termination_id="+termination.get("id"));
+						List<Map<String, Object>> achievements = achievementService.queryForList("select * from tsc_achievement where termination_id="+termination.get("id"));
+						mv.addObject("budgets", budgets);
+						mv.addObject("achievements", achievements);
+					}
+					mv.addObject("project", project);
+					mv.addObject("member", member);
+					mv.addObject("otherMembers", otherMembers);
+					mv.addObject("termination", termination);
+				}
+			}else {
+				mv = new ModelAndView("lcjxjd/lcjsjd_no_authority.html");
+			}	
 		}
 		mv.addObject("pageNo", pageNo);
 		return mv;

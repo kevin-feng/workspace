@@ -30,19 +30,15 @@ public class ExpertManageController {
 	//显示添加专家页面
 	@RequestMapping(value="/showExperts.htm",method=RequestMethod.GET)
 	public ModelAndView showExperts(HttpServletRequest request,HttpServletResponse response){
-		String userName = userService.getUserName(request, response);
 		ModelAndView mv = null;
-		if (userName != null) {
-			mv = new ModelAndView("lcjxjd_back/ps-index-addexpert.html");
-		}else {
-			try {
-				response.sendRedirect("login.htm");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		String userRole = userService.getAdminRole(request, response);
+		if (userRole != null) {
+			if (userRole.equals("ADMIN")) {
+				mv = new ModelAndView("lcjxjd_back/ps-index-addexpert.html");
+			}else {
+				mv = new ModelAndView("lcjxjd_back/ps-authority.html");
 			}
 		}
-
 		return mv;
 	}
 	
@@ -75,17 +71,15 @@ public class ExpertManageController {
 	@RequestMapping(value="/showExpertsList.htm",method=RequestMethod.GET)
 	public ModelAndView showExpertsList(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mv = null;
-		String userRole = (String) request.getSession().getAttribute("userRole");
-		if (userRole == null) {
-			try {
-				response.sendRedirect("login.htm");
-			} catch (IOException e) {
-				e.printStackTrace();
+		String userRole = userService.getAdminRole(request, response);
+		if (userRole != null) {
+			if (userRole.equals("ADMIN")) {
+				mv = new ModelAndView("lcjxjd_back/ps-index-expert_list.html");
+				List<Map<String, Object>>experts = userService.queryForList("select * from tsc_user where userRole like'EXPERT%'");
+				mv.addObject("experts", experts);	
+			}else {
+				mv = new ModelAndView("lcjxjd_back/ps-authority.html");
 			}
-		}else {
-			mv = new ModelAndView("lcjxjd_back/ps-index-expert_list.html");
-			List<Map<String, Object>>experts = userService.queryForList("select * from tsc_user where userRole like'EXPERT%'");
-			mv.addObject("experts", experts);			
 		}
 		return mv;
 	}

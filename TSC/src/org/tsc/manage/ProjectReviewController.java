@@ -51,15 +51,22 @@ public class ProjectReviewController {
 			int pageNo) {
 		String userRole = userService.getUserRole(request, response);
 		ModelAndView mView = null;
-		if (userRole!=null && userRole.equals("EXPERT")) {
-			mView = new ModelAndView("lcjxjd/lcjsjd_projects.html");
-			List<Map<String, Object>> projects = new ArrayList<Map<String,Object>>();
-			PageList pageList = new PageList(projectDao);
-			StringBuilder sqlBuilder = new StringBuilder(
-					"SELECT * FROM tsc_project WHERE deleteStatus=0 ORDER BY addTime DESC");
-			pageList.getPageList(sqlBuilder, pageNo, 20);
-			mView.addObject("pageList", pageList);
-			mView.addObject("projects", pageList.getResult());		
+		if (userRole!=null) {
+			if (userRole.equals("EXPERT")) {
+				mView = new ModelAndView("lcjxjd/lcjsjd_projects.html");
+				Long userId = (Long)request.getSession().getAttribute("userId");
+				List<Map<String, Object>> projects = new ArrayList<Map<String,Object>>();
+				PageList pageList = new PageList(projectDao);
+				StringBuilder sql = new StringBuilder("SELECT * FROM tsc_project pro INNER JOIN tsc_user2project u2p "
+						+ "ON u2p.project_id = pro.id WHERE deleteStatus=0 AND u2p.user_id = '");
+				sql.append(userId).append("' ORDER BY addTime DESC");
+				pageList.getPageList(sql, pageNo, 20);
+				mView.addObject("pageList", pageList);
+				mView.addObject("projects", pageList.getResult());	
+			}else {
+				mView = new ModelAndView("lcjxjd/lcjsjd_no_authority.html");
+			}
+				
 		}
 		return mView;
 	}
@@ -110,28 +117,32 @@ public class ProjectReviewController {
 			Integer pageNo,int type) {
 		ModelAndView mv = null;
 		String userRole = userService.getUserRole(request, response);
-		if (userRole != null && userRole.equals("EXPERT")) {
-			mv = new ModelAndView("lcjxjd/lcjsjd_projects_built.html");
-			List<Map<String, Object>> projects = new ArrayList<Map<String,Object>>();
-			StringBuilder sqlBuilder = null;
-			PageList pageList = null;
-			if (type == 1) {
-				pageList = new PageList(terminationDao);
-				sqlBuilder = new StringBuilder(
-						"SELECT termination.id,project.name FROM tsc_termination termination inner join tsc_project project"
-						+ " on termination.project_id = project.id WHERE termination.deleteStatus=0 ORDER BY termination.addTime DESC");
-				pageList.getPageList(sqlBuilder, pageNo, 20);
-				mv.addObject("projects", pageList.getResult());		
+		if (userRole != null) {
+			if (userRole.equals("EXPERT_INTERIM") || userRole.equals("EXPERT_TERMINATION")) {
+				mv = new ModelAndView("lcjxjd/lcjsjd_projects_built.html");
+				List<Map<String, Object>> projects = new ArrayList<Map<String,Object>>();
+				StringBuilder sqlBuilder = null;
+				PageList pageList = null;
+				if (type == 1) {
+					pageList = new PageList(terminationDao);
+					sqlBuilder = new StringBuilder(
+							"SELECT termination.id,project.name FROM tsc_termination termination inner join tsc_project project"
+							+ " on termination.project_id = project.id WHERE termination.deleteStatus=0 ORDER BY termination.addTime DESC");
+					pageList.getPageList(sqlBuilder, pageNo, 20);
+					mv.addObject("projects", pageList.getResult());		
+				}else {
+					pageList = new PageList(interimDao);
+					sqlBuilder = new StringBuilder(
+							"SELECT interim.id,project.name FROM tsc_interim interim inner join tsc_project project"
+							+ " on interim.project_id = project.id WHERE interim.deleteStatus=0 ORDER BY interim.addTime DESC");
+					pageList.getPageList(sqlBuilder, pageNo, 20);	
+					mv.addObject("projects", pageList.getResult());		
+				}
+				mv.addObject("pageList", pageList);
+				mv.addObject("type", type);
 			}else {
-				pageList = new PageList(interimDao);
-				sqlBuilder = new StringBuilder(
-						"SELECT interim.id,project.name FROM tsc_interim interim inner join tsc_project project"
-						+ " on interim.project_id = project.id WHERE interim.deleteStatus=0 ORDER BY interim.addTime DESC");
-				pageList.getPageList(sqlBuilder, pageNo, 20);	
-				mv.addObject("projects", pageList.getResult());		
-			}
-			mv.addObject("pageList", pageList);
-			mv.addObject("type", type);
+				mv = new ModelAndView("lcjxjd/lcjsjd_no_authority.html");
+			}	
 		}
 		return mv;
 	}

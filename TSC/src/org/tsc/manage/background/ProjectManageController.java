@@ -29,57 +29,54 @@ public class ProjectManageController {
 	@Autowired
 	public IUserService userService;
 
-	//显示未立项和立项的项目列表
+	//显示项目管理，立项管理项目列表
 	@RequestMapping(value="showProjects.htm")
 	public ModelAndView showProjects(HttpServletRequest request,HttpServletResponse response,
 			int type) {
 		ModelAndView modelAndView = null;
-		String userName = userService.getUserName(request, response);
-		if (userName == null) {
-			try {
-				response.sendRedirect("login.htm");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else {
-			List<Map<String, Object>> projects = new ArrayList<Map<String,Object>>();
-			//type=0为项目管理页面，1为立项管理的中期检查项目的页面，2为立项管理的结题材料的页面
-			String sql = "";
-			if (type == 0) {
-				modelAndView = new ModelAndView("lcjxjd_back/ps-project_manage.html");			
-				projects = projectService.getProjectsAndReviews("0,1,2,5","EXPERT");
-				sql = "select id,trueName from tsc_user where userRole='EXPERT'";
-			}else if (type == 1) {
-				modelAndView = new ModelAndView("lcjxjd_back/ps-project_interim_manage.html");
-				projects = projectService.getProjectsAndReviews("3,4,6,7,8,9,10","INTERIM_EXPERT");
-				sql = "select id,trueName from tsc_user where userRole='EXPERT_INTERIM'";
-			}else if (type == 2) {
-				modelAndView = new ModelAndView("lcjxjd_back/ps-project_termination_manage.html");
-				projects = projectService.getProjectsAndReviews("9,11,12,13,14,15","TERMINATION_EXPERT");	
-				sql = "select id,trueName from tsc_user where userRole='EXPERT_TERMINATION'";
-			}
-			if (projects.size() > 0) {
-				String projectCode = null;
-				List<Map<String, Object>> fundProjects = new ArrayList<Map<String, Object>>();
-				List<Map<String, Object>> unfundProjects = new ArrayList<Map<String, Object>>();
-				for (int i = 0; i < projects.size(); i++) {
-					projectCode = (String) projects.get(i).get("project_code");
-					if (projectCode != null) {
-						if (projectCode.contains("A")) {
-							fundProjects.add(projects.get(i));
-						} else if (projectCode.contains("B")) {
-							unfundProjects.add(projects.get(i));
+		String userRole = userService.getAdminRole(request, response);
+		if (userRole != null) {
+			if (userRole.equals("ADMIN")) {
+				List<Map<String, Object>> projects = new ArrayList<Map<String,Object>>();
+				//type=0为项目管理页面，1为立项管理的中期检查项目的页面，2为立项管理的结题材料的页面
+				String sql = "";
+				if (type == 0) {
+					modelAndView = new ModelAndView("lcjxjd_back/ps-project_manage.html");			
+					projects = projectService.getProjectsAndReviews("0,1,2,5","EXPERT");
+					sql = "select id,trueName from tsc_user where userRole='EXPERT'";
+				}else if (type == 1) {
+					modelAndView = new ModelAndView("lcjxjd_back/ps-project_interim_manage.html");
+					projects = projectService.getProjectsAndReviews("3,4,6,7,8,9,10","INTERIM_EXPERT");
+					sql = "select id,trueName from tsc_user where userRole='EXPERT_INTERIM'";
+				}else if (type == 2) {
+					modelAndView = new ModelAndView("lcjxjd_back/ps-project_termination_manage.html");
+					projects = projectService.getProjectsAndReviews("9,11,12,13,14,15","TERMINATION_EXPERT");	
+					sql = "select id,trueName from tsc_user where userRole='EXPERT_TERMINATION'";
+				}
+				if (projects.size() > 0) {
+					String projectCode = null;
+					List<Map<String, Object>> fundProjects = new ArrayList<Map<String, Object>>();
+					List<Map<String, Object>> unfundProjects = new ArrayList<Map<String, Object>>();
+					for (int i = 0; i < projects.size(); i++) {
+						projectCode = (String) projects.get(i).get("project_code");
+						if (projectCode != null) {
+							if (projectCode.contains("A")) {
+								fundProjects.add(projects.get(i));
+							} else if (projectCode.contains("B")) {
+								unfundProjects.add(projects.get(i));
+							}
 						}
 					}
+					modelAndView.addObject("fundProjects", fundProjects);
+					modelAndView.addObject("unfundProjects", unfundProjects);
 				}
-				modelAndView.addObject("fundProjects", fundProjects);
-				modelAndView.addObject("unfundProjects", unfundProjects);
+				List<Map<String, Object>>experts = userService.queryForList(sql);
+				modelAndView.addObject("experts", experts);
+				System.out.println(projects);
+				modelAndView.addObject("projects", projects);	
+			}else {
+				modelAndView = new ModelAndView("lcjxjd_back/ps-authority.html");
 			}
-			List<Map<String, Object>>experts = userService.queryForList(sql);
-			modelAndView.addObject("experts", experts);
-			System.out.println(projects);
-			modelAndView.addObject("projects", projects);
 		}
 		return modelAndView;
 	}

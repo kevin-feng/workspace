@@ -58,13 +58,13 @@ public class MessageManageController {
 		List<Map<String, Object>> courseMessages = new ArrayList<Map<String,Object>>();
 		List<Map<String, Object>> reviewMessages = new ArrayList<Map<String,Object>>();
 		List<Map<String, Object>> resultMessages = new ArrayList<Map<String,Object>>();
-		String sqlString  = "SELECT * FROM tsc_message where type=0 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,6";
-		String sqlString2 = "SELECT * FROM tsc_message where type=1 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,6";
-		String sqlString3 = "SELECT * FROM tsc_message where type=2 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,6";
-		String sqlString4 = "SELECT * FROM tsc_message where type=3 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,6";
-		String sqlString5 = "SELECT * FROM tsc_message where type=4 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,6";
-		String sqlString6 = "SELECT * FROM tsc_message where type=5 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,6";
-		String sqlString7 = "SELECT * FROM tsc_message where type=6 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,6";
+		String sqlString  = "SELECT * FROM tsc_message where type=0 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,10";
+		String sqlString2 = "SELECT * FROM tsc_message where type=1 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,10";
+		String sqlString3 = "SELECT * FROM tsc_message where type=2 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,10";
+		String sqlString4 = "SELECT * FROM tsc_message where type=3 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,10";
+		String sqlString5 = "SELECT * FROM tsc_message where type=4 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,10";
+		String sqlString6 = "SELECT * FROM tsc_message where type=5 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,10";
+		String sqlString7 = "SELECT * FROM tsc_message where type=6 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,10";
 		messages = messageDao.selectData(sqlString);
 		workMessages = messageDao.selectData(sqlString2);
 		policyMessages = messageDao.selectData(sqlString3);
@@ -88,22 +88,19 @@ public class MessageManageController {
 	@RequestMapping(value="/toAddMessage.htm",method=RequestMethod.GET)
 	public ModelAndView toAddMessage(HttpServletRequest request,HttpServletResponse response,
 			Integer type,Long id) {
-		//判断用户是否已登录，若未登录则重定向到登录页面，若已登录，则返回用户名
-		String userName = userService.getUserName(request,response);
 		ModelAndView mv = null;
-		if (userName != null) {
-			mv = new ModelAndView("lcjxjd_back/ps-index-notice.html");	
-			if (id != null && !id.equals("")) {
-				Map<String, Object> message = messageDao.getById(id);
-				mv.addObject("message", message);
-			}
-			mv.addObject("type", type);		
-		}else {
-			try {
-				response.sendRedirect("login.htm");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		//判断用户是否已登录，若未登录则重定向到登录页面，若已登录，则返回用户名
+		String userRole = userService.getAdminRole(request, response);
+		if (userRole != null) {
+			if (userRole.equals("ADMIN")) {
+				mv = new ModelAndView("lcjxjd_back/ps-index-notice.html");	
+				if (id != null && !id.equals("")) {
+					Map<String, Object> message = messageDao.getById(id);
+					mv.addObject("message", message);
+				}
+				mv.addObject("type", type);	
+			}else {
+				mv = new ModelAndView("lcjxjd_back/ps-authority.html");
 			}
 		}
 		return mv;
@@ -173,13 +170,17 @@ public class MessageManageController {
 	public String deleteMessage(HttpServletRequest request,HttpServletResponse response,Long id) {
 		//判断用户是否已登录，若未登录则重定向到登录页面，若已登录，则返回用户名
 		String userName = userService.getUserName(request,response);
-		if (userName != null) {
-			String sqlString = "UPDATE tsc_message SET deleteStatus=1 WHERE id="+id;
-			messageDao.updateData(sqlString);
-			return "redirect:index.htm";			
-		}else {
-			return "redirect:login.htm";
+		String userRole = userService.getAdminRole(request, response);
+		if (userRole != null) {
+			if (userRole.equals("ADMIN")) {
+				String sqlString = "UPDATE tsc_message SET deleteStatus=1 WHERE id="+id;
+				messageDao.updateData(sqlString);
+				return "redirect:index.htm";	
+			}else {
+				return "redirect:authority.htm";
+			}
 		}
+		return null;
 	}
 	
 	//上传文件

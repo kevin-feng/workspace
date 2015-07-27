@@ -33,4 +33,6 @@ public interface IUserService {
 			public int batchDeleById(String id);
 			//批量分配专家给项目
 			public int[] batchAssignExperts(Map<String, Object> map)throws Exception;
+			
+			public String getAdminRole(HttpServletRequest request,HttpServletResponse response);
 }

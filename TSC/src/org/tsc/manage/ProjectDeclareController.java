@@ -48,30 +48,34 @@ public class ProjectDeclareController {
 	@RequestMapping(value="toDeclare.htm",method=RequestMethod.GET)
 	public ModelAndView toDeclare(HttpServletRequest request,HttpServletResponse response,
 			Integer pageNo) {
-		System.out.println("pageNo = "+pageNo);
-		ModelAndView mv = new ModelAndView("lcjxjd/lcjsjd_index_declare.html");
+		ModelAndView mv = null;
 		String userRole = userService.getUserRole(request, response);
-		if (userRole != null && userRole.equals("DECLARER")) {
-			Long userId = (Long)request.getSession(false).getAttribute("userId");
-			String sqlString = "SELECT project_id FROM tsc_user2project WHERE user_id="+userId;
-			Map<String, Object> map = projectService.queryForMap(sqlString);
-			System.out.println("map = "+map);
-			if (map != null) {
-				Long project_id = (Long)map.get("project_id");
-				Map<String, Object> project = projectService.queryForMap("SELECT * FROM tsc_project WHERE id="+project_id);
-				List<Map<String, Object>> budgets = budgetService.queryForList("SELECT * FROM tsc_budget WHERE project_id="+project_id);
-				Map<String, Object> member = memberService.queryForMap("SELECT * FROM tsc_member WHERE type=1 AND project_id="+project_id);
-				List<Map<String, Object>> otherMembers = memberService.queryForList("SELECT * FROM tsc_member WHERE type=0 AND project_id="+project_id);	
-				Map<String, Object> account = bankAccountService.queryForMap("SELECT * FROM tsc_bankaccount WHERE project_id="+project_id);
-				mv.addObject("project", project);
-				mv.addObject("budgets", budgets); 
-				mv.addObject("member", member);
-				System.out.println("----"+member);
-				mv.addObject("otherMembers", otherMembers);
-				mv.addObject("account", account);
+		if (userRole != null) {
+			if (userRole.equals("DECLARER")) {
+				mv = new ModelAndView("lcjxjd/lcjsjd_index_declare.html");
+				Long userId = (Long)request.getSession(false).getAttribute("userId");
+				String sqlString = "SELECT project_id FROM tsc_user2project WHERE user_id="+userId;
+				Map<String, Object> map = projectService.queryForMap(sqlString);
+				System.out.println("map = "+map);
+				if (map != null) {
+					Long project_id = (Long)map.get("project_id");
+					Map<String, Object> project = projectService.queryForMap("SELECT * FROM tsc_project WHERE id="+project_id);
+					List<Map<String, Object>> budgets = budgetService.queryForList("SELECT * FROM tsc_budget WHERE project_id="+project_id);
+					Map<String, Object> member = memberService.queryForMap("SELECT * FROM tsc_member WHERE type=1 AND project_id="+project_id);
+					List<Map<String, Object>> otherMembers = memberService.queryForList("SELECT * FROM tsc_member WHERE type=0 AND project_id="+project_id);	
+					Map<String, Object> account = bankAccountService.queryForMap("SELECT * FROM tsc_bankaccount WHERE project_id="+project_id);
+					mv.addObject("project", project);
+					mv.addObject("budgets", budgets); 
+					mv.addObject("member", member);
+					System.out.println("----"+member);
+					mv.addObject("otherMembers", otherMembers);
+					mv.addObject("account", account);
+				}
+				mv.addObject("pageNo", pageNo);
+			}else {
+				mv = new ModelAndView("lcjxjd/lcjsjd_no_authority.html");
 			}
 		}
-		mv.addObject("pageNo", pageNo);
 		return mv;
 	}
 	

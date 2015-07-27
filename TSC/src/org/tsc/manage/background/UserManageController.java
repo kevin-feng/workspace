@@ -27,25 +27,14 @@ public class UserManageController {
 	//显示管理员
 	@RequestMapping(value="/showUsers.htm",method=RequestMethod.GET)
 	public ModelAndView showUsers(HttpServletRequest request,HttpServletResponse response) {
-		//String userName = userService.getUserName(request, response);
-		System.out.println("aaaaa");
-		String userName = (String)request.getSession().getAttribute("userName");
-		System.out.println("userName = "+userName);
 		ModelAndView mv = null;
 		//如果没登录，或者登录的账号不是超级管理员，则为false
-		boolean flag = false;
-		if (userName == null) {
-			try {
-				response.sendRedirect("login.htm");
-				//request.getRequestDispatcher("login.htm").forward(request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else{
-			mv = new ModelAndView("lcjxjd_back/ps-index-admin.html");
-			if (userName.equals("admin")) {
-				flag = true;
+	//	boolean flag = false;
+		String userRole = userService.getAdminRole(request, response);
+		if (userRole != null) {
+			if (userRole.equals("ADMIN")) {
+				mv = new ModelAndView("lcjxjd_back/ps-index-admin.html");
+				String userName = (String)request.getSession().getAttribute("userName");
 				List<Map<String, Object>> users = new ArrayList<Map<String,Object>>();
 				Map<String, Object> admin = new HashMap<String, Object>();		
 				admin = userService.queryForMap("SELECT * FROM tsc_user WHERE userName='"+userName+"'");
@@ -54,11 +43,10 @@ public class UserManageController {
 				System.out.println("admin = "+admin);
 				mv.addObject("admin", admin);
 				mv.addObject("users", users);
-				mv.addObject("flag", flag);
-			}else{	
-				mv.addObject("flag", flag);
+			}else {
+				mv = new ModelAndView("lcjxjd_back/ps-authority.html");
 			}
-		}		
+		}	
 		return mv;
 	}
 	

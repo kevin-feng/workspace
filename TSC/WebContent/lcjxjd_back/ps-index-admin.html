@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <title>后台管理</title>
     <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
-    <link type="text/css" rel="stylesheet" href="/TSC/resources/css/reset/reset.css">
-    <link type="text/css" rel="stylesheet" href="/TSC/resources/css/manage-background/ps-index.css" >
-    <link href="/TSC/resources/css/bootstrap.css" rel="stylesheet">
-    <link href="/TSC/resources/css/manage-background/createValidity.css" rel="stylesheet" type="text/css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/reset/reset.css">
+    <link type="text/css" rel="stylesheet" href="../resources/css/manage-background/ps-index.css" >
+    <link href="../resources/css/bootstrap.css" rel="stylesheet">
+    <link href="../resources/css/manage-background/createValidity.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -17,9 +17,7 @@
     <div class="row" id="content">
         <div class="main-side-nav">
             #parse("lcjxjd_back/ps-index-left.html")
-        </div>
-
-			#if($!flag == true)   
+        </div>   
         	<div class="right-content">
 
             <div class="tab col-sm-12 mt20">
@@ -91,11 +89,6 @@
 
             </div>
         </div><!--<div class="col-md-11 right-content">-->
-    		#else
-    		<div class="right-content">
-    			<h3 style="text-align:center;color:#ff0000">您没有权限访问该页面...</h3>
-    		</div>
-    		#end
     </div>
     <!--end <div class="row" id="content">-->
 </div>
@@ -143,16 +136,16 @@
     </div>
 </div>
 
-<script src="/TSC/resources/js/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="/TSC/resources/js/bootstrap.min.js" type="text/javascript"></script>
-<script type="text/javascript" charset="utf-8" src="/TSC/resources/web_manage_back/ueditor1_4_3/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="/TSC/resources/web_manage_back/ueditor1_4_3/ueditor.all.min.js"> </script>
+<script src="../resources/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="../resources/js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript" charset="utf-8" src="../resources/web_manage_back/ueditor1_4_3/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="../resources/web_manage_back/ueditor1_4_3/ueditor.all.min.js"> </script>
 <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
 <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-<script type="text/javascript" charset="utf-8" src="/TSC/resources/web_manage_back/ueditor1_4_3/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" charset="utf-8" src="../resources/web_manage_back/ueditor1_4_3/lang/zh-cn/zh-cn.js"></script>
 
-<script src="/TSC/resources/js/manege-back/ps-tab.js" type="text/javascript"></script>
-<script src="/TSC/resources/js/manege-back/ps-createValidity.js" type="text/javascript"></script>
+<script src="../resources/js/manege-back/ps-tab.js" type="text/javascript"></script>
+<script src="../resources/js/manege-back/ps-createValidity.js" type="text/javascript"></script>
 
 <script>	
 	function update(str,str1){
