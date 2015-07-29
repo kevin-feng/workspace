@@ -26,7 +26,7 @@ $(function(){
     //判断邮箱
     $('#psEmail').blur(function(event) {
         if(!/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/.test($(this).val())){
-            $(this).parent().append('<p class="error">邮箱地址不正确</p>');
+            $(this).parent().append('<p class="error">邮箱格式不正确</p>');
         }
     });
     //输入框获得焦点的时候，把错误提示移除

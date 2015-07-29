@@ -32,14 +32,15 @@ public class UserManageController {
 	//	boolean flag = false;
 		String userRole = userService.getAdminRole(request, response);
 		if (userRole != null) {
-			if (userRole.equals("ADMIN")) {
+			String userName = (String)request.getSession().getAttribute("userName");
+			if (userRole.equals("ADMIN") && "admin".equals(userName)) {
 				mv = new ModelAndView("lcjxjd_back/ps-index-admin.html");
-				String userName = (String)request.getSession().getAttribute("userName");
 				List<Map<String, Object>> users = new ArrayList<Map<String,Object>>();
 				Map<String, Object> admin = new HashMap<String, Object>();		
-				admin = userService.queryForMap("SELECT * FROM tsc_user WHERE userName='"+userName+"'");
-				String sqlString = "SELECT * FROM tsc_user WHERE userName!='"+userName+"'";
+				admin = userService.queryForMap("SELECT * FROM tsc_user WHERE userName='admin'");
+				String sqlString = "SELECT * FROM tsc_user WHERE userName!='admin' and userRole = 'ADMIN'";
 				users = userService.queryForList(sqlString);
+				System.out.println(users.size());
 				System.out.println("admin = "+admin);
 				mv.addObject("admin", admin);
 				mv.addObject("users", users);
@@ -59,7 +60,7 @@ public class UserManageController {
 			String sqlString = "UPDATE tsc_user SET password='"+encodePassword+"' WHERE id="+id;
 			userService.update(sqlString);
 		}else {
-			String sqlString="INSERT INTO tsc_user (userName,password) VALUES ('"+userName+"','"+encodePassword+"')";
+			String sqlString="INSERT INTO tsc_user (userName,password,userRole) VALUES ('"+userName+"','"+encodePassword+"','ADMIN')";
 			userService.save(sqlString);		
 		}
 		return "redirect:showUsers.htm";
