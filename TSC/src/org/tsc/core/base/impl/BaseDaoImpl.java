@@ -195,6 +195,7 @@ public class BaseDaoImpl implements IBaseDao {
 			list = jdbcTemplate.queryForList(sql);
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 			return null;
 		}
 		return list;

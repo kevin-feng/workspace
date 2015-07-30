@@ -75,7 +75,7 @@ public class ExpertManageController {
 		if (userRole != null) {
 			if (userRole.equals("ADMIN")) {
 				mv = new ModelAndView("lcjxjd_back/ps-index-expert_list.html");
-				List<Map<String, Object>>experts = userService.queryForList("select * from tsc_user where userRole like'EXPERT%'");
+				List<Map<String, Object>>experts = userService.queryForList("select id,userName,password,trueName,userRole from tsc_user where userRole like'EXPERT%' order by trueName");
 				mv.addObject("experts", experts);	
 			}else {
 				mv = new ModelAndView("lcjxjd_back/ps-authority.html");

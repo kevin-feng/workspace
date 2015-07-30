@@ -22,14 +22,13 @@
                 <div class="right-content">
                     <div class="right-cnt-nav">
                         <!-- 通知动态 -->
-                        <a href="javascript:;">最新通知</a>
-                        <a href="javascript:;">工作动态</a>
-                        <a href="javascript:;">政策规定</a>
-                        <a href="javascript:;">理论探索</a>
-                        <a href="javascript:;">教学课程</a>
-                        <a href="javascript:;">基地评审</a>
+                        <a href="index.htm?type=0&pageNo=1">最新通知</a>
+                        <a href="index.htm?type=1&pageNo=1">工作动态</a>
+                        <a href="index.htm?type=2&pageNo=1">政策规定</a>
+                        <a href="index.htm?type=3&pageNo=1">理论探索</a>
+                        <a href="index.htm?type=4&pageNo=1">教学课程</a>
+                        <a href="index.htm?type=5&pageNo=1">基地评审</a>
                     </div>
-                    <div class="J-tab col-sm-12"><!-- 父类J-tab，子类tab-child -->
                     <!-- 通知动态 -->
                         <div class="tab-child col-sm-12">
                             <div class="col-sm-12">
@@ -38,7 +37,7 @@
                             <div class="col-sm-offset-1 col-sm-10 part1-notice">
                                 <ul class="n-w-ul">
                                     #if($!messages.size() == 0)
-                                    暂无通知
+                                   		 暂无内容
                                     #end
                                     #foreach($message in $!messages)
                                     <li class="notice-list">
@@ -50,152 +49,25 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="tab-child col-sm-12">
-                            <div class="col-sm-12">
-                                <h4 class="col-sm-offset-5 child-head">工作动态</h4>
-                            </div>
-                            <div class="col-sm-offset-1 col-sm-10 part1-notice">
-                                <ul class="n-w-ul">
-                                    #if($!workMessages.size() == 0)
-                                    暂无工作动态
-                                    #end
-                                    #foreach($message in $!workMessages)
-                                    <li class="notice-list">
-                                        <a class="content" href="#">$!message.title</a>
-                                        <a href="deleteMessage.htm?id=$!message.id">
-                                            <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
-                                        </a>
-                                        <a href="toAddMessage.htm?id=$!message.id">
-                                            <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
-                                        </a>
-                                    </li>
-                                    #end
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="tab-child col-sm-12">
-                            <div class="col-sm-12">
-                                <h4 class="col-sm-offset-5 child-head">政策规定</h4>
-                            </div>
-                            <div class="col-sm-offset-1 h307 col-sm-10 part1-notice">
-                                <ul class="n-w-ul">
-                                    #if($!policyMessages.size() == 0)
-                                    暂无政策规定
-                                    #end
-                                    #foreach($message in $!policyMessages)
-                                    <li class="notice-list">
-                                        <a class="content" href="#">$!message.title</a>
-                                        <a href="deleteMessage.htm?id=$!message.id" class="notice-delete btn btn-danger btn-sm">删除</a>
-                                        <a href="toAddMessage.htm?id=$!message.id" class="notice-change btn btn-primary btn-sm">修改</a>
-                                    </li>
-                                    #end
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="tab-child col-sm-12">
-                            <div class="col-sm-12">
-                                <h4 class="col-sm-offset-5 child-head">理论探索</h4>
-                            </div>
-                            <div class="col-sm-offset-1 h307 col-sm-10 part1-notice">
-                                <ul class="n-w-ul">
-                                    #if($!theoryMessages.size() == 0)
-                                    暂无理论探索
-                                    #end
-                                    #foreach($message in $!theoryMessages)
-                                    <li class="notice-list">
-                                        <a class="content" href="#">$!message.title</a>
-                                        <a href="deleteMessage.htm?id=$!message.id">
-                                            <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
-                                        </a>
-                                        <a href="toAddMessage.htm?id=$!message.id">
-                                            <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
-                                        </a>
-                                    </li>
-                                    #end
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="tab-child col-sm-12">
-                            <div class="col-sm-12">
-                                <h4 class="col-sm-offset-5 child-head">教学课程</h4>
-                            </div>
-                            <div class="col-sm-offset-1 h307 col-sm-10 part1-notice">
-                                <ul class="n-w-ul">
-                                    #if($!courseMessages.size() == 0)
-                                    暂无教学课程
-                                    #end
-                                    #foreach($message in $!courseMessages)
-                                    <li class="notice-list">
-                                        <a class="content" href="#">$!message.title</a>
-                                        <a href="deleteMessage.htm?id=$!message.id">
-                                            <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
-                                        </a>
-                                        <a href="toAddMessage.htm?id=$!message.id">
-                                            <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
-                                        </a>
-                                    </li>
-                                    #end
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="tab-child col-sm-12">
-                            <div class="col-sm-12">
-                                <h4 class="col-sm-offset-5 child-head">基地评审</h4>
-                            </div>
-                            <div class="col-sm-offset-1 h307 col-sm-10 part1-notice">
-                                <ul class="n-w-ul">
-                                    #if($!reviewMessages.size() == 0)
-                                    暂无网上评审
-                                    #end
-                                    #foreach($message in $!reviewMessages)
-                                    <li class="notice-list">
-                                        <a class="content" href="#">$!message.title</a>
-                                        <a href="deleteMessage.htm?id=$!message.id">
-                                            <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
-                                        </a>
-                                        <a href="toAddMessage.htm?id=$!message.id">
-                                            <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
-                                        </a>
-                                    </li>
-                                    #end
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="tab-child col-sm-12">
-                            <div class="col-sm-12">
-                                <h4 class="col-sm-offset-5 child-head">结果公示</h4>
-                            </div>
-                            <div class="col-sm-offset-1 col-sm-10 h307 part1-notice">
-                                <ul class="n-w-ul">
-                                    #if($!resultMessages.size() == 0)
-                                    暂无结果公示
-                                    #end
-                                    #foreach($message in $!resultMessages)
-                                    <li class="notice-list">
-                                        <a class="content" href="#">$!message.title</a>
-                                        <a href="deleteMessage.htm?id=$!message.id">
-                                            <button type="button" class="work-delete btn btn-danger btn-sm">删除</button>
-                                        </a>
-                                        <a href="toAddMessage.htm?id=$!message.id">
-                                            <button type="button" class="work-change btn btn-primary btn-sm">修改</button>
-                                        </a>
-                                    </li>
-                                    #end
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-sm-12 page">
-                        <ul>
-                            <li class="p_total">1/2</li>
-                            <li><a href="javascript:;">«</a></li>
-                            <li><a href="javascript:;">‹</a></li>
-                            <li class="pager-li p_current"><a href="javascript:;">1</a></li>
-                            <li class="pager-li"><a href="javascript:;">2</a></li>
-                            <li><a href="javascript:;">›</a></li><li><a href="javascript:;">»</a></li>
-                        </ul>
+                    #if($!pageList.pages != 0)
+                    <div class="pager"><ul><li class="p_total">1/$!pageList.pages</li>
+                    		#set($list=[1..$!pageList.pages])
+                    		#set($prePage = $!{pageList.currentPage} - 1)
+                    		#set($nextPage = $!{pageList.currentPage} + 1)
+                    		<li><a href="index.htm?type=$!type&pageNo=1">«</a></li>
+                    		
+                    		<!-- <li><a onclick="return prePage()" href="" >‹</a></li> -->
+                    		<li><a onclick="prePage($!pageList.currentPage,$!type)" href="javascript:;" >‹</a></li>
+                    		#foreach($l in $!list)
+                    		#if($!pageList.pages <= 6)
+                            <li class="pager-li"><a href="index.htm?type=$!type&pageNo=$!l">$!l</a></li>
+                         	#end
+                         	#end
+                         	<li><a onclick="nextPage($!pageList.currentPage,$!pageList.pages,$!type)" href="javascript:;">›</a></li><li><a href="index.htm?type=$!type&pageNo=$!pageList.pages">»</a></li>
+                         </ul>
                     </div>
+                    #end
     </div>
     <!--<div class="col-md-11 right-content">-->
 </div>
@@ -216,6 +88,34 @@
     $JTabs.eq($(this).index()).show().siblings().hide();
     }).eq(0).click();;
     });
+    
+    function prePage(pageNo,type){
+		var pageNo = pageNo-1;
+		if(pageNo > 0){
+			window.location.href="index.htm?type="+type+"&pageNo="+pageNo;
+		}else{
+			window.location.href="index.htm?type="+type+"&pageNo=1";
+		}
+	}
+	function nextPage(pageNo,pages,type){
+		var pageNo = pageNo+1;
+		if(pageNo < pages){
+			window.location.href="index.htm?type="+type+"&pageNo="+pageNo;
+		}else{
+			window.location.href="index.htm?type="+type+"&pageNo="+pages;
+		}
+	}
+	
+	$(function(){
+		var pagerUrl;
+    	var $pagerLinks = $('.pager-li a');
+    	for(var i=0; i<$pagerLinks.size(); i++){
+    		pagerUrl = $pagerLinks.eq(i).attr("href");
+    		if(window.location.href.indexOf(pagerUrl) != -1){
+    			$pagerLinks.eq(i).parent("li").addClass("p_current");
+    		}
+    	}
+	})
 </script>
 </body>
 </html>

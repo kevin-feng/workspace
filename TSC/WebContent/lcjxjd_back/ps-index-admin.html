@@ -32,6 +32,7 @@
                         <thead>
                             <tr>
                                 <th class="w300">超级管理员</th>
+                                <th class="w300">用户名</th>
                                 <th class="w300">密码</th>
                                 <th>操作</th>
                             </tr>
@@ -39,6 +40,7 @@
 
                         <tbody id="showSuperAdmin">
                             <tr class="">
+                                <td>$!admin.trueName</td>
                                 <td>$!admin.userName</td>
                                 <td>$!admin.password</td>
                                 <td>
@@ -52,6 +54,7 @@
                         <tr>
                             <thead>
                                 <th class="w300">管理员</th>
+                                <th class="w300">用户名</th>
                                 <th class="w300">密码</th>
                                 <th>操作</th>
                             </thead>
@@ -62,6 +65,7 @@
 							#foreach($user in $!users)
                             <tr class="">
                             	<input type="hidden" name="id" value="$!user.id"/>
+                                <td>$!user.TrueName</td>
                                 <td>$!user.userName</td>
                                 <td>$!user.password</td>
                                 <td>
@@ -74,17 +78,24 @@
                     </table>
                 </div>
 
-                <div class="col-sm-12 page">
-                    <ul>
-                        <li class="p_total">1/2</li>
-                        <li><a href="javascript:;">«</a></li>
-                        <li><a href="javascript:;">‹</a></li>
-                        <li class="pager-li p_current"><a href="javascript:;">1</a></li>
-                        <li class="pager-li"><a href="javascript:;">2</a></li>
-                        <li><a href="javascript:;">›</a></li><li><a href="javascript:;">»</a></li>
-                    </ul>
-                </div>
-
+                	#if($!pageList.pages != 0)
+                    <div class="pager"><ul><li class="p_total">1/$!pageList.pages</li>
+                    		#set($list=[1..$!pageList.pages])
+                    		#set($prePage = $!{pageList.currentPage} - 1)
+                    		#set($nextPage = $!{pageList.currentPage} + 1)
+                    		<li><a href="showUsers.htm?pageNo=1">«</a></li>
+                    		
+                    		<!-- <li><a onclick="return prePage()" href="" >‹</a></li> -->
+                    		<li><a onclick="prePage($!pageList.currentPage)" href="javascript:;" >‹</a></li>
+                    		#foreach($l in $!list)
+                    		#if($!pageList.pages <= 6)
+                            <li class="pager-li"><a href="showUsers.htm?pageNo=$!l">$!l</a></li>
+                         	#end
+                         	#end
+                         	<li><a onclick="nextPage($!pageList.currentPage,$!pageList.pages)" href="javascript:;">›</a></li><li><a href="showUsers.htm?pageNo=$!pageList.pages">»</a></li>
+                         </ul>
+                    </div>
+                    #end
 
 
             </div>
@@ -105,26 +116,28 @@
                 <form class="form-horizontal ps-login-content" id="addAdminForm" role="form" action="addUser.htm" method="post">
                     <input type="hidden" id="user_id" name="id"/>
                     <div class="form-group mt30">
-                        <label for="newUser" class="col-sm-2 control-label ps-label">用户</label>
+                        <label for="newUser" class="col-sm-2 control-label ps-label">姓名</label>
+                        <div class="col-sm-5">
+                            <input type="text" class="w250 blue form-control required" id="trueName" name="trueName" placeholder="user">
+                        </div>    
+                    </div>
+                    <div class="form-group mt30">
+                        <label for="newUser" class="col-sm-2 control-label ps-label">用户名</label>
                         <div class="col-sm-5">
                             <input type="text" class="w250 blue form-control required" id="newUser" name="userName" placeholder="user">
-                        </div>
-                        
-
+                        </div>   
                     </div>
                     <div class="form-group mt30">
                         <label for="newPassword" class="col-sm-2 control-label ps-label">密码</label>
                         <div class="col-sm-5">
                             <input type="password" class="w250 blue form-control required" id="newPassword" name="password" placeholder="Password">
                         </div>
-
                     </div>
                     <div class="form-group mt30">
                         <label for="newPasswordAgain" class="col-sm-2 control-label ps-label">确认密码</label>
                         <div class="col-sm-5">
                             <input type="password" class="w250 blue form-control required" id="newPasswordAgain" placeholder="Password">
                         </div>
-
                     </div>
 		            <div class="modal-footer">
 		                <button type="submit" id="sendNewAdmin" class="btn btn-success">确定</button>
@@ -163,6 +176,34 @@
 			window.location.href="deleteUser.htm?id="+str;			
 		}
 	}
+	
+	function prePage(pageNo){
+		var pageNo = pageNo-1;
+		if(pageNo > 0){
+			window.location.href="showUsers.htm?pageNo="+pageNo;
+		}else{
+			window.location.href="showUsers.htm?pageNo=1";
+		}
+	}
+	function nextPage(pageNo,pages){
+		var pageNo = pageNo+1;
+		if(pageNo < pages){
+			window.location.href="showUsers.htm?pageNo="+pageNo;
+		}else{
+			window.location.href="showUsers.htm?pageNo="+pages;
+		}
+	}
+	
+	$(function(){
+		var pagerUrl;
+    	var $pagerLinks = $('.pager-li a');
+    	for(var i=0; i<$pagerLinks.size(); i++){
+    		pagerUrl = $pagerLinks.eq(i).attr("href");
+    		if(window.location.href.indexOf(pagerUrl) != -1){
+    			$pagerLinks.eq(i).parent("li").addClass("p_current");
+    		}
+    	}
+	})
 	
 
 </script>

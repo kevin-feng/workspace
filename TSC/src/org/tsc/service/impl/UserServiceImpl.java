@@ -18,6 +18,7 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.tsc.core.base.IBaseDao;
+import org.tsc.core.tools.MD5;
 import org.tsc.core.tools.SysUtils;
 import org.tsc.service.IProjectService;
 import org.tsc.service.IUserService;
@@ -182,7 +183,7 @@ public class UserServiceImpl implements IUserService {
 				// TODO Auto-generated method stub
 				arg0.setString(1, trueName[arg1]);
 				arg0.setString(2, userName[arg1]);
-				arg0.setString(3, password[arg1]);
+				arg0.setString(3, MD5.md5Encode(password[arg1]));
 			}
 			
 			@Override

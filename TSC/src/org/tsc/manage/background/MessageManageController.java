@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.tsc.core.base.DBToolKit;
+import org.tsc.core.base.PageList;
 import org.tsc.core.tools.UploadUtils;
 import org.tsc.dao.IMessageDao;
 import org.tsc.service.IAccessoryService;
@@ -47,39 +48,25 @@ public class MessageManageController {
 	
 	//后台管理主页  显示消息
 	@RequestMapping(value="/index.htm")
-	public ModelAndView bg_index(HttpServletRequest request,HttpServletResponse response) {
+	public ModelAndView bg_index(HttpServletRequest request,HttpServletResponse response,
+			Integer type,Integer pageNo) {
 		//从session中获取用户名
 		String userName = (String)request.getSession().getAttribute("userName");
 		ModelAndView mv = new ModelAndView("ps-index.html");
 		List<Map<String, Object>> messages =  new ArrayList<Map<String,Object>>();
-		List<Map<String, Object>> workMessages = new ArrayList<Map<String,Object>>();
-		List<Map<String, Object>> policyMessages = new ArrayList<Map<String,Object>>();
-		List<Map<String, Object>> theoryMessages = new ArrayList<Map<String,Object>>();
-		List<Map<String, Object>> courseMessages = new ArrayList<Map<String,Object>>();
-		List<Map<String, Object>> reviewMessages = new ArrayList<Map<String,Object>>();
-		List<Map<String, Object>> resultMessages = new ArrayList<Map<String,Object>>();
-		String sqlString  = "SELECT * FROM tsc_message where type=0 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,10";
-		String sqlString2 = "SELECT * FROM tsc_message where type=1 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,10";
-		String sqlString3 = "SELECT * FROM tsc_message where type=2 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,10";
-		String sqlString4 = "SELECT * FROM tsc_message where type=3 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,10";
-		String sqlString5 = "SELECT * FROM tsc_message where type=4 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,10";
-		String sqlString6 = "SELECT * FROM tsc_message where type=5 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,10";
-		String sqlString7 = "SELECT * FROM tsc_message where type=6 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,10";
-		messages = messageDao.selectData(sqlString);
-		workMessages = messageDao.selectData(sqlString2);
-		policyMessages = messageDao.selectData(sqlString3);
-		theoryMessages = messageDao.selectData(sqlString4);
-		courseMessages = messageDao.selectData(sqlString5);
-		reviewMessages = messageDao.selectData(sqlString6);
-		resultMessages = messageDao.selectData(sqlString7);
-		
-		mv.addObject("messages", messages);			
-		mv.addObject("workMessages", workMessages);
-		mv.addObject("policyMessages", policyMessages);
-		mv.addObject("theoryMessages", theoryMessages);
-		mv.addObject("courseMessages", courseMessages);
-		mv.addObject("reviewMessages", reviewMessages);
-		mv.addObject("resultMessages", resultMessages);
+		if (type == null) {
+			type = 0;
+		}
+		if (pageNo == null) {
+			pageNo = 1;
+		}
+		StringBuilder sql = new StringBuilder("SELECT * FROM tsc_message where type=");
+		sql.append(type).append(" AND deleteStatus=0 ORDER BY addTime DESC");
+		PageList pageList = new PageList(messageDao);
+		pageList = pageList.getPageList(sql, pageNo, 10);
+		mv.addObject("type", type);
+		mv.addObject("pageList", pageList);
+		mv.addObject("messages", pageList.getResult());			
 		mv.addObject("userName", userName);
 		return mv;
 	}
