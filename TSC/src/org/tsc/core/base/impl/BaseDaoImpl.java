@@ -98,10 +98,6 @@ public class BaseDaoImpl implements IBaseDao {
 			sql.append(properties[i] + "=?, ");
 		}
 		sql.append(properties[len] + " = ? where id = " + id);
-//		System.out.println("sql :" + sql.toString());
-//		for (int i = 0; i < objs.length; i++) {
-//			System.out.println(objs[i]);
-//		}
 		return jdbcTemplate.update(sql.toString(), objs);
 	}
 	

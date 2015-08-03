@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.apache.tools.ant.types.FileList.FileName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,21 +34,24 @@ public class MessageController {
 	private IMessageService messageService;
 	@Autowired
 	private IAccessoryService accessoryService;
+	@Autowired
+	private static Logger logger = Logger.getLogger(MessageController.class);
 	
 	//临床教学基地教指委首页
 	@RequestMapping(value="/index.htm",method=RequestMethod.GET)
 	public ModelAndView homePage(HttpServletRequest request,HttpServletResponse response) {
+		logger.info("这是第一个log");
 		ModelAndView mv = new ModelAndView("lcjxjd/lcjsjd_l.html");
 		List<Map<String, Object>> messages = new ArrayList<Map<String,Object>>();
 		List<Map<String, Object>> workMessages = new ArrayList<Map<String,Object>>();
 		List<Map<String, Object>> courseMessages = new ArrayList<Map<String,Object>>();
-		String sqlString  = "SELECT * FROM tsc_message where type=0 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,6";
-		String sqlString2 = "SELECT * FROM tsc_message where type=1 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,6";
-		String sqlString3 = "SELECT * FROM tsc_message where type=4 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,6";
+		String sqlString  = "SELECT id,title FROM tsc_message where type=0 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,6";
+		String sqlString2 = "SELECT id,title FROM tsc_message where type=1 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,6";
+		String sqlString3 = "SELECT id,title FROM tsc_message where type=4 AND deleteStatus=0 ORDER BY addTime DESC LIMIT 0,6";
 		messages = messageDao.selectData(sqlString);
 		workMessages = messageDao.selectData(sqlString2);
 		courseMessages = messageDao.selectData(sqlString3);
-		mv.addObject("messages", messages);		
+		mv.addObject("messages", messages);
 		mv.addObject("workMessages", workMessages);
 		mv.addObject("courseMessages", courseMessages);
 		return mv;

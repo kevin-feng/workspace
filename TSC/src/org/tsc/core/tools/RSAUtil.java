@@ -68,7 +68,7 @@ public class RSAUtil {
         try {  
             KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA",new org.bouncycastle.jce.provider.BouncyCastleProvider());  
             //这个值关系到块加密的大小，可以更改，但是不要太大，否则效率会低  
-            final int KEY_SIZE = 1024;  
+            final int KEY_SIZE = 256;  
             keyPairGen.initialize(KEY_SIZE, new SecureRandom());  
             KeyPair keyPair = keyPairGen.genKeyPair();  
             return keyPair;  
@@ -217,7 +217,39 @@ public class RSAUtil {
         RSAPrivateKey recoveryPriKey = this.generateRSAPrivateKey(priModBytes,priPriExpBytes);  
         return recoveryPriKey;  
     }  
-      
+    
+    /**
+     * RSA算法加密
+     * @param param
+     * @return
+     */
+    public String enCode(String param) {
+    	 String encodeParam = null;
+		try {
+			RSAPublicKey pubKey = this.getRSAPublicKey();
+			encodeParam = new sun.misc.BASE64Encoder().encodeBuffer(encrypt(pubKey, param.getBytes()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	 return encodeParam;
+	}
+    
+    /**
+     * RSA算法解密
+     * @param param
+     * @return
+     */
+    public String deCode(String encode) {
+    	String deCodeParam = null;
+         try {
+        	byte[] byteEncode = new sun.misc.BASE64Decoder().decodeBuffer(encode);
+			RSAPrivateKey priKey = this.getRSAPrivateKey();
+			deCodeParam = new String(decrypt(priKey,byteEncode));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        return deCodeParam;
+	}
       
     /** 
     * 测试 
@@ -225,13 +257,10 @@ public class RSAUtil {
     * @throws Exception 
     */  
     public static void main(String[] args) throws Exception {  
-          
-        RSAUtil rsa = new RSAUtil();  
-        String str = "123456";  
-        RSAPublicKey pubKey = rsa.getRSAPublicKey();  
-        RSAPrivateKey priKey = rsa.getRSAPrivateKey();  
-        String encode = new String(rsa.encrypt(pubKey,str.getBytes()));
-        System.out.println("加密后==" + new String(rsa.encrypt(pubKey,str.getBytes())));  
-        System.out.println("解密后==" + new String(rsa.decrypt(priKey, rsa.encrypt(pubKey,str.getBytes()))));  
-    }  
+          String param = "123456";
+          RSAUtil rsa = new RSAUtil();  
+          String encode = rsa.enCode(param);
+          System.out.println("加密 = "+encode);
+          System.out.println("解密 = "+rsa.deCode(encode));
+    }
 }  
