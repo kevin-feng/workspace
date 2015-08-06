@@ -77,5 +77,8 @@
 		        <value>/WEB-INF/db.properties</value>
 		    </list>
   		</property>
+  		<property name="ignoreResourceNotFound" value="true" />
+		<property name="searchSystemEnvironment" value="true" />
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
 	</bean>
 </beans>

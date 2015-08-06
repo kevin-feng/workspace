@@ -181,19 +181,13 @@ public class BaseDaoImpl implements IBaseDao {
 		return jdbcTemplate.update(sql.toString());
 	}
 	//删
-	public int deleteData(String sql){
+	public int deleteData(String sql) {
 		return jdbcTemplate.update(sql.toString());
 	}
 	//查
 	public List<Map<String,Object>> selectData(String sql){
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-		try {
-			list = jdbcTemplate.queryForList(sql);
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return null;
-		}
+		list = jdbcTemplate.queryForList(sql);
 		return list;
 	}
 	//改
@@ -203,12 +197,7 @@ public class BaseDaoImpl implements IBaseDao {
 	//查
 	public Map<String, Object> queryForMap(String sql) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		try {
-			map = jdbcTemplate.queryForMap(sql);
-		} catch (Exception e) {
-			// TODO: handle exception
-			return null;
-		}
+		map = jdbcTemplate.queryForMap(sql);
 		return map;
 	}
 	

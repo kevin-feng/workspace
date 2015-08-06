@@ -2,11 +2,14 @@ package org.tsc.service.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,39 +21,41 @@ import org.tsc.service.IAchievementService;
 public class AchievementServiceImpl implements IAchievementService {
 	@Resource(name="achievementDao")
 	private IBaseDao achievementDao;
+	@Autowired
+	private static Logger logger = Logger.getLogger(AchievementServiceImpl.class);
 	
 	@Override
 	public boolean save(String sql) {
-		// TODO Auto-generated method stub
 		try {
 			this.achievementDao.insertData(sql);
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
+			logger.error("持久化数据异常！sql="+sql,e);
+			return false;
 		}
 		return true;
 	}
 
 	@Override
 	public boolean delete(String sql) {
-		// TODO Auto-generated method stub
 		try {
 			this.achievementDao.deleteData(sql);
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
+			logger.error("数据删除异常！sql="+sql,e);
+			return false;
 		}
 		return true;
 	}
 
 	@Override
 	public boolean update(String sql) {
-		// TODO Auto-generated method stub
 		try {
 			this.achievementDao.updateData(sql);
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
+			logger.error("数据更新异常！sql="+sql,e);
+			return false;
 		}
 		return true;
 	}
@@ -58,7 +63,14 @@ public class AchievementServiceImpl implements IAchievementService {
 	@Override
 	public List<Map<String, Object>> queryForList(String sql) {
 		// TODO Auto-generated method stub
-		return this.achievementDao.selectData(sql);
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		try {
+			list = this.achievementDao.selectData(sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error("查询数据异常！sql="+sql,e);
+		}
+		return list;
 	}
 
 	@Override
